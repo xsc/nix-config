@@ -140,7 +140,23 @@ let name = "Yannick Scherer";
 
   git = {
     enable = true;
-    ignores = [ "*.swp" ];
+    ignores = [
+      "*.swp"
+        "*~"
+        "*.jar"
+        "*.class"
+        "~$*.xlsx"
+        ".lein-deps-sum"
+        ".lein-failures"
+        ".lein-plugins"
+        ".lein-repl-history"
+        ".nrepl_port"
+        ".DS_Store"
+        "/.idea"
+        "/tags"
+        "/project/build.properties"
+        "/tags.*"
+      ];
     userName = name;
     userEmail = email;
 
