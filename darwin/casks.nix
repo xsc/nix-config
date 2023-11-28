@@ -1,6 +1,11 @@
 {}:
 
 [
+  # Productivity Tools
+  "alfred"
+  "bettertouchtool"
+  "flux"
+
   # Development Tools
   # "homebrew/cask/docker"
   "insomnia"
