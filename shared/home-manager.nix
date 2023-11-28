@@ -447,7 +447,7 @@ let name = "Yannick Scherer";
       }
     ];
 
-    extraConfig = lib.fileContents ./config/init.vim;
+    extraConfig = lib.fileContents ./config/nvim/init.vim;
   };
 
   ssh = {
@@ -483,6 +483,6 @@ let name = "Yannick Scherer";
     baseIndex = 1;
     escapeTime = 5;
     historyLimit = 50000;
-    extraConfig = lib.fileContents ./config/tmux.conf;
+    extraConfig = lib.fileContents ./config/tmux/tmux.conf;
   };
 }
