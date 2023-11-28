@@ -5,20 +5,22 @@
   "alfred"
   "bettertouchtool"
   "flux"
+  "karabiner-elements"
+  "rectangle"
 
   # Development Tools
   # "homebrew/cask/docker"
   "insomnia"
-  # "visual-studio-code"
+  "visual-studio-code"
 
   # Communication Tools
-  # "slack"
+  "slack"
 
   # Entertainment Tools
-  # "vlc"
+  "vlc"
 
   # Browsers
-  # "google-chrome"
+  "google-chrome"
   # "firefox"
 
 ]
