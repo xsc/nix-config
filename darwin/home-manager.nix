@@ -58,7 +58,6 @@ in
   local.dock.enable = true;
   local.dock.entries = [
     { path = "/Applications/Firefox.app/"; }
-    { path = "/Applications/iTerm.app/"; }
     { path = "/${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
