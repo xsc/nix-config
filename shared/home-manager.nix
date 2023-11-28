@@ -436,16 +436,10 @@ let name = "Yannick Scherer";
       ''
         Host github.com
           Hostname github.com
+          User git
           IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-        ''
-          IdentityFile /home/${user}/.ssh/id_github
-        '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-        ''
           IdentityFile /Users/${user}/.ssh/id_github
-        '')
+      ''
     ];
   };
 
