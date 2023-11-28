@@ -39,11 +39,6 @@ set lcs=tab:▸\ ,nbsp:·
 set list
 inoremap   <space>
 
-" Leader
-let mapleader=","
-let maplocalleader=","
-let g:mapleader=","
-
 " Mappings
 nnoremap <C-Space> :nohl<CR>
 nnoremap <F6> :set number!<CR>

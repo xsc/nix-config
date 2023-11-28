@@ -269,6 +269,11 @@ let name = "Yannick Scherer";
       {
         plugin = vim-solarized8;
         config = ''
+          " Leader
+          let mapleader=","
+          let maplocalleader=","
+          let g:mapleader=","
+
           function! AdaptColorscheme()
             hi! link SignColumn LineNr
             hi! MatchParen cterm=bold ctermbg=14 gui=bold guifg=#dc322f guibg=#eee8d5
