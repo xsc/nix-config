@@ -341,13 +341,10 @@ let name = "Yannick Scherer";
       {
         plugin = vim-fugitive;
         config = ''
-          nnoremap <leader>gc :Gcommit<CR>
-          nnoremap <leader>gd :Gvdiff<CR>
-          nnoremap <leader>gm :Gmove<CR>
-          nnoremap <leader>gp :Dispatch Git push<CR>
-          nnoremap <leader>gr :Gread<CR>
-          nnoremap <leader>gs :Gstatus<CR>
-          nnoremap <leader>gw :Gwrite<CR>
+          nnoremap <leader>gb :Git blame<CR>
+          nnoremap <leader>gc :Git commit<CR>
+          nnoremap <leader>gd :Gvdiffsplit<CR>
+          nnoremap <leader>gs :Git<CR>
         '';
       }
       {
