@@ -129,8 +129,10 @@ let name = "Yannick Scherer";
       . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
     fi
 
-    # Path
+    # Environment
     export PATH=$PATH:~/.bin
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
 
     # Clear
     zsh_clear() { command clear; zle redisplay; }
