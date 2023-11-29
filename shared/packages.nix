@@ -35,6 +35,7 @@ with pkgs; [
 
   # Python
   python311
+  python311Packages.black
   python311Packages.pip
   python311Packages.pylint
   python311Packages.watchdog

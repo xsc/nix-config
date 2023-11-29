@@ -206,39 +206,39 @@ let name = "Yannick Scherer";
 
     coc = {
       enable = true;
-      settings = ''
-        {
-            "diagnostic-languageserver.linters": {
-                "clj_kondo_lint": {
-                    "command": "clj-kondo",
-                    "debounce": 100,
-                    "args": [ "--lint", "%filepath" ],
-                    "offsetLine": 0,
-                    "offsetColumn": 0,
-                    "offsetColumnEnd": 1,
-                    "sourceName": "clj-kondo",
-                    "formatLines": 1,
-                    "formatPattern": [
-                        "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
-                        {
-                            "line": 1,
-                            "column": 2,
-                            "endColumn": 2,
-                            "message": 4,
-                            "security": 3
-                        }
-                    ],
-                    "securities": {
-                            "error": "error",
-                            "warning": "warning",
-                            "note": "info"
-                    }
-
-                }
-            },
-            "diagnostic-languageserver.filetypes": {"clojure":"clj_kondo_lint"}
-        }
-      '';
+      settings = {
+        "diagnostic-languageserver.linters" = {
+          "clj_kondo_lint" = {
+            "command" = "clj-kondo";
+            "debounce" = 100;
+            "args" = [ "--lint" "%filepath" ];
+            "offsetLine" = 0;
+            "offsetColumn" = 0;
+            "offsetColumnEnd" = 1;
+            "sourceName" = "clj-kondo";
+            "formatLines" = 1;
+            "formatPattern" = [
+              "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$"
+              {
+                "line" = 1;
+                "column" = 2;
+                "endColumn" = 2;
+                "message" = 4;
+                "security" = 3;
+              }
+            ];
+            "securities" = {
+              "error" = "error";
+              "warning" = "warning";
+              "note" = "info";
+            };
+          };
+        };
+        "diagnostic-languageserver.filetypes" = {
+          "clojure" = "clj_kondo_lint";
+        };
+        "python.formatting.provider" = "black";
+      };
 
       pluginConfig = ''
         " Use tab for trigger completion with characters ahead and navigate
@@ -257,7 +257,9 @@ let name = "Yannick Scherer";
           return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
 
+        command! -nargs=0 Format :call CocActionAsync('format')
         nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
+        nmap <silent> <leader>cf :Format<CR>
       '';
     };
 
