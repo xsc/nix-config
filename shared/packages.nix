@@ -36,6 +36,8 @@ with pkgs; [
   # Python
   python311
   python311Packages.pip
+  python311Packages.pylint
+  python311Packages.watchdog
   pipenv
 
   # Text and terminal utilities

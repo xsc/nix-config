@@ -264,7 +264,7 @@ let name = "Yannick Scherer";
     plugins = with pkgs.vimPlugins; [
 
       # CoC
-      coc-python
+      coc-pyright
 
       # Theme
       vim-colors-solarized
