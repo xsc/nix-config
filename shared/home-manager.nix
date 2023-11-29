@@ -238,6 +238,7 @@ let name = "Yannick Scherer";
           "clojure" = "clj_kondo_lint";
         };
         "python.formatting.provider" = "black";
+        "suggest.noselect" = true;
       };
 
       pluginConfig = ''
