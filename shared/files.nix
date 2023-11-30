@@ -1,11 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
-# let
-#  githubPublicKey = "ssh-ed25519 AAAA...";
-# in
 {
-
-  # ".ssh/id_github.pub" = {
-  #   text = githubPublicKey;
-  # };
+  ".lein/profiles.clj" = {
+    text = lib.fileContents ./config/lein/profiles.clj;
+  };
 }

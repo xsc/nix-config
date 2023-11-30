@@ -3,8 +3,8 @@
 let
   user = "yannick.scherer@futurice.com";
   # Define the content of your file as a derivation
-  sharedFiles = import ../shared/files.nix { inherit config pkgs; };
-  additionalFiles = import ./files.nix { inherit user config pkgs; };
+  sharedFiles = import ../shared/files.nix { inherit config pkgs lib; };
+  additionalFiles = import ./files.nix { inherit user config pkgs lib; };
 in
 {
   imports = [
