@@ -60,7 +60,6 @@ in
     { path = "/Applications/Firefox.app/"; }
     { path = "/${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Slack.app/"; }
-    { path = "/Applications/Google Chrome.app/"; }
     { path = "/Applications/Visual Studio Code.app/"; }
     {
       path = "${config.users.users.${user}.home}/Downloads";

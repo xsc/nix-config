@@ -20,7 +20,6 @@
   "vlc"
 
   # Browsers
-  "google-chrome"
   # "firefox"
 
 ]
