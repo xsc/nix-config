@@ -27,6 +27,7 @@ with pkgs; [
   # docker-compose
   #
   awscli2
+  azure-cli
 
   # Clojure/Java
   openjdk17
