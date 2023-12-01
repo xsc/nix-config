@@ -491,4 +491,8 @@ let name = "Yannick Scherer";
     historyLimit = 50000;
     extraConfig = lib.fileContents ./config/tmux/tmux.conf;
   };
+
+  gpg = {
+    enable = true;
+  };
 }

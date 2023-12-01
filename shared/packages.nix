@@ -16,6 +16,7 @@ with pkgs; [
   gnupg
   libfido2
   pinentry
+  pinentry_mac
   yubikey-manager
 
   # Cloud-related tools and SDKs
