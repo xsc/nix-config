@@ -49,8 +49,9 @@ with pkgs; [
   htop
   jq
   ripgrep
-  tree
+  tldr
   tmux
+  tree
   unrar
   unzip
 
