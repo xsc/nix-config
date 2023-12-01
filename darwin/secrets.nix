@@ -2,8 +2,8 @@
 
 let user = "yannick.scherer@futurice.com"; in
 {
-  age.identityPaths = [ 
-    "/Users/${user}/.ssh/id_ed25519"
+  age.identityPaths = [
+    "/Users/${user}/.ssh/id_ed25519_agenix"
   ];
 
   age.secrets."github-ssh-key" = {
