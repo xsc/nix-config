@@ -260,7 +260,9 @@ let name = "Yannick Scherer";
 
         command! -nargs=0 Format :call CocActionAsync('format')
         nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
-        nmap <silent> <leader>cf :Format<CR>
+        nmap <silent> <leader>ff :Format<CR>
+        vmap <leader>f  <Plug>(coc-format-selected)
+        nmap <leader>f  <Plug>(coc-format-selected)
       '';
     };
 
@@ -268,6 +270,8 @@ let name = "Yannick Scherer";
 
       # CoC
       coc-pyright
+      coc-diagnostic
+      coc-prettier
 
       # Theme
       vim-colors-solarized
