@@ -524,11 +524,12 @@ let name = "Yannick Scherer";
 
     extraConfig = lib.mkMerge [
       ''
-        Host github.com
-          Hostname github.com
-          User git
-          IdentitiesOnly yes
-          IdentityFile /Users/${user}/.ssh/id_github
+      Host github.com
+        Hostname github.com
+        User git
+        IdentitiesOnly yes
+        IdentityFile /Users/${user}/.ssh/keys/id_github
+        IdentityFile /Users/${user}/.ssh/id_ecdsa_sk # yubikey fallback
       ''
     ];
   };

@@ -3,12 +3,12 @@
 let user = "yannick.scherer@futurice.com"; in
 {
   age.identityPaths = [
-    "/Users/${user}/.ssh/id_ed25519_agenix"
+    "/Users/${user}/.ssh/keys/id_ed25519_agenix"
   ];
 
   age.secrets."github-ssh-key" = {
     symlink = true;
-    path = "/Users/${user}/.ssh/id_github";
+    path = "/Users/${user}/.ssh/keys/id_github";
     file =  "${secrets}/github-ssh-key.age";
     mode = "600";
     owner = "${user}";
