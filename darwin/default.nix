@@ -45,6 +45,7 @@ let user = "yannick.scherer@futurice.com"; in
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     fira-code
+    monaspace
   ];
 
   system = {
