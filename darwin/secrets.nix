@@ -6,10 +6,10 @@ let user = "yannick.scherer@futurice.com"; in
     "/Users/${user}/.ssh/keys/id_ed25519_agenix"
   ];
 
-  age.secrets."github-ssh-key" = {
+  age.secrets."id_ed25519_github" = {
     symlink = true;
-    path = "/Users/${user}/.ssh/keys/id_github";
-    file =  "${secrets}/github-ssh-key.age";
+    path = "/Users/${user}/.ssh/keys/id_ed25519_github";
+    file =  "${secrets}/id_ed25519_github.age";
     mode = "600";
     owner = "${user}";
     group = "staff";

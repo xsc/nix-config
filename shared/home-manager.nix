@@ -528,7 +528,7 @@ let name = "Yannick Scherer";
         Hostname github.com
         User git
         IdentitiesOnly yes
-        IdentityFile /Users/${user}/.ssh/keys/id_github
+        IdentityFile /Users/${user}/.ssh/keys/id_ed25519_github
         IdentityFile /Users/${user}/.ssh/id_ecdsa_sk # yubikey fallback
       ''
     ];
