@@ -13,4 +13,10 @@
       max-cache-ttl 7200
       '';
   };
+
+  # Karabiner
+  ".config/karabiner" = {
+    source = ./config/karabiner;
+  };
+
 }
