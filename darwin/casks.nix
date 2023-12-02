@@ -21,6 +21,6 @@
 
   # Browsers
   "google-chrome"
-  # "firefox"
+  "firefox"
 
 ]
