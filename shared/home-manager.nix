@@ -193,7 +193,7 @@ let name = "Yannick Scherer";
 
       # push
       pu = "push -u";
-      puf =" push -uf";
+      puf = "push -uf";
 
       # cleanup
       cleanup = "!git branch --merged | grep -v '^  master$' | grep -v '^  main$' | grep -v '^  develop$' | grep -v '^\\*' | xargs git branch -d";
