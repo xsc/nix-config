@@ -56,9 +56,6 @@ with pkgs; [
   unrar
   unzip
 
-  # Fonts
-  fira-code
-
   # Others
   cowsay
   reattach-to-user-namespace

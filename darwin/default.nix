@@ -43,6 +43,9 @@ let user = "yannick.scherer@futurice.com"; in
 
   # Enable fonts dir
   fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [
+    fira-code
+  ];
 
   system = {
     stateVersion = 4;
