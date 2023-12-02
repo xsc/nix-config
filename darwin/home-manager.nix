@@ -65,7 +65,7 @@ in
     {
       path = "${config.users.users.${user}.home}/Downloads";
       section = "others";
-      options = "--sort name --view grid --display folder";
+      options = "--sort dateadded --view grid --display folder";
     }
   ];
 }
