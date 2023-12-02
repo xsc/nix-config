@@ -2,7 +2,7 @@
 
 {
   ".lein/profiles.clj" = {
-    text = lib.fileContents ./config/lein/profiles.clj;
+    source = ./config/lein/profiles.clj;
   };
 
   ".gnupg/gpg-agent.conf" = {
@@ -19,4 +19,12 @@
     source = ./config/karabiner;
   };
 
+  # EurKEY
+  "Library/Keyboard Layouts/EurKEY.icns" = {
+    source = ./config/eurkey/EurKEY.icns;
+  };
+
+  "Library/Keyboard Layouts/EurKEY.keylayout" = {
+    source = ./config/eurkey/EurKEY.keylayout;
+  };
 }

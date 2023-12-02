@@ -87,7 +87,6 @@ let user = "yannick.scherer@futurice.com"; in
 
     keyboard = {
       enableKeyMapping = true;
-      remapCapsLockToControl = true;
     };
   };
 }
