@@ -15,4 +15,13 @@ let user = "yannick.scherer@futurice.com"; in
     group = "staff";
   };
 
+  age.secrets."credentials.clj.gpg" = {
+    symlink = true;
+    path = "/Users/${user}/.lein/credentials.clj.gpg";
+    file =  "${secrets}/credentials.clj.gpg.age";
+    mode = "600";
+    owner = "${user}";
+    group = "staff";
+  };
+
 }
