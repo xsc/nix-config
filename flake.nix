@@ -23,10 +23,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     secrets = {
       url = "git+ssh://git@github.com/xsc/nix-secrets.git";
       flake = false;
@@ -35,7 +31,7 @@
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
-    , homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets
+    , homebrew-cask, home-manager, nixpkgs, agenix, secrets
     , alacritty-theme }@inputs:
     let
       user = "yannick.scherer@futurice.com";
@@ -93,20 +89,6 @@
           ];
         };
       };
-      nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (system:
-        nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = inputs;
-          modules = [
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./nixos/home-manager.nix;
-            }
-            ./nixos
-          ];
-        });
+
     };
 }
