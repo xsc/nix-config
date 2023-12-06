@@ -6,12 +6,6 @@
     plugins = with pkgs.tmuxPlugins; [
       sensible
       yank
-      {
-        plugin = tmux-colors-solarized;
-        extraConfig = ''
-          set -g @colors-solarized 'light'
-          '';
-      }
     ];
     terminal = "alacritty";
     clock24 = true;

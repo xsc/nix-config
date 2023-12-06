@@ -76,30 +76,37 @@
       coc-prettier
       coc-tsserver
 
+      # Themes
+      everforest
+
       # Theme
-      vim-colors-solarized
-      {
-        plugin = vim-solarized8;
+      (let vim_cs = "everforest";
+           lightline_cs = "nord";
+           vim_bg = "dark";
+      in {
+        plugin = lightline-vim;
+
+        # We're setting the leader and the colorscheme here so it happens early
+        # enough in the configuration file.
         config = ''
           " Leader
           let mapleader=","
           let maplocalleader=","
           let g:mapleader=","
 
+          " Colorscheme
           function! AdaptColorscheme()
             hi! link SignColumn LineNr
-            hi! MatchParen cterm=bold ctermbg=14 gui=bold guifg=#dc322f guibg=#eee8d5
+            " hi! MatchParen cterm=bold ctermbg=14 gui=bold guifg=#dc322f guibg=#eee8d5
           endfunction
 
-          autocmd vimenter * ++nested colorscheme solarized8
+          set background=${vim_bg}
+          autocmd vimenter * ++nested colorscheme ${vim_cs}
           autocmd vimenter * :call AdaptColorscheme()
-          '';
-      }
-      {
-        plugin = lightline-vim;
-        config = ''
+
+          " Lightline
           let g:lightline = {
-                \ 'colorscheme': 'solarized',
+                \ 'colorscheme': '${lightline_cs}',
                 \ 'active': {
                 \     'left': [ [ 'mode', 'paste' ],
                 \               [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings' ],
@@ -107,7 +114,7 @@
                 \ },
                 \ }
         '';
-      }
+      })
       {
         plugin = vim-lightline-coc;
         config = "call lightline#coc#register()";

@@ -4,7 +4,7 @@
   alacritty = {
     enable = true;
     settings = {
-      import = [ pkgs.alacritty-theme.solarized_light ];
+      import = [ pkgs.alacritty-theme.everforest_dark ];
 
       window = {
         opacity = 1.0;
