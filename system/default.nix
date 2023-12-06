@@ -1,16 +1,26 @@
-{ agenix, config, pkgs, ... }:
+{ agenix, config, pkgs, userData, ... }:
 
-let user = "yannick.scherer@futurice.com"; in
+let user = userData.user; in
 
 {
 
   imports = [
-    ./secrets.nix
+    ./cachix
+    ./dock
+    ./fonts.nix
+    ./homebrew
     ./home-manager.nix
-    ../shared
-    ../shared/cachix
+    ./secrets.nix
      agenix.darwinModules.default
   ];
+
+  # User Info
+  users.users.${user} = {
+    name = "${user}";
+    home = "/Users/${user}";
+    isHidden = false;
+    shell = pkgs.zsh;
+  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -33,20 +43,23 @@ let user = "yannick.scherer@futurice.com"; in
     '';
   };
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = true;
+      allowInsecure = false;
+      allowUnsupportedSystem = true;
+    };
+  };
+
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
     agenix.packages."${pkgs.system}".default
-  ] ++ (import ../shared/packages.nix { inherit pkgs; });
-
-  # Enable fonts dir
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-    fira-code
-    monaspace
-  ];
+    dockutil
+  ] ++ (import ./packages.nix { inherit pkgs; });
 
   system = {
     stateVersion = 4;

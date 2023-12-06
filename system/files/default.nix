@@ -10,7 +10,7 @@ let
 in
 {
   ".lein/profiles.clj" = {
-    source = ./config/lein/profiles.clj;
+    source = ./lein/profiles.clj;
   };
 
   ".gnupg/gpg-agent.conf" = {
@@ -24,7 +24,7 @@ in
 
   # Karabiner
   ".config/karabiner" = {
-    source = ./config/karabiner;
+    source = ./karabiner;
   };
 
   # EurKEY

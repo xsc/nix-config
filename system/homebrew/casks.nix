@@ -1,4 +1,4 @@
-{}:
+{ ... }:
 
 [
   # Productivity Tools
@@ -22,5 +22,4 @@
   # Browsers
   "google-chrome"
   "firefox"
-
 ]

@@ -34,7 +34,8 @@
     , homebrew-cask, home-manager, nixpkgs, agenix, secrets
     , alacritty-theme }@inputs:
     let
-      user = "yannick.scherer@futurice.com";
+      userData = import ./user.nix {};
+      user = userData.user;
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       darwinSystems = [ "aarch64-darwin" ];
       forAllLinuxSystems = f:
@@ -61,11 +62,11 @@
         };
     in {
       devShells = forAllSystems devShell;
-      darwinConfigurations = let user = "yannick.scherer@futurice.com";
+      darwinConfigurations = let user = userData.user;
       in {
         macos = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
-          specialArgs = inputs;
+          specialArgs = inputs // { inherit userData; };
           modules = [
             nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
@@ -85,7 +86,7 @@
             ({ config, pkgs, ... }: {
               nixpkgs.overlays = [ alacritty-theme.overlays.default ];
             })
-            ./darwin
+            ./system
           ];
         };
       };
