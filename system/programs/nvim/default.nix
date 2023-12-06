@@ -74,6 +74,7 @@
       coc-pyright
       coc-diagnostic
       coc-prettier
+      coc-tsserver
 
       # Theme
       vim-colors-solarized
@@ -244,6 +245,11 @@
       # Clojure
       vim-sexp
       vim-sexp-mappings-for-regular-people
+
+      # JS/TS
+      vim-javascript
+      typescript-vim
+      vim-jsx-pretty
 
       # Others
       {
