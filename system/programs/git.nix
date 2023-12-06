@@ -109,7 +109,7 @@
     };
 
     signing = {
-      key = "FCC8CDA4";
+      key = userData.signingKey;
     };
 
     extraConfig = {
