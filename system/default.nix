@@ -1,4 +1,4 @@
-{ agenix, config, pkgs, userData, ... }:
+{ agenix, config, lib, pkgs, userData, ... }@inputs:
 
 let user = userData.user; in
 
@@ -50,6 +50,14 @@ let user = userData.user; in
       allowInsecure = false;
       allowUnsupportedSystem = true;
     };
+
+    overlays =
+      let path = ./overlays; in
+      with builtins;
+        map (n: import (path + ("/" + n)) inputs)
+          (filter (n: match ".*\\.nix" n != null ||
+                   pathExists (path + ("/" + n + "/default.nix")))
+           (attrNames (readDir path)));
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
