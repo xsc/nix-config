@@ -35,19 +35,11 @@
     , homebrew-cask, home-manager, nixpkgs, agenix, secrets
     , alacritty-theme, nix-vscode-extensions }@inputs:
     let
+      system = "aarch64-darwin";
+      pkgs = nixpkgs.legacyPackages.${system};
       userData = import ./user.nix {};
-      user = userData.user;
-      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
-      darwinSystems = [ "aarch64-darwin" ];
-      forAllLinuxSystems = f:
-        nixpkgs.lib.genAttrs linuxSystems (system: f system);
-      forAllDarwinSystems = f:
-        nixpkgs.lib.genAttrs darwinSystems (system: f system);
-      forAllSystems = f:
-        nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) (system: f system);
-      devShell = system:
-        let pkgs = nixpkgs.legacyPackages.${system};
-        in {
+      theme = import ./theme.nix {};
+      devShell = {
           default = with pkgs;
             mkShell {
               nativeBuildInputs = with pkgs; [
@@ -62,19 +54,19 @@
             };
         };
     in {
-      devShells = forAllSystems devShell;
-      darwinConfigurations = let user = userData.user;
-      in {
+      devShells = [devShell];
+      darwinConfigurations = {
         macos = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = inputs // { inherit userData; };
+          inherit system;
+
+          specialArgs = inputs // { inherit userData theme; };
           modules = [
             nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
             {
               nix-homebrew = {
                 enable = true;
-                user = "${user}";
+                user = "${userData.user}";
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;

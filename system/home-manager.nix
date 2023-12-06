@@ -1,8 +1,8 @@
-{ config, lib, pkgs, userData, ... }:
+{ config, lib, pkgs, userData, theme, ... }:
 
 let
     # Helper
-    importPkg = f: import f { inherit config pkgs lib userData; };
+    importPkg = f: import f { inherit config pkgs lib userData theme; };
 
     # User Info
     user = userData.user;

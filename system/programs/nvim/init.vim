@@ -70,6 +70,3 @@ aug VimIced
   au FileType clojure nmap <buffer> <leader>gtt <Plug>(iced_cycle_src_and_test)
   au FileType clojure nmap <buffer> <leader>gt :vs<CR><Plug>(iced_cycle_src_and_test)
 aug end
-
-" Prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile

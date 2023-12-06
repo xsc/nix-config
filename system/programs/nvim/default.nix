@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, theme, ... }:
 
-{
+let T = theme.vim;
+in {
   neovim = {
     enable = true;
     withPython3 = true;
@@ -60,6 +61,7 @@
           return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
 
+        command! -nargs=0 Prettier :CocCommand prettier.formatFile
         command! -nargs=0 Format :call CocActionAsync('format')
         nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
         nmap <silent> <leader>ff :Format<CR>
@@ -76,14 +78,10 @@
       coc-prettier
       coc-tsserver
 
-      # Themes
-      everforest
-
       # Theme
-      (let vim_cs = "everforest";
-           lightline_cs = "nord";
-           vim_bg = "dark";
-      in {
+      pkgs.vimPlugins.${T.colorscheme.pluginName}
+
+      {
         plugin = lightline-vim;
 
         # We're setting the leader and the colorscheme here so it happens early
@@ -100,13 +98,13 @@
             " hi! MatchParen cterm=bold ctermbg=14 gui=bold guifg=#dc322f guibg=#eee8d5
           endfunction
 
-          set background=${vim_bg}
-          autocmd vimenter * ++nested colorscheme ${vim_cs}
+          set background=${T.background}
+          autocmd vimenter * ++nested colorscheme ${T.colorscheme.name}
           autocmd vimenter * :call AdaptColorscheme()
 
           " Lightline
           let g:lightline = {
-                \ 'colorscheme': '${lightline_cs}',
+                \ 'colorscheme': '${T.lightline}',
                 \ 'active': {
                 \     'left': [ [ 'mode', 'paste' ],
                 \               [ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings' ],
@@ -114,7 +112,7 @@
                 \ },
                 \ }
         '';
-      })
+      }
       {
         plugin = vim-lightline-coc;
         config = "call lightline#coc#register()";

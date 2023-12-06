@@ -1,10 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, theme, ... }:
 
-{
+let T = theme.alacritty;
+in {
   alacritty = {
     enable = true;
     settings = {
-      import = [ pkgs.alacritty-theme.everforest_dark ];
+      import = [ pkgs.alacritty-theme.${T.colorscheme.name} ];
 
       window = {
         opacity = 1.0;
@@ -16,13 +17,10 @@
 
       font = {
         normal = {
-          family = "Fira Code";
+          family = T.font.fontFamily;
           style = "Regular";
         };
-        size = lib.mkMerge [
-          (lib.mkIf pkgs.stdenv.hostPlatform.isLinux 10)
-          (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin 12)
-        ];
+        size = T.font.fontSize;
       };
 
       title = "Terminal";

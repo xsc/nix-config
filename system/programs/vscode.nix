@@ -1,6 +1,7 @@
-{ config, pkgs, lib, userData, ... }:
+{ config, pkgs, lib, theme, ... }:
 
-{
+let T = theme.vscode;
+in {
   vscode = {
     enable = true;
     enableUpdateCheck = false;
@@ -12,15 +13,19 @@
     extensions = with pkgs.vscode-marketplace; [
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-containers
+
+      pkgs.vscode-marketplace.${T.colorscheme.publisher}.${T.colorscheme.plugin}
     ];
 
     userSettings = {
-      "editor.fontFamily" = "'FiraCode Nerd Font', 'Fira Code'";
+      "editor.fontFamily" = "${T.font.fontFamily}";
       "editor.fontLigatures" = true;
-      "editor.fontSize" = 12;
+      "editor.fontSize" = T.font.fontSize;
       "editor.fontWeight" = "normal";
-      "extensions.showRecommendationsOnlyOnDemand" = true;
       "extensions.ignoreRecommendations" = true;
-    };
+
+      # Theme
+      "workbench.colorTheme" = T.colorscheme.name;
+    } // T.colorscheme.settings;
   };
 }
