@@ -22,6 +22,9 @@ with pkgs; [
   # Development Tools
   vscode
 
+  # Communication Tools
+  slack
+
   # Cloud-related tools and SDKs
   #
   # docker marked broken as of Nov 15, 2023

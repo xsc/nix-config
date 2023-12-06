@@ -12,9 +12,6 @@
   # "homebrew/cask/docker"
   "insomnia"
 
-  # Communication Tools
-  "slack"
-
   # Entertainment Tools
   "vlc"
 
