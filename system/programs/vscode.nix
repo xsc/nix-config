@@ -13,5 +13,14 @@
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-containers
     ];
+
+    userSettings = {
+      "editor.fontFamily" = "'FiraCode Nerd Font', 'Fira Code'";
+      "editor.fontLigatures" = true;
+      "editor.fontSize" = 12;
+      "editor.fontWeight" = "normal";
+      "extensions.showRecommendationsOnlyOnDemand" = true;
+      "extensions.ignoreRecommendations" = true;
+    };
   };
 }
