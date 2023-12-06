@@ -11,7 +11,6 @@
   # Development Tools
   # "homebrew/cask/docker"
   "insomnia"
-  "visual-studio-code"
 
   # Communication Tools
   "slack"

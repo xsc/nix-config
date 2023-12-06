@@ -10,7 +10,7 @@
     { path = "/${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
-    { path = "/Applications/Visual Studio Code.app/"; }
+    { path = "/${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
     {
       path = "${config.users.users.${userData.user}.home}/Downloads";
       section = "others";

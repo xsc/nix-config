@@ -19,6 +19,9 @@ with pkgs; [
   pinentry_mac
   yubikey-manager
 
+  # Development Tools
+  vscode
+
   # Cloud-related tools and SDKs
   #
   # docker marked broken as of Nov 15, 2023
