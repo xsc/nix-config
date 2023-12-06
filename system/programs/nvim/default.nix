@@ -111,6 +111,10 @@
         plugin = vim-lightline-coc;
         config = "call lightline#coc#register()";
       }
+      {
+        plugin = rainbow;
+        config = "let g:rainbow_active = 1";
+      }
 
       # Format & Move
       {
