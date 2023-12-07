@@ -8,6 +8,7 @@
     shellAliases = {
       ll = "ls -l --color=auto";
       ls = "ls --color=auto";
+      iced-repl = "iced repl with-profile +iced";
     };
 
     oh-my-zsh = {
