@@ -28,4 +28,16 @@ in
   "Library/Keyboard Layouts/EurKEY.keylayout" = {
     source = eurkey + /EurKEY.keylayout;
   };
+
+  # Scripts
+  ".bin/release" = {
+    source = ./bin/release;
+    executable = true;
+  };
+
+  ".bin/clojars-release" = {
+    source = ./bin/clojars-release;
+    executable = true;
+  };
+
 }
