@@ -14,13 +14,9 @@
       enable = true;
       plugins = [
         "git"
-        "history"
-        "gpg-agent"
-        "lein"
-        "fasd"
-        "docker-compose"
-        "docker"
         "git-prompt"
+        "gpg-agent"
+        "history"
         "z"
       ];
     };
