@@ -10,7 +10,7 @@
           au FileType python nmap <buffer> <leader>tt :CocCommand pyright.singleTest<CR>
           au FileType python nmap <buffer> <leader>tf :CocCommand pyright.fileTest<CR>
         augroup END
-        '';
+      '';
     }
     {
       plugin = coc-diagnostic;
@@ -28,6 +28,12 @@
   ];
 
   settings = {
+    "languageserver" = {
+      "nix" = {
+        "command" = "nixd";
+        "filetypes" = ["nix"];
+      };
+    };
     "diagnostic-languageserver.linters" = {
       "clj_kondo_lint" = {
         "command" = "clj-kondo";
@@ -61,6 +67,7 @@
     "python.formatting.provider" = "black";
     "pyright.testing.provider" = "pytest";
     "suggest.noselect" = true;
+
   };
 
   pluginConfig = ''
@@ -84,5 +91,5 @@
     nmap <silent> <leader>ff :Format<CR>
     vmap <leader>f  <Plug>(coc-format-selected)
     nmap <leader>f  <Plug>(coc-format-selected)
-    '';
+  '';
 }

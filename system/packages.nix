@@ -9,6 +9,7 @@ with pkgs; [
   pandoc
   wget
   zip
+  reattach-to-user-namespace
 
   # Encryption and security tools
   age
@@ -19,6 +20,20 @@ with pkgs; [
   pinentry_mac
   yubikey-manager
 
+  # Text and terminal utilities
+  alacritty
+  cowsay
+  diff-so-fancy
+  fzf
+  htop
+  jq
+  ripgrep
+  tldr
+  tmux
+  tree
+  unrar
+  unzip
+
   # Development Tools
   vscode
 
@@ -26,15 +41,12 @@ with pkgs; [
   slack
 
   # Cloud-related tools and SDKs
-  #
-  # docker marked broken as of Nov 15, 2023
-  # https://github.com/NixOS/nixpkgs/issues/267685
-  #
-  # docker
-  # docker-compose
-  #
+  docker
+  docker-compose
   awscli2
   azure-cli
+
+  # --- Language-specific Packages
 
   # Clojure/Java
   openjdk17
@@ -50,20 +62,8 @@ with pkgs; [
   python311Packages.watchdog
   pipenv
 
-  # Text and terminal utilities
-  alacritty
-  diff-so-fancy
-  fzf
-  htop
-  jq
-  ripgrep
-  tldr
-  tmux
-  tree
-  unrar
-  unzip
+  # Nix
+  nixd
+  nixpkgs-fmt
 
-  # Others
-  cowsay
-  reattach-to-user-namespace
 ]
