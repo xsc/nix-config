@@ -1,6 +1,7 @@
 { config, pkgs, lib, theme, ... }:
 
 let T = theme.vim;
+    cocConfig = import ./coc.nix { inherit pkgs; };
 in {
   neovim = {
     enable = true;
@@ -9,75 +10,14 @@ in {
 
     coc = {
       enable = true;
-      settings = {
-        "diagnostic-languageserver.linters" = {
-          "clj_kondo_lint" = {
-            "command" = "clj-kondo";
-            "debounce" = 100;
-            "args" = [ "--lint" "%filepath" ];
-            "offsetLine" = 0;
-            "offsetColumn" = 0;
-            "offsetColumnEnd" = 1;
-            "sourceName" = "clj-kondo";
-            "formatLines" = 1;
-            "formatPattern" = [
-              "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$"
-              {
-                "line" = 1;
-                "column" = 2;
-                "endColumn" = 2;
-                "message" = 4;
-                "security" = 3;
-              }
-            ];
-            "securities" = {
-              "error" = "error";
-              "warning" = "warning";
-              "note" = "info";
-            };
-          };
-        };
-        "diagnostic-languageserver.filetypes" = {
-          "clojure" = "clj_kondo_lint";
-        };
-        "python.formatting.provider" = "black";
-        "pyright.testing.provider" = "pytest";
-        "suggest.noselect" = true;
-      };
-
-      pluginConfig = ''
-        " Use tab for trigger completion with characters ahead and navigate
-        " NOTE: There's always complete item selected by default, you may want to enable
-        " no select by `"suggest.noselect": true` in your configuration file
-        " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-        " other plugin before putting this into your config
-        inoremap <silent><expr> <TAB>
-              \ coc#pum#visible() ? coc#pum#next(1) :
-              \ CheckBackspace() ? "\<Tab>" :
-              \ coc#refresh()
-        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-        function! CheckBackspace() abort
-          let col = col('.') - 1
-          return !col || getline('.')[col - 1]  =~# '\s'
-        endfunction
-
-        command! -nargs=0 Prettier :CocCommand prettier.formatFile
-        command! -nargs=0 Format :call CocActionAsync('format')
-        nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
-        nmap <silent> <leader>ff :Format<CR>
-        vmap <leader>f  <Plug>(coc-format-selected)
-        nmap <leader>f  <Plug>(coc-format-selected)
-      '';
+      inherit (cocConfig) settings pluginConfig;
     };
 
     plugins = with pkgs.vimPlugins; [
 
       # Theme
-      pkgs.vimPlugins.${T.colorscheme.pluginName}
-
       {
-        plugin = lightline-vim;
+        plugin = pkgs.vimPlugins.${T.colorscheme.pluginName};
 
         # We're setting the leader and the colorscheme here so it happens early
         # enough in the configuration file.
@@ -96,8 +36,13 @@ in {
           set background=${T.background}
           autocmd vimenter * ++nested colorscheme ${T.colorscheme.name}
           autocmd vimenter * :call AdaptColorscheme()
+        '';
+      }
 
-          " Lightline
+      {
+        plugin = lightline-vim;
+
+        config = ''
           let g:lightline = {
                 \ 'colorscheme': '${T.lightline}',
                 \ 'active': {
@@ -116,21 +61,6 @@ in {
         plugin = rainbow;
         config = "let g:rainbow_active = 1";
       }
-
-      # CoC
-      {
-        plugin = coc-pyright;
-        config = ''
-          augroup PythonCoc
-            au!
-            au FileType python nmap <buffer> <leader>tt :CocCommand pyright.singleTest<CR>
-            au FileType python nmap <buffer> <leader>tf :CocCommand pyright.fileTest<CR>
-          augroup END
-        '';
-      }
-      coc-diagnostic
-      coc-prettier
-      coc-tsserver
 
       # Format & Move
       {
@@ -291,7 +221,7 @@ in {
         plugin = vim-yaml;
         config = "au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab";
       }
-    ];
+    ] ++ cocConfig.plugins;
 
     extraConfig = lib.fileContents ./init.vim;
   };
