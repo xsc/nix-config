@@ -27,14 +27,12 @@
 
     initExtra = ''
       # VI Mode
+      ZVM_INIT_MODE=sourcing
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd v edit-command-line
-
-      # FZF
-      [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
       # Prompt
       function collapse_pwd {
@@ -80,6 +78,10 @@
         PROMPT='$(collapse_pwd) $(prompt_char) '
         RPROMPT=""
       fi
+
+      # FZF
+      source "${pkgs.fzf}/share/fzf/completion.zsh"
+      source "${pkgs.fzf}/share/fzf/key-bindings.zsh"
     '';
 
     initExtraFirst = ''
