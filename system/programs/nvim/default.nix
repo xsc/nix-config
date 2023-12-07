@@ -41,6 +41,7 @@ in {
           "clojure" = "clj_kondo_lint";
         };
         "python.formatting.provider" = "black";
+        "pyright.testing.provider" = "pytest";
         "suggest.noselect" = true;
       };
 
@@ -71,12 +72,6 @@ in {
     };
 
     plugins = with pkgs.vimPlugins; [
-
-      # CoC
-      coc-pyright
-      coc-diagnostic
-      coc-prettier
-      coc-tsserver
 
       # Theme
       pkgs.vimPlugins.${T.colorscheme.pluginName}
@@ -121,6 +116,21 @@ in {
         plugin = rainbow;
         config = "let g:rainbow_active = 1";
       }
+
+      # CoC
+      {
+        plugin = coc-pyright;
+        config = ''
+          augroup PythonCoc
+            au!
+            au FileType python nmap <buffer> <leader>tt :CocCommand pyright.singleTest<CR>
+            au FileType python nmap <buffer> <leader>tf :CocCommand pyright.fileTest<CR>
+          augroup END
+        '';
+      }
+      coc-diagnostic
+      coc-prettier
+      coc-tsserver
 
       # Format & Move
       {
