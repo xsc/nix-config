@@ -33,7 +33,6 @@ in
             " Colorscheme
             function! AdaptColorscheme()
               hi! link SignColumn LineNr
-              " hi! MatchParen cterm=bold ctermbg=14 gui=bold guifg=#dc322f guibg=#eee8d5
             endfunction
 
             set background=${T.background}
@@ -145,21 +144,14 @@ in
         {
           plugin = vim-projectionist;
           config = ''
-            function! s:init_projectionist()
-                nmap <silent> <leader>gt :AV<CR>
-                let g:projectionist_heuristics = {
-                      \   'project.clj': {
-                      \     'src/*.clj':
-                      \       {'type': 'source', 'alternate': 'test/{}_test.clj', 'template': ['(ns {dot|hyphenate})']},
-                      \     'src/*.cljc':
-                      \       {'type': 'source', 'alternate': 'test/{}_test.cljc', 'template': ['(ns {dot|hyphenate})']},
-                      \     'test/*_test.clj':
-                      \       {'type': 'test', 'alternate': 'src/{}.clj', 'template': ['(ns {dot|hyphenate}-test)']},
-                      \     'test/*_test.cljc':
-                      \       {'type': 'test', 'alternate': 'src/{}.cljc', 'template': ['(ns {dot|hyphenate}-test)']},
-                      \   }
-                      \ }
-            endfunction
+            let g:projectionist_heuristics = {
+                  \   'project.clj': {
+                  \     'src/*.clj':
+                  \       {'type': 'source', 'alternate': 'test/{}_test.clj', 'template': ['(ns {dot|hyphenate})']},
+                  \     'test/*_test.clj':
+                  \       {'type': 'test', 'alternate': 'src/{}.clj', 'template': ['(ns {dot|hyphenate}-test)']},
+                  \   },
+                  \ }
           '';
         }
         {
@@ -183,6 +175,10 @@ in
 
             if executable('rg')
               let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git"'
+            endif
+
+            if executable('bat')
+              let $BAT_THEME = 'ansi'
             endif
 
             noremap <C-P>            :Files<CR>

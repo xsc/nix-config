@@ -22,6 +22,7 @@ with pkgs; [
 
   # Text and terminal utilities
   alacritty
+  bat
   cowsay
   diff-so-fancy
   fzf
