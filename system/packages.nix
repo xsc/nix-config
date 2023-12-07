@@ -40,6 +40,7 @@ with pkgs; [
   openjdk17
   leiningen
   clj-kondo
+  iced-repl # via vim-plugins-github overlay
 
   # Python
   python311

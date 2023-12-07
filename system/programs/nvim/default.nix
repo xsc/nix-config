@@ -258,6 +258,19 @@ in {
       }
 
       # Clojure
+      {
+        plugin = vim-iced;
+        config = ''
+          let g:iced_enable_default_key_mappings = v:true
+          let g:iced_enable_auto_indent = v:false
+          aug VimIced
+            au!
+            au FileType clojure nmap <buffer> <leader>e! <Plug>(iced_eval_and_comment)<Plug>(sexp_outer_list)
+            au FileType clojure nmap <buffer> <leader>gtt <Plug>(iced_cycle_src_and_test)
+            au FileType clojure nmap <buffer> <leader>gt :vs<CR><Plug>(iced_cycle_src_and_test)
+          aug end
+        '';
+      }
       vim-sexp
       vim-sexp-mappings-for-regular-people
 
