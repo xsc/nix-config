@@ -209,6 +209,9 @@ in {
       typescript-vim
       vim-jsx-pretty
 
+      # Nix
+      vim-nix
+
       # Others
       {
         plugin = vim-markdown;
