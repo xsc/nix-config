@@ -31,30 +31,42 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
-    , homebrew-cask, home-manager, nixpkgs, agenix, secrets
-    , alacritty-theme, nix-vscode-extensions }@inputs:
+  outputs =
+    { self
+    , darwin
+    , nix-homebrew
+    , homebrew-bundle
+    , homebrew-core
+    , homebrew-cask
+    , home-manager
+    , nixpkgs
+    , agenix
+    , secrets
+    , alacritty-theme
+    , nix-vscode-extensions
+    }@inputs:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      userData = import ./user.nix {};
-      theme = import ./theme.nix {};
+      userData = import ./user.nix { };
+      theme = import ./theme.nix { };
       devShell = {
-          default = with pkgs;
-            mkShell {
-              nativeBuildInputs = with pkgs; [
-                bashInteractive
-                git
-                age
-                age-plugin-yubikey
-              ];
-              shellHook = with pkgs; ''
-                export EDITOR=vim
-              '';
-            };
-        };
-    in {
-      devShells = [devShell];
+        default = with pkgs;
+          mkShell {
+            nativeBuildInputs = with pkgs; [
+              bashInteractive
+              git
+              age
+              age-plugin-yubikey
+            ];
+            shellHook = with pkgs; ''
+              export EDITOR=vim
+            '';
+          };
+      };
+    in
+    {
+      devShells = [ devShell ];
       darwinConfigurations = {
         macos = darwin.lib.darwinSystem {
           inherit system;

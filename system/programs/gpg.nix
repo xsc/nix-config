@@ -1,7 +1,5 @@
 { config, pkgs, lib, userData, ... }:
 
 {
-  gpg = {
-    enable = true;
-  };
+  gpg = { enable = true; };
 }

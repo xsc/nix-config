@@ -1,8 +1,8 @@
 { agenix, config, lib, pkgs, userData, ... }@inputs:
 
-let user = userData.user; in
+let user = userData.user;
 
-{
+in {
 
   imports = [
     ./cachix
@@ -11,7 +11,7 @@ let user = userData.user; in
     ./homebrew
     ./home-manager.nix
     ./secrets.nix
-     agenix.darwinModules.default
+    agenix.darwinModules.default
   ];
 
   # User Info
@@ -33,7 +33,11 @@ let user = userData.user; in
     gc = {
       user = "root";
       automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      interval = {
+        Weekday = 0;
+        Hour = 2;
+        Minute = 0;
+      };
       options = "--delete-older-than 30d";
     };
 
@@ -52,30 +56,28 @@ let user = userData.user; in
     };
 
     overlays =
-      let path = ./overlays; in
-      with builtins;
-        map (n: import (path + ("/" + n)) inputs)
-          (filter (n: match ".*\\.nix" n != null ||
-                   pathExists (path + ("/" + n + "/default.nix")))
-           (attrNames (readDir path)));
+      let path = ./overlays;
+      in with builtins;
+      map (n: import (path + ("/" + n)) inputs) (filter
+        (n:
+          match ".*\\.nix" n != null
+          || pathExists (path + ("/" + n + "/default.nix")))
+        (attrNames (readDir path)));
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
-    agenix.packages."${pkgs.system}".default
-    dockutil
-  ] ++ (import ./packages.nix { inherit pkgs; });
+  environment.systemPackages = with pkgs;
+    [ agenix.packages."${pkgs.system}".default dockutil ]
+    ++ (import ./packages.nix { inherit pkgs; });
 
   system = {
     stateVersion = 4;
 
     defaults = {
-      LaunchServices = {
-        LSQuarantine = false;
-      };
+      LaunchServices = { LSQuarantine = false; };
 
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
@@ -100,9 +102,7 @@ let user = userData.user; in
         tilesize = 48;
       };
 
-      finder = {
-        _FXShowPosixPathInTitle = false;
-      };
+      finder = { _FXShowPosixPathInTitle = false; };
 
       trackpad = {
         Clicking = true;
@@ -110,8 +110,6 @@ let user = userData.user; in
       };
     };
 
-    keyboard = {
-      enableKeyMapping = true;
-    };
+    keyboard = { enableKeyMapping = true; };
   };
 }

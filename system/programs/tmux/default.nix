@@ -4,10 +4,7 @@ let T = theme.tmux;
 in {
   tmux = {
     enable = true;
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      yank
-    ];
+    plugins = with pkgs.tmuxPlugins; [ sensible yank ];
     terminal = "alacritty";
     clock24 = true;
     prefix = "C-a";

@@ -1,8 +1,10 @@
 {}:
 
-let fontFamily = "Fira Code";
-    fontSize = 12;
-in {
+let
+  fontFamily = "Fira Code";
+  fontSize = 12;
+in
+{
   vim = {
     background = "dark";
     colorscheme = {
@@ -14,13 +16,14 @@ in {
 
   alacritty = {
     font = { inherit fontFamily fontSize; };
-    colorscheme = {
-      name = "everforest_dark";
-    };
+    colorscheme = { name = "everforest_dark"; };
   };
 
   tmux = {
-    status = { fg = "yellow"; bg = "black"; };
+    status = {
+      fg = "yellow";
+      bg = "black";
+    };
   };
 
   vscode = {

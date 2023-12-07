@@ -28,12 +28,19 @@
   ];
 
   settings = {
+    # General
+    "coc.preferences.formatOnSaveFiletypes" = [ "nix" ];
+    "suggest.noselect" = true;
+
+    # Language Servers
     "languageserver" = {
       "nix" = {
         "command" = "nixd";
-        "filetypes" = ["nix"];
+        "filetypes" = [ "nix" ];
       };
     };
+
+    # Diagnostics
     "diagnostic-languageserver.linters" = {
       "clj_kondo_lint" = {
         "command" = "clj-kondo";
@@ -61,12 +68,11 @@
         };
       };
     };
-    "diagnostic-languageserver.filetypes" = {
-      "clojure" = "clj_kondo_lint";
-    };
+    "diagnostic-languageserver.filetypes" = { "clojure" = "clj_kondo_lint"; };
+
+    # Python
     "python.formatting.provider" = "black";
     "pyright.testing.provider" = "pytest";
-    "suggest.noselect" = true;
 
   };
 

@@ -1,36 +1,34 @@
 { config, lib, pkgs, userData, theme, ... }:
 
 let
-    # Helper
-    importPkg = f: import f { inherit config pkgs lib userData theme; };
+  # Helper
+  importPkg = f: import f { inherit config pkgs lib userData theme; };
 
-    # User Info
-    user = userData.user;
+  # User Info
+  user = userData.user;
 
-    # Program Configurations
-    path = ./programs;
-    programs = lib.mkMerge (
-      with builtins;
-        map (n: importPkg (path + ("/" + n)))
-            (filter (n: n != "default.nix" && (
-                          match ".*\\.nix" n != null ||
-                          pathExists (path + ("/" + n + "/default.nix"))))
-                    (attrNames (readDir path)))
-    );
+  # Program Configurations
+  path = ./programs;
+  programs = lib.mkMerge (with builtins;
+    map (n: importPkg (path + ("/" + n))) (filter
+      (n:
+        n != "default.nix" && (match ".*\\.nix" n != null
+        || pathExists (path + ("/" + n + "/default.nix"))))
+      (attrNames (readDir path))));
 
-    # Files
-    files = importPkg ./files;
+  # Files
+  files = importPkg ./files;
 
-in {
+in
+{
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
+    users.${user} = { pkgs, config, lib, ... }: {
       inherit programs;
 
       home.enableNixpkgsReleaseCheck = false;
-      home.packages = (pkgs.callPackage ./packages.nix {}) ++ [
-        pkgs.dockutil
-      ];
+      home.packages = (pkgs.callPackage ./packages.nix { })
+        ++ [ pkgs.dockutil ];
       home.file = files;
       home.stateVersion = "21.11";
 
