@@ -9,8 +9,16 @@ let
   };
 in
 {
-  ".lein/profiles.clj" = { source = ./lein/profiles.clj; };
+  # --- EurKEY
+  "Library/Keyboard Layouts/EurKEY.icns" = {
+    source = eurkey + /EurKEY.icns;
+  };
 
+  "Library/Keyboard Layouts/EurKEY.keylayout" = {
+    source = eurkey + /EurKEY.keylayout;
+  };
+
+  # --- gpg-agent
   ".gnupg/gpg-agent.conf" = {
     text = ''
       pinentry-program ${pkgs.pinentry_mac}/${pkgs.pinentry_mac.binaryPath}
@@ -19,17 +27,25 @@ in
     '';
   };
 
-  # Karabiner
-  ".config/karabiner" = { source = ./karabiner; };
-
-  # EurKEY
-  "Library/Keyboard Layouts/EurKEY.icns" = { source = eurkey + /EurKEY.icns; };
-
-  "Library/Keyboard Layouts/EurKEY.keylayout" = {
-    source = eurkey + /EurKEY.keylayout;
+  # --- Leiningen
+  ".lein/profiles.clj" = {
+    source = ./lein/profiles.clj;
   };
 
-  # Scripts
+  # --- Karabiner
+  ".config/karabiner" = {
+    source = ./karabiner;
+  };
+
+  #--- Rectangle
+  "Library/Application Support/Rectangle/RectangleConfig.json" = {
+    # Note that Rectangle renames the file on startup (to avoid double loading).
+    # We will be adding the file again on rebuild, so with time the folder will
+    # be filled with more and more symlinks.
+    source = ./rectangle/RectangleConfig.json;
+  };
+
+  # --- Scripts
   ".bin/release" = {
     source = ./bin/release;
     executable = true;
