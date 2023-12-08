@@ -23,6 +23,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-numi-cask = {
+      url = "github:nikolaeu/homebrew-numi";
+      flake = false;
+    };
     secrets = {
       url = "git+ssh://git@github.com/xsc/nix-secrets.git";
       flake = false;
@@ -38,6 +42,7 @@
     , homebrew-bundle
     , homebrew-core
     , homebrew-cask
+    , homebrew-numi-cask
     , home-manager
     , nixpkgs
     , agenix
@@ -76,17 +81,19 @@
             nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
             {
-              nix-homebrew = {
-                enable = true;
-                user = "${userData.user}";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
+              nix-homebrew =
+                {
+                  enable = true;
+                  user = "${userData.user}";
+                  taps = {
+                    "homebrew/homebrew-core" = homebrew-core;
+                    "homebrew/homebrew-cask" = homebrew-cask;
+                    "homebrew/homebrew-bundle" = homebrew-bundle;
+                    "nikolaeu/homebrew-numi" = homebrew-numi-cask;
+                  };
+                  mutableTaps = false;
+                  autoMigrate = true;
                 };
-                mutableTaps = false;
-                autoMigrate = true;
-              };
             }
             ./system
           ];
