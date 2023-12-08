@@ -56,6 +56,9 @@ with pkgs; [
   clj-kondo
   iced-repl # via vim-plugins-github overlay
 
+  # JS/TS
+  nodejs_18
+
   # Python
   python311
   python311Packages.black
