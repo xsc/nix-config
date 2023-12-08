@@ -39,7 +39,11 @@ with pkgs; [
   # Development Tools
   vscode
 
-  # Communication Tools
+  # Productivity & Communication
+  alfredWorkflows.bitwarden
+  alfredWorkflows.hue
+  alfredWorkflows.numi-cli
+  alfredWorkflows.spotify-mini-player
   slack
 
   # Cloud-related tools and SDKs
