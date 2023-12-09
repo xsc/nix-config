@@ -32,8 +32,9 @@
       flake = false;
     };
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
+    alfred.url = "github:xsc/alfred-workflows-nix";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
   outputs =
     { self
@@ -48,6 +49,7 @@
     , agenix
     , secrets
     , alacritty-theme
+    , alfred
     , nix-vscode-extensions
     }@inputs:
     let

@@ -40,10 +40,11 @@ with pkgs; [
   vscode
 
   # Productivity & Communication
+  alfredGallery.emoji-search
+  alfredGallery.spotify-mini-player
   alfredWorkflows.bitwarden
   alfredWorkflows.hue
   alfredWorkflows.numi-cli
-  alfredWorkflows.spotify-mini-player
   slack
 
   # Cloud-related tools and SDKs

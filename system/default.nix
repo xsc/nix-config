@@ -1,4 +1,4 @@
-{ agenix, config, lib, pkgs, userData, ... }@inputs:
+{ agenix, alfred, config, lib, pkgs, userData, ... }@inputs:
 
 let user = userData.user;
 
@@ -12,6 +12,7 @@ in {
     ./home-manager.nix
     ./secrets.nix
     agenix.darwinModules.default
+    alfred.darwinModules.activateWorkflows
   ];
 
   # User Info
