@@ -5,7 +5,8 @@ let user = userData.user;
 in {
 
   imports = [
-    ./cachix
+    ./utils/alias-apps
+    ./utils/cachix
     ./dock
     ./fonts.nix
     ./homebrew
