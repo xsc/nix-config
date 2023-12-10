@@ -5,7 +5,7 @@ with pkgs; [
   alfredGallery.spotify-mini-player
 
   # bitwarden
-  (alfredUtils.mkWorkflowFromSrc
+  (alfredUtils.mkAlfredWorkflow
     rec {
       name = "bitwarden";
       owner = "blacs30";
@@ -19,7 +19,7 @@ with pkgs; [
     })
 
   # hue
-  (alfredUtils.mkWorkflowFromSrc
+  (alfredUtils.mkAlfredWorkflow
     rec {
       name = "hue";
       owner = "benknight";
@@ -35,7 +35,7 @@ with pkgs; [
     })
 
   # numi-cli
-  (alfredUtils.mkWorkflowFromSrc
+  (alfredUtils.mkAlfredWorkflow
     rec {
       name = "numi-cli";
       owner = "nikolaeu";
