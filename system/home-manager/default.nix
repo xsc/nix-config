@@ -1,4 +1,4 @@
-{ config, lib, pkgs, userData, theme, ... }:
+{ agenix, config, lib, pkgs, userData, theme, ... }:
 
 let
   # Helper
@@ -27,8 +27,8 @@ in
       inherit programs;
 
       home.enableNixpkgsReleaseCheck = false;
-      home.packages = (pkgs.callPackage ./packages { })
-        ++ [ pkgs.dockutil ];
+      home.packages = (pkgs.callPackage ../packages { })
+        ++ [ pkgs.dockutil agenix.packages."${pkgs.system}".default ];
       home.file = files;
       home.stateVersion = "21.11";
 

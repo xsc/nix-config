@@ -9,8 +9,9 @@ in {
     ./dock
     ./fonts.nix
     ./homebrew
-    ./home-manager.nix
+    ./home-manager
     ./secrets.nix
+    ./launchd.nix
     agenix.darwinModules.default
     alfred.darwinModules.activateWorkflows
   ];
@@ -25,22 +26,6 @@ in {
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-
-  # nextdns
-  # -> NOTE: Could not use 'services.nextdns' because arguments were escaped
-  #          incorrectly. :(
-  launchd.daemons.nextdns = {
-    # Do not set `path` here, otherwise we're at risk of `nextdns` not finding
-    # `networksetup` (which resides at `/usr/sbin`).
-    path = [ ];
-
-    serviceConfig = {
-      ProgramArguments =
-        [ "${pkgs.nextdns}/bin/nextdns" "run" "-config-file" "${config.age.secrets."nextdns.conf".path}" ];
-      KeepAlive = true;
-      RunAtLoad = true;
-    };
-  };
 
   # Setup user, packages, programs
   nix = {
