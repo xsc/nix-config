@@ -63,11 +63,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1702202478,
-        "narHash": "sha256-mUhXdhU8gybY8zx9oJpw7yWYYbjBwv9e5pjcYttZZSQ=",
+        "lastModified": 1702202887,
+        "narHash": "sha256-ldRxELUs+6+KiPrtpUEgygXqHRra8DfoduRB3I8geI8=",
         "owner": "xsc",
         "repo": "alfred-workflows-nix",
-        "rev": "eb1a8ce5ddac89d8914a1a6b676286756a4cdb2c",
+        "rev": "1836601a9a3f93e51625aef96fd4ad2028a7392a",
         "type": "github"
       },
       "original": {
