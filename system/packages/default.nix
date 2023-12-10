@@ -39,12 +39,7 @@ with pkgs; [
   # Development Tools
   vscode
 
-  # Productivity & Communication
-  alfredGallery.emoji-search
-  alfredGallery.spotify-mini-player
-  alfredWorkflows.bitwarden
-  alfredWorkflows.hue
-  alfredWorkflows.numi-cli
+  # Communication
   slack
 
   # Cloud-related tools and SDKs
@@ -76,4 +71,4 @@ with pkgs; [
   nixd
   nixpkgs-fmt
 
-]
+] ++ (pkgs.callPackage ./alfred-workflows.nix { })

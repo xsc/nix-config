@@ -71,8 +71,10 @@ in {
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs;
-    [ agenix.packages."${pkgs.system}".default dockutil ]
-    ++ (import ./packages.nix { inherit pkgs; });
+    [
+      agenix.packages."${pkgs.system}".default
+      dockutil
+    ] ++ (import ./packages { inherit pkgs; });
 
   system = {
     stateVersion = 4;

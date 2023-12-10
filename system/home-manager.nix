@@ -27,7 +27,7 @@ in
       inherit programs;
 
       home.enableNixpkgsReleaseCheck = false;
-      home.packages = (pkgs.callPackage ./packages.nix { })
+      home.packages = (pkgs.callPackage ./packages { })
         ++ [ pkgs.dockutil ];
       home.file = files;
       home.stateVersion = "21.11";
