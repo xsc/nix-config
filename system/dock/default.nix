@@ -7,7 +7,7 @@
   local.dock.enable = true;
   local.dock.entries = [
     { path = "/Applications/Firefox.app/"; }
-    { path = "/${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "/${pkgs.wezterm}/Applications/WezTerm.app/"; }
     { path = "/${pkgs.slack}/Applications/Slack.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
     { path = "/${pkgs.vscode}/Applications/Visual Studio Code.app/"; }

@@ -36,6 +36,7 @@ with pkgs; [
   tree
   unrar
   unzip
+  wezterm
 
   # Development Tools
   vscode

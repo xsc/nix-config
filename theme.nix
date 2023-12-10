@@ -40,4 +40,14 @@ in
       };
     };
   };
+
+  wezterm = {
+    font = {
+      inherit fontFamily;
+      fontSize = fontSize - 0.3;
+    };
+    colorscheme = {
+      name = "everforest-dark";
+    };
+  };
 }

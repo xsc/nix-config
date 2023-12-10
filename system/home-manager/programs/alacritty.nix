@@ -6,6 +6,9 @@ in {
     enable = true;
     settings = {
       import = [ pkgs.alacritty-theme.${T.colorscheme.name} ];
+      env = {
+        TERM = "xterm-256color";
+      };
 
       window = {
         opacity = 1.0;
