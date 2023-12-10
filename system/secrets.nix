@@ -22,4 +22,12 @@ in {
     group = "staff";
   };
 
+  age.secrets."nextdns.conf" = {
+    path = "/Users/${user}/.config/nextdns/nextdns.conf";
+    file = "${secrets}/nextdns.conf.age";
+    mode = "600";
+    owner = "${user}";
+    group = "staff";
+  };
+
 }

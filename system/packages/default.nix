@@ -17,6 +17,7 @@ with pkgs; [
   bitwarden-cli
   gnupg
   libfido2
+  nextdns
   pinentry
   pinentry_mac
   yubikey-manager
