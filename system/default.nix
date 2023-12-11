@@ -111,7 +111,13 @@ in {
 
       trackpad = {
         Clicking = true;
-        TrackpadThreeFingerDrag = true;
+      };
+
+      menuExtraClock = {
+        Show24Hour = true;
+        ShowSeconds = false;
+        ShowDate = 0;
+        ShowDayOfWeek = true;
       };
     };
 
