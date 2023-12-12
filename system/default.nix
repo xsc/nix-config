@@ -101,10 +101,6 @@ in {
 
       finder = { _FXShowPosixPathInTitle = false; };
 
-      trackpad = {
-        Clicking = true;
-      };
-
       menuExtraClock = {
         Show24Hour = true;
         ShowSeconds = false;
