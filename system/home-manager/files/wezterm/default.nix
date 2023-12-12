@@ -3,7 +3,7 @@
 let T = theme.wezterm;
 in
 {
-  ".wezterm.lua" = {
+  ".config/wezterm/wezterm.lua" = {
     text = ''
       local wezterm = require 'wezterm'
       local mux = wezterm.mux
