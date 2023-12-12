@@ -1,1 +1,0 @@
-{ alfred, ... }: alfred.overlays.default

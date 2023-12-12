@@ -1,4 +1,4 @@
-{ agenix, alfred, config, lib, pkgs, userData, ... }@inputs:
+{ agenix, alfred, config, lib, pkgs, userData, ... }:
 
 let user = userData.user;
 
@@ -11,6 +11,7 @@ in {
     ./fonts.nix
     ./homebrew
     ./home-manager
+    ./overlays
     ./secrets.nix
     ./launchd.nix
     agenix.darwinModules.default
@@ -57,15 +58,6 @@ in {
       allowInsecure = false;
       allowUnsupportedSystem = true;
     };
-
-    overlays =
-      let path = ./overlays;
-      in with builtins;
-      map (n: import (path + ("/" + n)) inputs) (filter
-        (n:
-          match ".*\\.nix" n != null
-          || pathExists (path + ("/" + n + "/default.nix")))
-        (attrNames (readDir path)));
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
