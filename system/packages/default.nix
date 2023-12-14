@@ -60,6 +60,7 @@ with pkgs; [
 
   # JS/TS
   nodejs_18
+  nodePackages.prettier
 
   # Python
   python311

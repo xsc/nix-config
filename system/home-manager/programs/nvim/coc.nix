@@ -70,6 +70,9 @@
     };
     "diagnostic-languageserver.filetypes" = { "clojure" = "clj_kondo_lint"; };
 
+    # Prettier
+    "prettier.proseWrap" = "always";
+
     # Python
     "python.formatting.provider" = "black";
     "pyright.testing.provider" = "pytest";
