@@ -5,10 +5,18 @@
     {
       plugin = coc-pyright;
       config = ''
+        " Ad-hoc Flake8 Linting
+        let g:flake8_enabled = 0
+        function! ToggleFlake8()
+          let g:flake8_enabled = !g:flake8_enabled
+          call coc#config('python.linting.flake8Enabled',g:flake8_enabled)
+        endfu
+
         augroup PythonCoc
           au!
           au FileType python nmap <buffer> <leader>tt :CocCommand pyright.singleTest<CR>
           au FileType python nmap <buffer> <leader>tf :CocCommand pyright.fileTest<CR>
+          au FileType python nmap <buffer> <leader>ll :call ToggleFlake8()<CR>
         augroup END
       '';
     }
