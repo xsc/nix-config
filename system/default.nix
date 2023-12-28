@@ -11,6 +11,7 @@ in {
     ./fonts.nix
     ./homebrew
     ./home-manager
+    ./nixpkgs.nix
     ./overlays
     ./secrets.nix
     ./launchd.nix
@@ -49,15 +50,6 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-  };
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-      allowInsecure = false;
-      allowUnsupportedSystem = true;
-    };
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
