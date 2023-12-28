@@ -1,15 +1,15 @@
-{ pkgs }:
+{ pkgs, lib }:
 
 with pkgs; [
 
   # General packages for development and system management
   coreutils
+  home-manager
   killall
   openssh
   pandoc
   wget
   zip
-  reattach-to-user-namespace
 
   # Encryption and security tools
   age
@@ -19,7 +19,7 @@ with pkgs; [
   libfido2
   nextdns
   pinentry
-  pinentry_mac
+  pinentry-curses
   yubikey-manager
 
   # Text and terminal utilities
@@ -34,7 +34,6 @@ with pkgs; [
   tldr
   tmux
   tree
-  unrar
   unzip
   wezterm
 
@@ -75,4 +74,10 @@ with pkgs; [
   nixd
   nixpkgs-fmt
 
-] ++ (pkgs.callPackage ./alfred-workflows.nix { })
+] ++ (
+  if pkgs.stdenv.isDarwin
+  then
+    (pkgs.callPackage ./darwin.nix { })
+      ++ (pkgs.callPackage ./alfred-workflows.nix { })
+  else [ ]
+)
