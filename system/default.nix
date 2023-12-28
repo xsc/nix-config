@@ -22,7 +22,7 @@ in {
   # User Info
   users.users.${user} = {
     name = "${user}";
-    home = "/Users/${user}";
+    home = userData.homeDirectory pkgs;
     isHidden = false;
     shell = pkgs.zsh;
   };
