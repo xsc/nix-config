@@ -74,7 +74,9 @@ with pkgs; [
   nixd
   nixpkgs-fmt
 
-] ++ (
+]
+++ (pkgs.callPackage ./fonts.nix { })
+++ (
   if pkgs.stdenv.isDarwin
   then
     (pkgs.callPackage ./darwin.nix { })
