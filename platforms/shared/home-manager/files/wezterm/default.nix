@@ -1,6 +1,13 @@
-{ theme, ... }:
+{ theme, pkgs, ... }:
 
-let T = theme.wezterm;
+let
+  T = theme.wezterm;
+  fontSize =
+    if pkgs.stdenv.isDarwin
+    then
+      T.font.fontSize
+    else
+      T.font.fontSize - 1;
 in
 {
   ".config/wezterm/wezterm.lua" = {
@@ -20,7 +27,7 @@ in
       -- Theme
       config.color_scheme = "${T.colorscheme.name}"
       config.font = wezterm.font "${T.font.fontFamily}"
-      config.font_size = ${builtins.toString T.font.fontSize}
+      config.font_size = ${builtins.toString fontSize}
 
       -- Appearance
       config.enable_tab_bar = false
