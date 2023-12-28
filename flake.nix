@@ -102,5 +102,15 @@
         };
       };
 
+      homeConfigurations."${userData.user}" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = inputs // { inherit userData theme; };
+        modules = [
+          ./system/nixpkgs.nix
+          ./system/overlays
+          ./system/home-manager/home.nix
+        ];
+      };
+
     };
 }
