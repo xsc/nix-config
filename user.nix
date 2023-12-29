@@ -3,6 +3,7 @@
 rec {
   name = "Yannick Scherer";
   user = "yannick";
+  group = "staff";
   email = "yannick@xsc.dev";
   signingKey = "FCC8CDA4";
 

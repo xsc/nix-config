@@ -106,9 +106,11 @@
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = inputs // { inherit userData theme; };
         modules = [
+          agenix.homeManagerModules.default
           ./system/nixpkgs.nix
           ./system/overlays
           ./system/home-manager/home.nix
+          ./system/secrets.nix
         ];
       };
 

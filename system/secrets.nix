@@ -1,33 +1,33 @@
-{ secrets, userData, ... }:
+{ lib, pkgs, secrets, userData, ... }:
 
-let user = userData.user;
-in {
-  age.identityPaths = [ "/Users/${user}/.ssh/keys/id_ed25519_agenix" ];
+let
+  owns = lib.mkIf pkgs.stdenv.isDarwin {
+    user = userData.user;
+    group = userData.group;
+  };
+  home = userData.homeDirectory pkgs;
+in
+{
+  age.identityPaths = [ "${home}/.ssh/keys/id_ed25519_agenix" ];
 
   age.secrets."id_ed25519_github" = {
     symlink = true;
-    path = "/Users/${user}/.ssh/keys/id_ed25519_github";
+    path = "${home}/.ssh/keys/id_ed25519_github";
     file = "${secrets}/id_ed25519_github.age";
     mode = "600";
-    owner = "${user}";
-    group = "staff";
-  };
+  } // owns;
 
   age.secrets."credentials.clj.gpg" = {
     symlink = true;
-    path = "/Users/${user}/.lein/credentials.clj.gpg";
+    path = "${home}/.lein/credentials.clj.gpg";
     file = "${secrets}/credentials.clj.gpg.age";
     mode = "600";
-    owner = "${user}";
-    group = "staff";
-  };
+  } // owns;
 
   age.secrets."nextdns.conf" = {
-    path = "/Users/${user}/.config/nextdns/nextdns.conf";
+    path = "${home}/.config/nextdns/nextdns.conf";
     file = "${secrets}/nextdns.conf.age";
     mode = "600";
-    owner = "${user}";
-    group = "staff";
-  };
+  } // owns;
 
 }
