@@ -224,6 +224,7 @@ in
           plugin = vim-yaml;
           config = "au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab";
         }
+        kmonad-vim
       ] ++ cocConfig.plugins;
 
     extraConfig = lib.fileContents ./init.vim;

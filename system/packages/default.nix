@@ -27,6 +27,7 @@ with pkgs; [
   bat
   cowsay
   diff-so-fancy
+  haskellPackages.kmonad
   fzf
   htop
   jq
