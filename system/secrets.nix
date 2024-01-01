@@ -1,10 +1,11 @@
 { lib, pkgs, secrets, userData, ... }:
 
 let
-  owns = lib.mkIf pkgs.stdenv.isDarwin {
-    user = userData.user;
-    group = userData.group;
-  };
+  owns =
+    if pkgs.stdenv.isDarwin then {
+      user = userData.user;
+      group = userData.group;
+    } else { };
   home = userData.homeDirectory pkgs;
 in
 {
