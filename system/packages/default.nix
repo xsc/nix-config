@@ -48,6 +48,7 @@ with pkgs; [
   docker
   docker-compose
   awscli2
+  aws-sam-cli
   awsume
   azure-cli
 
