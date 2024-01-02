@@ -1,13 +1,13 @@
-{}:
+{ pkgs }:
 
 rec {
   name = "Yannick Scherer";
-  user = "yannick";
+  user = "yannick.scherer";
   group = "staff";
   email = "yannick@xsc.dev";
   signingKey = "FCC8CDA4";
 
-  homeDirectory = pkgs:
+  homeDirectory =
     if pkgs.stdenv.isDarwin
     then "/Users/${user}"
     else "/home/${user}";

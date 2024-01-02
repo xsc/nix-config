@@ -8,12 +8,13 @@ let
   user = userData.user;
   programs = importPkg ./programs;
   files = importPkg ./files;
+  packages = importPkg ../packages;
 
 in
 {
   # What to manage
   home.username = userData.user;
-  home.homeDirectory = userData.homeDirectory pkgs;
+  home.homeDirectory = userData.homeDirectory;
 
   # Settings
   home.stateVersion = "23.11";
@@ -21,7 +22,7 @@ in
 
   # Elements
   home.file = files;
-  home.packages = (pkgs.callPackage ../packages { })
+  home.packages = packages
     ++ [ agenix.packages."${pkgs.system}".default ];
   inherit programs;
 

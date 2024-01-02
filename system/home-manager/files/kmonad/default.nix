@@ -1,6 +1,6 @@
 { userData, pkgs, ... }:
 
-let home = userData.homeDirectory pkgs; in
+let home = userData.homeDirectory; in
 {
   ".config/kmonad/colemak-dh.kbd" = {
     source = ./colemak-dh.kbd;
