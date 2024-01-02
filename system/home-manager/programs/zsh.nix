@@ -5,6 +5,7 @@
     cdpath = [ "~/.local/share/src" ];
 
     shellAliases = {
+      awsume = ". awsume";
       ll = "ls -l --color=auto";
       ls = "ls --color=auto";
       iced-repl = "iced repl with-profile +iced";
@@ -87,7 +88,7 @@
       fi
 
       # Environment
-      export PATH=$PATH:~/.bin:/opt/homebrew/bin
+      export PATH=$PATH:~/.bin:/opt/homebrew/bin:~/.local/bin
       export LC_ALL=en_US.UTF-8
       export LANG=en_US.UTF-8
 

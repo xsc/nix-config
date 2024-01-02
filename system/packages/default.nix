@@ -48,6 +48,7 @@ with pkgs; [
   docker
   docker-compose
   awscli2
+  awsume
   azure-cli
 
   # --- Language-specific Packages
@@ -70,6 +71,7 @@ with pkgs; [
   python311Packages.pylint
   python311Packages.watchdog
   pipenv
+  pipx
 
   # Nix
   nixd
