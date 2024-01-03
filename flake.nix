@@ -55,7 +55,7 @@
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      userData = import ./user.nix { };
+      userData = import ./user.nix { inherit pkgs; };
       theme = import ./theme.nix { };
       devShell = {
         default = with pkgs;

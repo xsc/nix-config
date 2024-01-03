@@ -2,6 +2,7 @@
 
 let
   user = userData.user;
+  home = userData.home;
   mkalias = pkgs.writeScriptBin "mkalias" ''
     #!/usr/bin/env swift
 
@@ -27,7 +28,7 @@ let
   mkAliasBin = "${mkalias}/bin/mkalias";
 
   sourcePath = "${config.system.build.applications}/Applications";
-  targetPath = "/Users/${user}/Applications/Nix";
+  targetPath = "${home}/Applications/Nix";
 
 in
 {

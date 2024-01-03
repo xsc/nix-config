@@ -1,8 +1,6 @@
 { agenix, alfred, config, lib, pkgs, userData, ... }:
 
-let user = userData.user;
-
-in {
+{
 
   imports = [
     ./utils/alias-apps
@@ -19,9 +17,9 @@ in {
   ];
 
   # User Info
-  users.users.${user} = {
-    name = "${user}";
-    home = "/Users/${user}";
+  users.users."${userData.user}" = {
+    name = userData.user;
+    home = userData.home;
     isHidden = false;
     shell = pkgs.zsh;
   };
@@ -32,7 +30,7 @@ in {
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixUnstable;
-    settings.trusted-users = [ "@admin" "${user}" ];
+    settings.trusted-users = [ "@admin" "${userData.user}" ];
 
     gc = {
       user = "root";
