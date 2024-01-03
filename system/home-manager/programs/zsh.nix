@@ -66,7 +66,7 @@
 
         ensure_tmux_is_running() {
           if _not_inside_tmux; then
-            tmux attach 2> /dev/null || tmux new-session -s ft;
+            tmux attach 2> /dev/null || tmux new-session -s dev;
           fi
         }
 
