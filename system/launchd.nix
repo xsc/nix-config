@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userData, ... }:
 
 {
   # nextdns
@@ -14,6 +14,19 @@
         [ "${pkgs.nextdns}/bin/nextdns" "run" "-config-file" "${config.age.secrets."nextdns.conf".path}" ];
       KeepAlive = true;
       RunAtLoad = true;
+    };
+  };
+
+  launchd.daemons.kanata = {
+    path = [ ];
+
+    serviceConfig = {
+      ProgramArguments =
+        [ "${pkgs.kanata-custom}/bin/kanata" "-c" "${userData.home}/.config/kanata/colemak-dh.kbd" ];
+      KeepAlive = true;
+      RunAtLoad = true;
+      StandardOutPath = "/var/log/kanata-stdout.log";
+      StandardErrorPath = "/var/log/kanata-stderr.log";
     };
   };
 }

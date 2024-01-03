@@ -30,6 +30,7 @@ with pkgs; [
   fzf
   htop
   jq
+  kanata-custom
   ripgrep
   tldr
   tmux

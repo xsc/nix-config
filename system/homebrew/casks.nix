@@ -5,7 +5,6 @@
   "alfred"
   "bettertouchtool"
   "flux"
-  "karabiner-elements"
   "rectangle"
 
   # Development Tools
