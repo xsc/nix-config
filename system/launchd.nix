@@ -14,6 +14,8 @@
         [ "${pkgs.nextdns}/bin/nextdns" "run" "-config-file" "${config.age.secrets."nextdns.conf".path}" ];
       KeepAlive = true;
       RunAtLoad = true;
+      StandardOutPath = "/var/log/nextdns-stdout.log";
+      StandardErrorPath = "/var/log/nextdns-stderr.log";
     };
   };
 
