@@ -13,6 +13,7 @@
   "macdown"
 
   # Entertainment Tools
+  "spotify"
   "vlc"
 
   # Browsers
