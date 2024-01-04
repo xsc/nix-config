@@ -1,9 +1,6 @@
 { ... }:
 
 [
-  # Firefox
-  "firefoxpwa"
-
   # Productivity Tools
   "nikolaeu/numi/numi-cli"
 
