@@ -1,5 +1,6 @@
 { config, pkgs, userData, ... }:
 
+let logs = "/var/log/nixos-launchd"; in
 {
   # nextdns
   # -> NOTE: Could not use 'services.nextdns' because arguments were escaped
@@ -10,12 +11,18 @@
     path = [ ];
 
     serviceConfig = {
+      EnvironmentVariables = {
+        SERVICE_RUN_MODE = "1";
+      };
+
+      Program = "${pkgs.nextdns}/bin/nextdns";
       ProgramArguments =
         [ "${pkgs.nextdns}/bin/nextdns" "run" "-config-file" "${config.age.secrets."nextdns.conf".path}" ];
+
+      StandardOutPath = "${logs}/nextdns-stdout.log";
+      StandardErrorPath = "${logs}/nextdns-stderr.log";
       KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/var/log/nextdns-stdout.log";
-      StandardErrorPath = "/var/log/nextdns-stderr.log";
+      Disabled = false;
     };
   };
 
@@ -23,12 +30,14 @@
     path = [ ];
 
     serviceConfig = {
+      Program = "${pkgs.kanata-custom}/bin/kanata";
       ProgramArguments =
-        [ "${pkgs.kanata-custom}/bin/kanata" "-c" "${userData.home}/.config/kanata/colemak-dh.kbd" ];
+        [ "${pkgs.kanata-custom}/bin/kanata" "-c" "${./home-manager/files/kanata/colemak-dh.kbd}" ];
+
+      StandardOutPath = "${logs}/kanata-stdout.log";
+      StandardErrorPath = "${logs}/kanata-stderr.log";
       KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/var/log/kanata-stdout.log";
-      StandardErrorPath = "/var/log/kanata-stderr.log";
+      Disabled = false;
     };
   };
 }
