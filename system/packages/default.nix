@@ -65,6 +65,9 @@ with pkgs; [
   nodejs_18
   nodePackages.prettier
 
+  # PHP
+  php
+
   # Python
   python311
   python311Packages.black
