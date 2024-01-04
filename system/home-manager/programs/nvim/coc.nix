@@ -33,6 +33,7 @@
       '';
     }
     coc-tsserver
+    coc-eslint
   ];
 
   settings = {
