@@ -37,7 +37,14 @@
 
   settings = {
     # General
-    "coc.preferences.formatOnSaveFiletypes" = [ "nix" ];
+    "coc.preferences.formatOnSaveFiletypes" = [
+      "nix"
+      "markdown"
+      "json"
+      "yaml"
+      "javascript"
+      "typescript"
+    ];
     "suggest.noselect" = true;
 
     # Language Servers
