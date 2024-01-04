@@ -38,7 +38,6 @@
       st = "status -sb";
 
       # merge
-
       merged-when = ''
         !f() { git rev-list -1 --format=%p "$1" | grep -v commit | xargs -I {} sh -c 'git rev-list -1 --format="%ci" {}' | grep -v commit; }; f'';
       merged-when-relative = ''
@@ -105,6 +104,22 @@
         log --pretty=format:"%C(yellow)%h%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --numstat -n 1 -p --full-diff'';
 
       # others
+      space = ''
+        !f() {
+          local value="$1";
+          local email="";
+          if [ -z "$value" ]; then
+            email="${userData.email}";
+          elif [[ "$value" == *@* ]]; then
+            email="$value";
+          elif [[ ! "$value" == *.* ]]; then
+            email="yannick.scherer@$value.com";
+          else
+            email="yannick.scherer@$value";
+          fi;
+          git config user.email "$email";
+          echo "set repository email to '$email'"
+        }; f'';
     };
 
     lfs = { enable = true; };
