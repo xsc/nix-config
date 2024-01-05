@@ -109,18 +109,7 @@
 
     keyboard = {
       enableKeyMapping = true;
-
-      userKeyMapping = [
-        # switch '~' and '±' keys
-        {
-          HIDKeyboardModifierMappingDst = 30064771125;
-          HIDKeyboardModifierMappingSrc = 30064771172;
-        }
-        {
-          HIDKeyboardModifierMappingDst = 30064771172;
-          HIDKeyboardModifierMappingSrc = 30064771125;
-        }
-      ];
+      nonUS.remapTilde = true;
     };
   };
 }
