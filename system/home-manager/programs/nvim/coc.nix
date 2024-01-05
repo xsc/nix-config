@@ -34,6 +34,7 @@
     }
     coc-tsserver
     coc-eslint
+    coc-markdownlint
   ];
 
   settings = {
@@ -85,6 +86,16 @@
       };
     };
     "diagnostic-languageserver.filetypes" = { "clojure" = "clj_kondo_lint"; };
+
+    # Markdown
+    "markdownlint.config" = {
+      # Line Lengths
+      "MD013" = {
+        "line_length" = 120;
+        "heading_line_length" = 120;
+        "code_blocks" = false;
+      };
+    };
 
     # Prettier
     "prettier.proseWrap" = "always";

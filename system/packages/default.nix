@@ -65,6 +65,10 @@ with pkgs; [
   nodejs_18
   nodePackages.prettier
 
+  # Markdown
+  markdownlint-cli2
+  nodePackages.markdown-link-check
+
   # PHP
   php
 
