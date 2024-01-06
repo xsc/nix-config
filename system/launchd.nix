@@ -4,16 +4,21 @@ let
   logs = "/var/log/nixos-launchd";
   waitAndRun = args:
     # we have to wait for the Nix store to be mounted, otherwise the daemons
-    # fail with status 78.
+    # fail with status 78. This logic creates a script that will wait for any
+    # path in the arglist (identified by '/'). We do this because not every
+    # relevant path points directly at the Nix store, some are symlinks.
     let
-      binary = builtins.head args;
+      waitFiles =
+        builtins.filter
+          (arg: (builtins.substring 0 1 arg) == "/")
+          args;
+      waitScripts = map (path: "/bin/wait4path ${path}") waitFiles;
       script =
         builtins.concatStringsSep
           " &amp;&amp; "
-          [
-            "/bin/wait4path ${binary}"
+          (waitScripts ++ [
             (builtins.concatStringsSep " " args)
-          ];
+          ]);
     in
     [ "/bin/sh" "-c" script ];
 in
