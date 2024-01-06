@@ -11,6 +11,9 @@ SYSTEM="darwinConfigurations.$FLAKE.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
+
+sudo rm -f /etc/bashrc
+
 # Navigate to the directory of this script
 cd $(dirname $(readlink -f $0))
 cd ..
