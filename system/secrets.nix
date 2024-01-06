@@ -28,6 +28,7 @@ in
   age.secrets."nextdns.conf" = {
     path = "${home}/.config/nextdns/nextdns.conf";
     file = "${secrets}/nextdns.conf.age";
+    symlink = false;
     mode = "600";
     owner = "${user}";
     group = "staff";
