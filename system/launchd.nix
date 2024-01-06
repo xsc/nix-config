@@ -1,6 +1,22 @@
 { config, pkgs, userData, ... }:
 
-let logs = "/var/log/nixos-launchd"; in
+let
+  logs = "/var/log/nixos-launchd";
+  waitAndRun = args:
+    # we have to wait for the Nix store to be mounted, otherwise the daemons
+    # fail with status 78.
+    let
+      binary = builtins.head args;
+      script =
+        builtins.concatStringsSep
+          " &amp;&amp; "
+          [
+            "/bin/wait4path ${binary}"
+            (builtins.concatStringsSep " " args)
+          ];
+    in
+    [ "/bin/sh" "-c" script ];
+in
 {
   # nextdns
   # -> NOTE: Could not use 'services.nextdns' because arguments were escaped
@@ -15,9 +31,12 @@ let logs = "/var/log/nixos-launchd"; in
         SERVICE_RUN_MODE = "1";
       };
 
-      Program = "${pkgs.nextdns}/bin/nextdns";
-      ProgramArguments =
-        [ "${pkgs.nextdns}/bin/nextdns" "run" "-config-file" "${config.age.secrets."nextdns.conf".path}" ];
+      ProgramArguments = waitAndRun [
+        "${pkgs.nextdns}/bin/nextdns"
+        "run"
+        "-config-file"
+        "${config.age.secrets."nextdns.conf".path}"
+      ];
 
       StandardOutPath = "${logs}/nextdns-stdout.log";
       StandardErrorPath = "${logs}/nextdns-stderr.log";
@@ -30,9 +49,11 @@ let logs = "/var/log/nixos-launchd"; in
     path = [ ];
 
     serviceConfig = {
-      Program = "${pkgs.kanata-custom}/bin/kanata";
-      ProgramArguments =
-        [ "${pkgs.kanata-custom}/bin/kanata" "-c" "${./home-manager/files/kanata/colemak-dh.kbd}" ];
+      ProgramArguments = waitAndRun [
+        "${pkgs.kanata-custom}/bin/kanata"
+        "-c"
+        "${./home-manager/files/kanata/colemak-dh.kbd}"
+      ];
 
       StandardOutPath = "${logs}/kanata-stdout.log";
       StandardErrorPath = "${logs}/kanata-stderr.log";
