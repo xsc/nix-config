@@ -91,7 +91,6 @@
 
     keyboard = {
       enableKeyMapping = true;
-      nonUS.remapTilde = true;
     };
   };
 }

@@ -43,6 +43,7 @@ in
         "${config.age.secrets."nextdns.conf".path}"
       ];
 
+      RunAtLoad = true;
       StandardOutPath = "${logs}/nextdns-stdout.log";
       StandardErrorPath = "${logs}/nextdns-stderr.log";
       KeepAlive = true;
@@ -60,6 +61,7 @@ in
         "${./home-manager/files/kanata/colemak-dh.kbd}"
       ];
 
+      RunAtLoad = true;
       StandardOutPath = "${logs}/kanata-stdout.log";
       StandardErrorPath = "${logs}/kanata-stderr.log";
       KeepAlive = true;

@@ -19,6 +19,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     users.${user} = { pkgs, config, lib, ... }: {
+      inherit (importPkg ./launchd.nix) launchd;
       inherit programs;
 
       home.enableNixpkgsReleaseCheck = false;
