@@ -3,6 +3,8 @@
 let
   packages = with pkgs; [
     dockutil
+    pinentry_mac
+    reattach-to-user-namespace
   ];
   alfredGalleryWorkflows = with pkgs.alfredGallery; [
     emoji-search

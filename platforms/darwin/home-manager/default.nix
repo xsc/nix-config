@@ -6,10 +6,14 @@ let
 
   # Data
   user = userData.user;
-  programs = (importPkg ./programs)
-    // (importPkg ../../shared/home-manager/programs);
-  files = (importPkg ./files)
-    // (importPkg ../../shared/home-manager/files);
+  programs = lib.mkMerge [
+    (importPkg ./programs)
+    (importPkg ../../shared/home-manager/programs)
+  ];
+  files = lib.mkMerge [
+    (importPkg ./files)
+    (importPkg ../../shared/home-manager/files)
+  ];
 in
 {
   home-manager = {

@@ -9,7 +9,6 @@ with pkgs; [
   pandoc
   wget
   zip
-  reattach-to-user-namespace
 
   # Encryption and security tools
   age
@@ -19,7 +18,6 @@ with pkgs; [
   libfido2
   nextdns
   pinentry
-  pinentry_mac
   yubikey-manager
 
   # Text and terminal utilities
@@ -35,7 +33,6 @@ with pkgs; [
   tldr
   tmux
   tree
-  unrar
   unzip
   wezterm
 

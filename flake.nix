@@ -109,6 +109,36 @@
         }
       );
 
+      # Linux Systems
+      linuxSystems = with flake-utils.lib.system; [
+        x86_64-linux
+        aarch64-linux
+      ];
+      linuxHosts = [ "llama" ];
+      mkLinuxSystem = system: host:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          userData = import ./user.nix { inherit pkgs; };
+          theme = import ./theme.nix { };
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          extraSpecialArgs = inputs // { inherit userData theme; };
+          modules = [
+            ./hosts/${host}
+          ];
+        };
+      linuxConfigurations = flake-utils.lib.eachSystem linuxSystems (system:
+        let lib = nixpkgs.legacyPackages.${system}.lib;
+        in
+        {
+          packages = {
+            homeConfigurations = lib.genAttrs linuxHosts (host: mkLinuxSystem system host);
+          };
+        }
+      );
+
       # Development Shells
       mkDevShells = system:
         let
@@ -132,5 +162,7 @@
       devShells = flake-utils.lib.eachDefaultSystem
         (system: { devShells = mkDevShells system; });
     in
-    devShells // darwinConfigurations;
+    devShells // {
+      packages = darwinConfigurations.packages // linuxConfigurations.packages;
+    };
 }
