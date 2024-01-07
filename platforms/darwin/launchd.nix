@@ -57,7 +57,7 @@ in
       ProgramArguments = waitAndRun [
         "${pkgs.kanata-custom}/bin/kanata"
         "-c"
-        "${./home-manager/files/kanata/colemak-dh.kbd}"
+        "${../shared/home-manager/files/kanata/colemak-dh.kbd}"
       ];
 
       StandardOutPath = "${logs}/kanata-stdout.log";

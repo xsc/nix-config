@@ -1,28 +1,16 @@
-{ agenix, alfred, config, lib, pkgs, userData, ... }:
+{ agenix, alfred, userData, pkgs, ... }:
 
 {
-
   imports = [
-    ./utils/alias-apps
-    ./utils/cachix
+    ../shared
     ./dock
-    ./fonts.nix
+    ./utils/alias-apps
     ./homebrew
     ./home-manager
-    ./overlays
-    ./secrets.nix
     ./launchd.nix
     agenix.darwinModules.default
     alfred.darwinModules.activateWorkflows
   ];
-
-  # User Info
-  users.users."${userData.user}" = {
-    name = userData.user;
-    home = userData.home;
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -49,24 +37,18 @@
     '';
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = true;
-      allowInsecure = false;
-      allowUnsupportedSystem = true;
-    };
-  };
-
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs;
-    [
-      agenix.packages."${pkgs.system}".default
-      dockutil
-    ] ++ (import ./packages { inherit pkgs; });
+    [ agenix.packages."${pkgs.system}".default ]
+    ++ (import ../shared/packages { inherit pkgs; })
+    ++ (import ./packages { inherit pkgs; });
+
+  # Enable fonts dir
+  fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [ fira-code fira-code-nerdfont monaspace ];
 
   system = {
     stateVersion = 4;

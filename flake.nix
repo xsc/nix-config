@@ -3,13 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:dustinlyons/nixpkgs/master";
-
     agenix.url = "github:ryantm/agenix";
+    flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
+
+    # nix-darwin
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # homebrew
     nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -27,11 +31,14 @@
       url = "github:nikolaeu/homebrew-numi";
       flake = false;
     };
+
+    # secrets
     secrets = {
       url = "git+ssh://git@github.com/xsc/nix-secrets.git";
       flake = false;
     };
 
+    # overlays
     alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
     alfred.url = "github:xsc/alfred-workflows-nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -47,35 +54,27 @@
     , home-manager
     , nixpkgs
     , agenix
+    , flake-utils
     , secrets
     , alacritty-theme
     , alfred
     , nix-vscode-extensions
     }@inputs:
     let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-      userData = import ./user.nix { inherit pkgs; };
-      theme = import ./theme.nix { };
-      devShell = {
-        default = with pkgs;
-          mkShell {
-            nativeBuildInputs = with pkgs; [
-              bashInteractive
-              git
-              age
-              age-plugin-yubikey
-            ];
-            shellHook = with pkgs; ''
-              export EDITOR=vim
-            '';
-          };
-      };
-    in
-    {
-      devShells = [ devShell ];
-      darwinConfigurations = {
-        macos = darwin.lib.darwinSystem {
+      # Darwin Hosts
+      darwinSystems = with flake-utils.lib.system; [
+        aarch64-darwin
+        x86_64-darwin
+      ];
+      darwinHosts = [ "moomin" ];
+
+      mkDarwinSystem = system: host:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          userData = import ./user.nix { inherit pkgs; };
+          theme = import ./theme.nix { };
+        in
+        darwin.lib.darwinSystem {
           inherit system;
 
           specialArgs = inputs // { inherit userData theme; };
@@ -97,10 +96,41 @@
                   autoMigrate = true;
                 };
             }
-            ./system
+            ./hosts/${host}
           ];
         };
-      };
+      darwinConfigurations = flake-utils.lib.eachSystem darwinSystems (system:
+        let lib = nixpkgs.legacyPackages.${system}.lib;
+        in
+        {
+          packages = {
+            darwinConfigurations = lib.genAttrs darwinHosts (host: mkDarwinSystem system host);
+          };
+        }
+      );
 
-    };
+      # Development Shells
+      mkDevShells = system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          default = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              bashInteractive
+              git
+              openssh
+              age
+              age-plugin-yubikey
+            ];
+            shellHook = with pkgs; ''
+              export EDITOR=vim
+            '';
+          };
+        in
+        {
+          inherit default;
+        };
+      devShells = flake-utils.lib.eachDefaultSystem
+        (system: { devShells = mkDevShells system; });
+    in
+    devShells // darwinConfigurations;
 }

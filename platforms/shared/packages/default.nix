@@ -85,5 +85,4 @@ with pkgs; [
   # Nix
   nixd
   nixpkgs-fmt
-
-] ++ (pkgs.callPackage ./alfred-workflows.nix { })
+]

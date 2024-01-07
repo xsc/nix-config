@@ -4,21 +4,12 @@ let
   # Helper
   importPkg = f: import f { inherit config pkgs lib userData theme; };
 
-  # User Info
+  # Data
   user = userData.user;
-
-  # Program Configurations
-  path = ./programs;
-  programs = lib.mkMerge (with builtins;
-    map (n: importPkg (path + ("/" + n))) (filter
-      (n:
-        n != "default.nix" && (match ".*\\.nix" n != null
-        || pathExists (path + ("/" + n + "/default.nix"))))
-      (attrNames (readDir path))));
-
-  # Files
-  files = importPkg ./files;
-
+  programs = (importPkg ./programs)
+    // (importPkg ../../shared/home-manager/programs);
+  files = (importPkg ./files)
+    // (importPkg ../../shared/home-manager/files);
 in
 {
   home-manager = {
@@ -28,7 +19,8 @@ in
 
       home.enableNixpkgsReleaseCheck = false;
       home.packages = (pkgs.callPackage ../packages { })
-        ++ [ pkgs.dockutil agenix.packages."${pkgs.system}".default ];
+        ++ (pkgs.callPackage ../../shared/packages { })
+        ++ [ agenix.packages."${pkgs.system}".default ];
       home.file = files;
       home.stateVersion = "21.11";
 
