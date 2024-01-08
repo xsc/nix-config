@@ -57,6 +57,20 @@ if (has('termguicolors'))
 endif
 
 if (exists('+colorcolumn'))
-    set colorcolumn=80
     highlight link ColorColumn LineNr
+    set colorcolumn=80
+
+    function! s:SetColorColumn()
+        if &textwidth == 0
+            setlocal colorcolumn=80
+        else
+            setlocal colorcolumn=+0
+        endif
+    endfunction
+
+    augroup colorcolumn
+        autocmd!
+        autocmd OptionSet textwidth call s:SetColorColumn()
+        autocmd BufEnter * call s:SetColorColumn()
+    augroup end
 endif
