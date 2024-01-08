@@ -2,8 +2,6 @@
 
 let logs = "/var/log/nixos-launchd"; in
 {
-  launchd.enable = true;
-
   # remap tilde and plusminus on the internal keyboard
   launchd.agents.swapTildeAndPlusMinusOnBuildInKeyboard = {
     enable = true;
@@ -16,10 +14,19 @@ let logs = "/var/log/nixos-launchd"; in
         [
           "/usr/bin/hidutil"
           "property"
+          # matching the Karabiner Driver
           "--matching"
-          ''{"Product":"Apple Internal Keyboard / Trackpad"}''
+          ''{"ProductID": 0x27db, "VendorID": 0x16c0}''
+          # swap
           "--set"
-          ''{"UserKeyMapping": [{"HIDKeyboardModifierMappingSrc": ${tilde},"HIDKeyboardModifierMappingDst": ${plusminus}},{"HIDKeyboardModifierMappingSrc": ${plusminus},"HIDKeyboardModifierMappingDst": ${tilde}}]}''
+          ''
+            {
+              "UserKeyMapping": [
+                {"HIDKeyboardModifierMappingSrc": ${tilde},"HIDKeyboardModifierMappingDst": ${plusminus}},
+                {"HIDKeyboardModifierMappingSrc": ${plusminus},"HIDKeyboardModifierMappingDst": ${tilde}}
+              ]
+            }
+          ''
         ];
 
       StandardOutPath = "${logs}/swapTildeAndPlusMinusOnBuildInKeyboard-stdout.log";
