@@ -123,9 +123,20 @@
       return !col || getline('.')[col - 1]  =~# '\s'
     endfunction
 
+    " format
     command! -nargs=0 Format :call CocActionAsync('format')
     nmap <silent> <leader>ff :Format<CR>
     vmap <leader>f  <Plug>(coc-format-selected)
     nmap <leader>f  <Plug>(coc-format-selected)
+
+    " documentation
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
   '';
 }
