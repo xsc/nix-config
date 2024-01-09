@@ -98,6 +98,14 @@ in
             inoremap <C-L> <TAB>
           '';
         }
+        {
+          plugin = vim-qf;
+          config = ''
+            nmap <leader>qq <Plug>(qf_qf_toggle)
+            nmap <PageUp> <Plug>(qf_qf_previous)
+            nmap <PageDown> <Plug>(qf_qf_next)
+          '';
+        }
 
         # Git
         {
