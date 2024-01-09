@@ -33,7 +33,12 @@
       '';
     }
     coc-tsserver
-    coc-eslint
+    {
+      plugin = coc-eslint;
+      config = ''
+        au FileType javascript,typescript nmap <leader>lp :CocCommand eslint.lintProject<CR>
+      '';
+    }
     coc-markdownlint
   ];
 
