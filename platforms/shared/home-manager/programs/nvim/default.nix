@@ -102,6 +102,8 @@ in
           plugin = vim-qf;
           config = ''
             nmap <leader>qq <Plug>(qf_qf_toggle)
+            nmap <leader>qp <Plug>(qf_qf_previous)
+            nmap <leader>qn <Plug>(qf_qf_next)
             nmap <PageUp> <Plug>(qf_qf_previous)
             nmap <PageDown> <Plug>(qf_qf_next)
           '';
