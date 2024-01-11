@@ -62,6 +62,9 @@ with pkgs; [
   nodejs_18
   nodePackages.prettier
 
+  # Kotlin
+  kotlin-language-server
+
   # Markdown
   markdownlint-cli2
   nodePackages.markdown-link-check

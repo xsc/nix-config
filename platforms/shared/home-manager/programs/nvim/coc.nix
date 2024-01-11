@@ -2,6 +2,33 @@
 
 {
   plugins = with pkgs.vimPlugins; [
+    # General
+    {
+      plugin = coc-diagnostic;
+      config = ''
+        nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
+      '';
+    }
+
+    # JS/TS
+    {
+      plugin = coc-prettier;
+      config = ''
+        command! -nargs=0 Prettier :CocCommand prettier.formatFile
+      '';
+    }
+    coc-tsserver
+    {
+      plugin = coc-eslint;
+      config = ''
+        au FileType javascript,typescript nmap <leader>lp :CocCommand eslint.lintProject<CR>
+      '';
+    }
+
+    # Markdown
+    coc-markdownlint
+
+    # Python
     {
       plugin = coc-pyright;
       config = ''
@@ -20,26 +47,6 @@
         augroup END
       '';
     }
-    {
-      plugin = coc-diagnostic;
-      config = ''
-        nmap <silent> <leader>cc <Plug>(coc-diagnostic-next)
-      '';
-    }
-    {
-      plugin = coc-prettier;
-      config = ''
-        command! -nargs=0 Prettier :CocCommand prettier.formatFile
-      '';
-    }
-    coc-tsserver
-    {
-      plugin = coc-eslint;
-      config = ''
-        au FileType javascript,typescript nmap <leader>lp :CocCommand eslint.lintProject<CR>
-      '';
-    }
-    coc-markdownlint
   ];
 
   settings = {
@@ -59,6 +66,10 @@
       "nix" = {
         "command" = "nixd";
         "filetypes" = [ "nix" ];
+      };
+      "kotlin" = {
+        "command" = "${pkgs.kotlin-language-server}/bin/kotlin-language-server";
+        "filetypes" = [ "kotlin" ];
       };
     };
 
@@ -133,6 +144,16 @@
     nmap <silent> <leader>ff :Format<CR>
     vmap <leader>f  <Plug>(coc-format-selected)
     nmap <leader>f  <Plug>(coc-format-selected)
+
+    " quickfix
+    nmap <leader>qfq  <Plug>(coc-codeaction-cursor)
+    nmap <leader>qff  <Plug>(coc-fix-current)
+
+    " definition
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
 
     " documentation
     nnoremap <silent> K :call ShowDocumentation()<CR>

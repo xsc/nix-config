@@ -40,7 +40,6 @@ in
             autocmd vimenter * :call AdaptColorscheme()
           '';
         }
-
         {
           plugin = lightline-vim;
 
@@ -218,6 +217,9 @@ in
         vim-javascript
         typescript-vim
         vim-jsx-pretty
+
+        # Kotlin
+        kotlin-vim
 
         # Nix
         vim-nix
