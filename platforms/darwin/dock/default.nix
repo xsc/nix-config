@@ -8,9 +8,8 @@
   local.dock.entries = [
     { path = "/Applications/Firefox.app/"; }
     { path = "/${pkgs.wezterm}/Applications/WezTerm.app/"; }
-    { path = "/${pkgs.slack}/Applications/Slack.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
-    { path = "/${pkgs.vscode}/Applications/Visual Studio Code.app/"; }
+    { path = "/Applications/IntelliJ IDEA.app/"; }
     {
       path = "${config.users.users.${userData.user}.home}/Downloads";
       section = "others";

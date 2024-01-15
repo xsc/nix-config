@@ -11,6 +11,7 @@
   "homebrew/cask/docker"
   "insomnia"
   "macdown"
+  "intellij-idea"
 
   # Entertainment Tools
   "spotify"
