@@ -24,6 +24,21 @@
         au FileType javascript,typescript nmap <leader>lp :CocCommand eslint.lintProject<CR>
       '';
     }
+    {
+      plugin = coc-jest;
+      config = ''
+        command! -nargs=0 Jest           :call CocAction('runCommand', 'jest.projectTest')
+        command! -nargs=0 JestCurrent    :call CocAction('runCommand', 'jest.fileTest', ['%'])
+        command! -nargs=0 JestSingleTest :call CocAction('runCommand', 'jest.singleTest')
+        command! JestInit :call CocAction('runCommand', 'jest.init')
+
+        aug JestCoc
+          au!
+          au FileType javascript,typescript nmap <buffer> <leader>tp :Jest<CR>
+          au FileType javascript,typescript nmap <buffer> <leader>tt :JestCurrent<CR>
+        aug END
+      '';
+    }
 
     # Markdown
     coc-markdownlint

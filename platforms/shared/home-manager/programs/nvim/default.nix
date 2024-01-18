@@ -160,7 +160,15 @@ in
                   \     'test/*_test.clj':
                   \       {'type': 'test', 'alternate': 'src/{}.clj', 'template': ['(ns {dot|hyphenate}-test)']},
                   \   },
+                  \   'package.json': {
+                  \     'src/*.ts':
+                  \       {'type': 'source', 'alternate': 'test/{}.spec.ts'},
+                  \     'test/*.spec.ts':
+                  \       {'type': 'test', 'alternate': 'src/{}.ts'},
+                  \   },
                   \ }
+
+            nmap <leader>gt :A<CR>
           '';
         }
         {
@@ -205,8 +213,7 @@ in
             aug VimIced
               au!
               au FileType clojure nmap <buffer> <leader>e! <Plug>(iced_eval_and_comment)<Plug>(sexp_outer_list)
-              au FileType clojure nmap <buffer> <leader>gtt <Plug>(iced_cycle_src_and_test)
-              au FileType clojure nmap <buffer> <leader>gt :vs<CR><Plug>(iced_cycle_src_and_test)
+              au FileType clojure nmap <buffer> <leader>gt <Plug>(iced_cycle_src_and_test)
             aug end
           '';
         }
