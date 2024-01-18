@@ -8,8 +8,8 @@
   "rectangle"
 
   # Development Tools
+  "bruno"
   "homebrew/cask/docker"
-  "insomnia"
   "macdown"
   "intellij-idea"
 

@@ -9,7 +9,7 @@
     { path = "/Applications/Firefox.app/"; }
     { path = "/${pkgs.wezterm}/Applications/WezTerm.app/"; }
     { path = "/Applications/Google Chrome.app/"; }
-    { path = "/Applications/IntelliJ IDEA.app/"; }
+    { path = "/Applications/Bruno.app/"; }
     {
       path = "${config.users.users.${userData.user}.home}/Downloads";
       section = "others";
