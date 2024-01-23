@@ -155,10 +155,12 @@
     endfunction
 
     " format
+    command! -nargs=0 OrganizeImports :call CocActionAsync('runCommand', 'editor.action.organizeImport')
     command! -nargs=0 Format :call CocActionAsync('format')
     nmap <silent> <leader>ff :Format<CR>
-    vmap <leader>f  <Plug>(coc-format-selected)
-    nmap <leader>f  <Plug>(coc-format-selected)
+    vmap <leader>f <Plug>(coc-format-selected)
+    nmap <leader>f <Plug>(coc-format-selected)
+    nmap <silent> <leader>fo :OrganizeImports<CR>
 
     " quickfix
     nmap <leader>qfq  <Plug>(coc-codeaction-cursor)
