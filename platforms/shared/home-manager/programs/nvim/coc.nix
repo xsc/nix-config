@@ -14,7 +14,12 @@
     {
       plugin = coc-prettier;
       config = ''
+        function! DisablePrettier()
+          call coc#config('prettier.enabled', 0)
+        endfu
+
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
+        command! -nargs=0 DisablePrettier :call DisablePrettier()
       '';
     }
     coc-tsserver
@@ -157,6 +162,8 @@
     " format
     command! -nargs=0 OrganizeImports :call CocActionAsync('runCommand', 'editor.action.organizeImport')
     command! -nargs=0 Format :call CocActionAsync('format')
+    command! -nargs=0 NoFormat :call coc#config('coc.preferences.formatOnSave', 0)
+
     nmap <silent> <leader>ff :Format<CR>
     vmap <leader>f <Plug>(coc-format-selected)
     nmap <leader>f <Plug>(coc-format-selected)

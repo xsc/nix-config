@@ -79,6 +79,7 @@ with pkgs; [
   python311Packages.pip
   python311Packages.pylint
   python311Packages.watchdog
+  python311Packages.virtualenv
   pipenv
   pipx
 
