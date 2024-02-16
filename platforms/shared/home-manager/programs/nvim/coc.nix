@@ -84,7 +84,7 @@
     # Language Servers
     "languageserver" = {
       "nix" = {
-        "command" = "nixd";
+        "command" = "${pkgs.nixd}/bin/nixd";
         "filetypes" = [ "nix" ];
       };
       "kotlin" = {
