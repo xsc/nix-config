@@ -162,7 +162,7 @@
     " format
     command! -nargs=0 OrganizeImports :call CocActionAsync('runCommand', 'editor.action.organizeImport')
     command! -nargs=0 Format :call CocActionAsync('format')
-    command! -nargs=0 NoFormat :call coc#config('coc.preferences.formatOnSave', 0)
+    command! -nargs=0 WriteNoFormat :noa w
 
     nmap <silent> <leader>ff :Format<CR>
     vmap <leader>f <Plug>(coc-format-selected)
