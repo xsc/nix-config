@@ -12,10 +12,22 @@ let
     version = vim-iced-pkg.rev;
     src = vim-iced-pkg;
   };
+  everforest-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "everforest-nvim";
+    version = "eedb19079c6bf9d162f74a5c48a6d2759f38cc76";
+    src = pkgs.fetchFromGitHub {
+      owner = "neanias";
+      repo = "everforest-nvim";
+      rev = "eedb19079c6bf9d162f74a5c48a6d2759f38cc76";
+      sha256 = "sha256-/k6VBzXuap8FTqMij7EQCh32TWaDPR9vAvEHw20fMCo=";
+    };
+  };
 in
 (final: prev: {
   # Vim Plugins
-  vimPlugins = prev.vimPlugins.extend (final': prev': { inherit vim-iced; });
+  vimPlugins = prev.vimPlugins.extend (final': prev': {
+    inherit vim-iced everforest-nvim;
+  });
 
   # iced-repl: REPL binary only
   iced-repl = pkgs.stdenv.mkDerivation {

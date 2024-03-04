@@ -9,7 +9,7 @@ in
     background = "dark";
     colorscheme = {
       name = "everforest";
-      pluginName = "everforest";
+      pluginName = "everforest-nvim";
     };
     lightline = "ayu_mirage";
   };

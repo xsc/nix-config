@@ -58,9 +58,32 @@ in
           plugin = vim-lightline-coc;
           config = "call lightline#coc#register()";
         }
+        rainbow-delimiters-nvim
+
+        # Treesitter
         {
-          plugin = rainbow;
-          config = "let g:rainbow_active = 1";
+          plugin = nvim-treesitter;
+          config = ''
+            lua << EOF
+            require("nvim-treesitter.configs").setup({
+                highlight = {
+                    enable = true,
+                },
+            })
+            EOF
+          '';
+        }
+        nvim-treesitter-parsers.groovy
+        nvim-treesitter-parsers.javascript
+        nvim-treesitter-parsers.json
+        nvim-treesitter-parsers.jsonc
+        nvim-treesitter-parsers.kotlin
+        nvim-treesitter-parsers.markdown_inline
+        nvim-treesitter-parsers.nix
+        nvim-treesitter-parsers.typescript
+        {
+          plugin = nvim-treesitter-parsers.yaml;
+          config = "au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab";
         }
 
         # Format & Move
@@ -221,28 +244,7 @@ in
         vim-sexp-mappings-for-regular-people
 
         # JS/TS
-        vim-javascript
-        typescript-vim
         vim-jsx-pretty
-
-        # Kotlin
-        kotlin-vim
-
-        # Nix
-        vim-nix
-
-        # Others
-        {
-          plugin = vim-markdown;
-          config = ''
-            au FileType markdown :set textwidth=80
-            let g:vim_markdown_folding_disabled = 1
-          '';
-        }
-        {
-          plugin = vim-yaml;
-          config = "au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab";
-        }
       ] ++ cocConfig.plugins;
 
     extraConfig = lib.fileContents ./init.vim;
