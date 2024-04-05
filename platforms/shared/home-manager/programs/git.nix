@@ -47,8 +47,8 @@
 
       # pull/rebase
       autosquash = "-c core.editor=true rebase -i --autosquash";
-      rbm = "rebase -i --autosquash main";
-      sqm = "!git autosquash main";
+      rbm = "rebase -i --autosquash origin/main";
+      sqm = "!git autosquash origin/main";
       ffs = "!git upr && git push";
       rebase-date = "rebase --ignore-date";
       up = "pull --ff-only --all -p";
