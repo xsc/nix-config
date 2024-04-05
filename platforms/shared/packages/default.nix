@@ -64,6 +64,7 @@ with pkgs; [
 
   # Kotlin
   kotlin-language-server
+  ktlint
 
   # Markdown
   markdownlint-cli2

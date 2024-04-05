@@ -78,6 +78,7 @@
       "yaml"
       "javascript"
       "typescript"
+      "kotlin"
     ];
     "suggest.noselect" = true;
 
@@ -90,6 +91,11 @@
       "kotlin" = {
         "command" = "${pkgs.kotlin-language-server}/bin/kotlin-language-server";
         "filetypes" = [ "kotlin" ];
+        "disabledFeatures" = [
+          "documentFormatting"
+          "documentRangeFormatting"
+          "documentOnTypeFormatting"
+        ];
       };
     };
 
@@ -122,6 +128,17 @@
       };
     };
     "diagnostic-languageserver.filetypes" = { "clojure" = "clj_kondo_lint"; };
+
+    "diagnostic-languageserver.formatters" = {
+      "ktlint" = {
+        "command" = "${pkgs.ktlint}/bin/ktlint";
+        "args" = [ "--format" "--stdin" "%filepath" ];
+        "rootPatterns" = [
+          "build.gradle.kts"
+        ];
+      };
+    };
+    "diagnostic-languageserver.formatFiletypes" = { "kotlin" = "ktlint"; };
 
     # Markdown
     "markdownlint.config" = {
