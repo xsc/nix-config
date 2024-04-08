@@ -78,7 +78,6 @@
       "yaml"
       "javascript"
       "typescript"
-      "kotlin"
     ];
     "suggest.noselect" = true;
 
