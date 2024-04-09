@@ -95,6 +95,17 @@
           "documentRangeFormatting"
           "documentOnTypeFormatting"
         ];
+        "settings" = {
+          # This is an attempt to address 'Cannot inline bytecode built with JVM
+          # target 17 into bytecode [...]' errors in Kotlin projects.
+          "kotlin" = {
+            "compiler" = {
+              "jvm" = {
+                "target" = "17";
+              };
+            };
+          };
+        };
       };
     };
 
