@@ -9,6 +9,7 @@ let
   alfredGalleryWorkflows = with pkgs.alfredGallery; [
     emoji-search
     spotify-mini-player
+    timer
   ];
   alfredCustomWorkflows = with pkgs.alfredUtils; [
     # bitwarden
