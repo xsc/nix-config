@@ -4,6 +4,7 @@ with pkgs; [
 
   # General packages for development and system management
   coreutils
+  gnused
   killall
   openssh
   pandoc
