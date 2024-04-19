@@ -47,8 +47,8 @@
 
       # pull/rebase
       autosquash = "-c core.editor=true rebase -i --autosquash";
-      rbm = "rebase -i --autosquash origin/main";
-      sqm = "!git autosquash origin/main";
+      rbm = "!git rebase -i --autosquash origin/$(git main-branch)";
+      sqm = "!git autosquash origin/$(git main-branch)";
       ffs = "!git upr && git push";
       rebase-date = "rebase --ignore-date";
       up = "pull --ff-only --all -p";
@@ -106,6 +106,7 @@
         log --pretty=format:"%C(yellow)%h%Cred%d\ %Creset%s%Cblue\ [%cn]" --decorate --numstat -n 1 -p --full-diff'';
 
       # others
+      main-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4";
       space = ''
         !f() {
           local value="$1";
