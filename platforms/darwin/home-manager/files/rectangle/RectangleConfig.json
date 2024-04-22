@@ -52,6 +52,9 @@
     "doubleClickTitleBar" : {
       "int" : 0
     },
+    "doubleClickTitleBarIgnoredApps" : {
+
+    },
     "doubleClickTitleBarRestore" : {
       "int" : 0
     },
@@ -220,18 +223,10 @@
   },
   "shortcuts" : {
     "centerHalf" : {
-      "keyCode" : 46,
-      "modifierFlags" : 393216
-    },
-    "firstTwoThirds" : {
-      "keyCode" : 37,
-      "modifierFlags" : 393216
-    },
-    "lastFourth" : {
       "keyCode" : 14,
       "modifierFlags" : 393216
     },
-    "lastThird" : {
+    "lastFourth" : {
       "keyCode" : 32,
       "modifierFlags" : 393216
     },
@@ -240,7 +235,7 @@
       "modifierFlags" : 393216
     },
     "maximize" : {
-      "keyCode" : 34,
+      "keyCode" : 49,
       "modifierFlags" : 393216
     },
     "nextDisplay" : {
@@ -256,7 +251,7 @@
       "modifierFlags" : 786432
     },
     "rightHalf" : {
-      "keyCode" : 4,
+      "keyCode" : 34,
       "modifierFlags" : 393216
     },
     "toggleTodo" : {
@@ -264,5 +259,5 @@
       "modifierFlags" : 786432
     }
   },
-  "version" : "80"
+  "version" : "81"
 }
