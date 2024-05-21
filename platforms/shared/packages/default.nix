@@ -38,6 +38,7 @@ with pkgs; [
   wezterm
 
   # Development Tools
+  k6
   vscode
 
   # Communication
