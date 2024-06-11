@@ -36,6 +36,8 @@
       cl = "clone";
       lgtm = "-c core.editor=true merge -S --no-ff";
       st = "status -sb";
+      addrx = ''
+        !f() { git diff -U0 | grepdiff -E $1 --output-matching=hunk | git apply --cached --unidiff-zero; }; f'';
 
       # merge
       merged-when = ''

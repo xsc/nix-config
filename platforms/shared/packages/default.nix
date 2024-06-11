@@ -30,6 +30,7 @@ with pkgs; [
   htop
   jq
   kanata-custom
+  patchutils_0_4_2
   ripgrep
   tldr
   tmux
