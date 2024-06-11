@@ -39,6 +39,7 @@ with pkgs; [
 
   # Development Tools
   k6
+  scrcpy
   vscode
 
   # Communication
