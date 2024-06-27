@@ -26,6 +26,7 @@ with pkgs; [
   bat
   cowsay
   diff-so-fancy
+  fx
   fzf
   htop
   jq
