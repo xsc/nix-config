@@ -13,10 +13,24 @@ in
 {
   age.identityPaths = [ "${home}/.ssh/keys/id_ed25519_agenix" ];
 
+  age.secrets."ssh_config" = {
+    symlink = true;
+    path = "${home}/.ssh/config.d/ssh_config";
+    file = "${secrets}/ssh_config.age";
+    mode = "600";
+  } // owns;
+
   age.secrets."id_ed25519_github" = {
     symlink = true;
     path = "${home}/.ssh/keys/id_ed25519_github";
     file = "${secrets}/id_ed25519_github.age";
+    mode = "600";
+  } // owns;
+
+  age.secrets."id_rsa_tado_bastion" = {
+    symlink = true;
+    path = "${home}/.ssh/keys/id_rsa_tado_bastion";
+    file = "${secrets}/id_rsa_tado_bastion.age";
     mode = "600";
   } // owns;
 
