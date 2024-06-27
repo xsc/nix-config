@@ -47,8 +47,7 @@
     ++ (import ./packages { inherit pkgs; });
 
   # Enable fonts dir
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [ fira-code fira-code-nerdfont monaspace ];
+  fonts.packages = with pkgs; [ fira-code fira-code-nerdfont monaspace ];
 
   system = {
     stateVersion = 4;

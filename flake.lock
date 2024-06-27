@@ -139,11 +139,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713946171,
-        "narHash": "sha256-lc75rgRQLdp4Dzogv5cfqOg6qYc5Rp83oedF2t0kDp8=",
+        "lastModified": 1719128254,
+        "narHash": "sha256-I7jMpq0CAOZA/i70+HDQO/ulLttyQu/K70cSESiMX7A=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "230a197063de9287128e2c68a7a4b0cd7d0b50a7",
+        "rev": "50581970f37f06a4719001735828519925ef8310",
         "type": "github"
       },
       "original": {
@@ -603,11 +603,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1702210900,
-        "narHash": "sha256-9mwTuzSg9w6hWVr1IEK1pA6LRnRdq+zsPJLRPHdXg5g=",
+        "lastModified": 1719471639,
+        "narHash": "sha256-FtXfUqkKnu3IWZ09cy0Es2NuqoPpupjGe9l1JrEMrLc=",
         "ref": "refs/heads/main",
-        "rev": "e092d61af72afcf1712be2fad38de057974a043f",
-        "revCount": 3,
+        "rev": "c1a95dd68d381be90ac06a4b7925201221947531",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/xsc/nix-secrets.git"
       },
