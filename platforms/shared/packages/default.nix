@@ -14,11 +14,9 @@ with pkgs; [
   # Encryption and security tools
   age
   age-plugin-yubikey
-  bitwarden-cli
   gnupg
   libfido2
   nextdns
-  pinentry
   yubikey-manager
 
   # Text and terminal utilities

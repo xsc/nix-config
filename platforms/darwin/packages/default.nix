@@ -12,20 +12,6 @@ let
     timer
   ];
   alfredCustomWorkflows = with pkgs.alfredUtils; [
-    # bitwarden
-    (mkAlfredWorkflow
-      rec {
-        name = "bitwarden";
-        owner = "blacs30";
-        version = "3.0.4";
-
-        src = fetchGithubRelease {
-          inherit version owner;
-          repo = "bitwarden-alfred-workflow";
-          hash = "sha256-05xT4pt/R4ZgAcZ1dhadU/5z/uauG7JDAOKAW4SNVxQ=";
-        };
-      })
-
     # hue
     (mkAlfredWorkflow
       rec {
