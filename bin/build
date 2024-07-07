@@ -10,10 +10,11 @@ cd ..
 SYSTEM=$(uname)
 
 build() {
-    if [ $SYSTEM == "Darwin" ]; then
+    if [ "$SYSTEM" = "Darwin" ]; then
        ./bin/darwin-build $args
-    elif [ $SYSTEM == "Linux" ]; then
-       ./bin/nixos-build $args
+    elif [ "$SYSTEM" = "Linux" ]; then
+       home-manager switch --flake .#$(hostname)
+       systemctl --user restart agenix.service
     else
        echo "Unknown platform"
     fi
