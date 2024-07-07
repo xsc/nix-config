@@ -34,6 +34,13 @@ in
     mode = "600";
   } // owns;
 
+  age.secrets."id_ed25519_contabo" = {
+    symlink = true;
+    path = "${home}/.ssh/keys/id_ed25519_contabo";
+    file = "${secrets}/id_ed25519_contabo.age";
+    mode = "600";
+  } // owns;
+
   age.secrets."credentials.clj.gpg" = {
     symlink = true;
     path = "${home}/.lein/credentials.clj.gpg";
