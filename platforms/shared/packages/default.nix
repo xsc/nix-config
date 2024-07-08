@@ -38,6 +38,7 @@ with pkgs; [
   wezterm
 
   # Media Utilities
+  duplicity
   exiftool
   ffmpeg_7
 
