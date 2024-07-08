@@ -41,6 +41,8 @@ with pkgs; [
   duplicity
   exiftool
   ffmpeg_7
+  immich-cli
+  immich-go
 
   # Development Tools
   k6
