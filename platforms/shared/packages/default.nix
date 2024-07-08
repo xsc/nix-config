@@ -37,6 +37,10 @@ with pkgs; [
   unzip
   wezterm
 
+  # Media Utilities
+  exiftool
+  ffmpeg_7
+
   # Development Tools
   k6
   scrcpy
@@ -64,6 +68,7 @@ with pkgs; [
   # JS/TS
   nodejs_18
   nodePackages.prettier
+  yarn
 
   # Kotlin
   kotlin-language-server
