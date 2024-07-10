@@ -139,6 +139,37 @@
         }
       );
 
+      # NixOS Systems
+      nixosSystems = with flake-utils.lib.system; [
+        x86_64-linux
+        aarch64-linux
+      ];
+      nixosHosts = [ "condor" ];
+      mkNixosSystem = system: host:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          userData = import ./user.nix { inherit pkgs; };
+          theme = import ./theme.nix { };
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = inputs // { inherit userData theme; };
+          modules = [
+            agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            ./hosts/${host}
+          ];
+        };
+      nixosConfigurations = flake-utils.lib.eachSystem nixosSystems (system:
+        let lib = nixpkgs.legacyPackages.${system}.lib;
+        in
+        {
+          packages = {
+            nixosConfigurations = lib.genAttrs nixosHosts (host: mkNixosSystem system host);
+          };
+        }
+      );
+
       # Development Shells
       mkDevShells = system:
         let
@@ -163,6 +194,6 @@
         (system: { devShells = mkDevShells system; });
     in
     devShells // {
-      packages = darwinConfigurations.packages // linuxConfigurations.packages;
+      packages = darwinConfigurations.packages // linuxConfigurations.packages // nixosConfigurations.packages;
     };
 }
