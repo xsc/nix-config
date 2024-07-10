@@ -4,14 +4,12 @@
 
   age.secrets."duplicity.gpg" = {
     file = "${secrets}/hosts/duplicity.gpg.age";
-    group = "duplicity";
-    mode = "440";
+    mode = "400";
   };
 
   age.secrets."duplicity.env" = {
     file = "${secrets}/hosts/duplicity.env.age";
-    group = "duplicity";
-    mode = "440";
+    mode = "400";
   };
 
   age.secrets."immich.env" = {
