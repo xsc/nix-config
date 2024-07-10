@@ -57,6 +57,17 @@ in
         (importShared "git")
         (importShared "nvim")
         (importPkg ./zsh.nix)
+        {
+          gpg = {
+            enable = true;
+            publicKeys = [
+              {
+                source = config.age.secrets."duplicity.gpg".path;
+                trust = 4;
+              }
+            ];
+          };
+        }
       ];
       home.packages = packages;
       home.stateVersion = "24.05";

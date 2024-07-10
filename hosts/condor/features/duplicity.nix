@@ -1,39 +1,5 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 {
-
-  # Users/Groups
-  users.groups.duplicity = { };
-  users.users.duplicity = {
-    isNormalUser = true;
-    group = "duplicity";
-    shell = pkgs.zsh;
-    extraGroups = [ "immich" ];
-  };
-
-  # Environment for User
-  home-manager.users.duplicity = { pkgs, ... }: {
-    programs = {
-      gpg = {
-        enable = true;
-        publicKeys = [
-          {
-            source = config.age.secrets."duplicity.gpg".path;
-            trust = 4;
-          }
-        ];
-      };
-      zsh = {
-        enable = true;
-      };
-    };
-    home.packages = with pkgs; [
-      duply
-      duplicity
-    ];
-    home.stateVersion = "24.05";
-  };
-
-  # Backup Job
   systemd.services."duplicity-immich-backup" =
     let
       configFile = pkgs.writeText "conf" ''
@@ -59,8 +25,6 @@
       '';
       serviceConfig = {
         Type = "oneshot";
-        User = "duplicity";
-        Group = "duplicity";
       };
       startAt = "*-*-* 02/6:00:00";
     };
