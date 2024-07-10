@@ -62,7 +62,7 @@
         User = "duplicity";
         Group = "duplicity";
       };
-      startAt = "* *-*-* */6:*:*";
+      startAt = "*-*-* 02/6:00:00";
     };
 }
 
