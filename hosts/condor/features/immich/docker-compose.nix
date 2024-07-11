@@ -1,14 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
+  version = "v1.108.0";
   dataDir = "/var/immich";
   environment = {
     DB_DATABASE_NAME = "immich";
-    DB_DATA_LOCATION = "${dataDir}/postgres";
     DB_USERNAME = "postgres";
-    IMMICH_VERSION = "release";
+    IMMICH_VERSION = "${version}";
     TZ = "Etc/UTC";
-    UPLOAD_LOCATION = "${dataDir}/library";
   };
   environmentFiles = [
     config.age.secrets."immich.env".path
@@ -18,7 +17,7 @@ in
   # Containers
   virtualisation.oci-containers.containers."immich_machine_learning" = {
     inherit environment environmentFiles;
-    image = "ghcr.io/immich-app/immich-machine-learning:release";
+    image = "ghcr.io/immich-app/immich-machine-learning:${version}";
     volumes = [
       "immich_model-cache:/cache:rw"
     ];
@@ -123,7 +122,7 @@ in
   };
   virtualisation.oci-containers.containers."immich_server" = {
     inherit environment environmentFiles;
-    image = "ghcr.io/immich-app/immich-server:release";
+    image = "ghcr.io/immich-app/immich-server:${version}";
     volumes = [
       "${dataDir}/library:/usr/src/app/upload:rw"
     ];
