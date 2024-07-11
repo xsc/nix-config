@@ -21,7 +21,7 @@
         mkdir -p /tmp/duply
         cp -f ${configFile} /tmp/duply/conf
         cp -f ${excludeFile} /tmp/duply/exclude
-        duply /tmp/duply backup
+        duply /tmp/duply backup_verify_purge --force
       '';
       serviceConfig = {
         Type = "oneshot";
