@@ -21,7 +21,7 @@
       excludeFile = pkgs.writeText "exclude" "";
     in
     {
-      path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils ];
+      path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils pkgs.bash ];
       script = ''
         mkdir -p /tmp/duply
         cp -f ${configFile} /tmp/duply/conf
