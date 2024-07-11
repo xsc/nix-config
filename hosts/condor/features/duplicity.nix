@@ -12,6 +12,11 @@
         # Source -> Target
         TARGET="b2://''${B2_KEY_ID}:''${B2_APPLICATION_KEY}@''${B2_BUCKET_NAME}/condor/immich"
         SOURCE='/var/immich'
+
+        # Backup Options
+        MAX_AGE=3M
+        MAX_FULLBKP_AGE=1M
+        DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE}"
       '';
       excludeFile = pkgs.writeText "exclude" "";
     in
