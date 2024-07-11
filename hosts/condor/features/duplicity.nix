@@ -23,10 +23,12 @@
     {
       path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils pkgs.bash ];
       script = ''
+        set -eu
         mkdir -p /tmp/duply
         cp -f ${configFile} /tmp/duply/conf
         cp -f ${excludeFile} /tmp/duply/exclude
-        duply /tmp/duply backup_verify_purge --force
+        duply /tmp/duply backup
+        duply /tmp/duply purge --force
       '';
       serviceConfig = {
         Type = "oneshot";
