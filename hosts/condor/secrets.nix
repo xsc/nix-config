@@ -18,7 +18,7 @@
     mode = "440";
   };
 
-  age.secrets."cloudflared.pem" = {
+  age.secrets."cloudflared.json" = {
     file = "${secrets}/hosts/cloudflared.condor.age";
     group = "cloudflared";
     mode = "440";

@@ -3,8 +3,8 @@
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "f3758bba-06e1-42dc-b269-e60829593e62" = {
-        credentialsFile = "${config.age.secrets."cloudflared.pem".path}";
+      "7989c7f2-e234-47a6-85fa-a74e1f3b9a0b" = {
+        credentialsFile = "${config.age.secrets."cloudflared.json".path}";
         default = "http_status:404";
         ingress = {
           "photos.xsc.dev" = {
