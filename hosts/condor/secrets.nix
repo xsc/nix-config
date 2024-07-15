@@ -17,4 +17,10 @@
     group = "immich";
     mode = "440";
   };
+
+  age.secrets."cloudflared.pem" = {
+    file = "${secrets}/hosts/cloudflared.condor.age";
+    group = "cloudflared";
+    mode = "440";
+  };
 }
