@@ -33,6 +33,13 @@ in
   virtualisation.docker.enable = true;
   virtualisation.oci-containers.backend = "docker";
 
+  # Security
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;
+    bantime = "24h";
+  };
+
   # Root User
   users.users.root = {
     shell = pkgs.zsh;
