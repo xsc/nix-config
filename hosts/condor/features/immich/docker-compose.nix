@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  version = "v1.108.0";
+  version = "v1.109.2";
   dataDir = "/var/immich";
   environment = {
     DB_DATABASE_NAME = "immich";
