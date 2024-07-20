@@ -10,6 +10,9 @@
           "photos.xsc.dev" = {
             service = "http://localhost:2283";
           };
+          "md.xsc.dev" = {
+            service = "http://localhost:2284";
+          };
         };
       };
     };
