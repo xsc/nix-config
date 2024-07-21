@@ -23,4 +23,10 @@
     group = "cloudflared";
     mode = "440";
   };
+
+  age.secrets."smtp2go.pwd" = {
+    file = "${secrets}/hosts/smtp2go.condor.age";
+    group = "msmtp";
+    mode = "440";
+  };
 }
