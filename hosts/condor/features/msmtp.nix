@@ -4,6 +4,7 @@
   users.users.msmtp = {
     group = "msmtp";
     isNormalUser = true;
+    extraGroups = [ "systemd-journal" ];
   };
 
   home-manager.users.msmtp = { ... }: {
@@ -39,9 +40,16 @@
 
         MESSAGE=$(cat <<EOM
         To: infra@xsc.dev
+        Content-Type: text/plain; charset=utf-8
         Subject: [systemd] failed: $1
 
+        Status
+        =======
         $(SYSTEMD_COLORS=false systemctl status "$1")
+
+        Journal
+        =======
+        $(SYSTEMD_COLORS=false journalctl -n 25 -xeu "$1")
         EOM
         )
 

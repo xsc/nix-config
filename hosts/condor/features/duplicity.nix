@@ -16,7 +16,7 @@
         # Backup Options
         MAX_AGE=3M
         MAX_FULLBKP_AGE=1M
-        DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE}"
+        DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
       '';
       excludeFile = pkgs.writeText "exclude" "";
     in
@@ -34,7 +34,7 @@
         Type = "oneshot";
       };
       unitConfig = {
-        OnFailure="notify-failure@%i.service";
+        OnFailure = "notify-failure@%i.service";
       };
       startAt = "*-*-* 02/6:00:00";
     };
