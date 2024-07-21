@@ -5,6 +5,7 @@ with pkgs; [
   duply
   duplicity
   fzf
+  gotop
   nixpkgs-fmt
   wget
 ]
