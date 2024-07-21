@@ -54,7 +54,7 @@ in
     unitConfig = {
       OnFailure = "notify-failure@%i.service";
     };
-    startAt = "Mon *-*-* 02:00:00";
+    startAt = "* *-*-01 02:00:00";
   };
 }
 
