@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  users.groups.msmtp = {};
+  users.groups.msmtp = { };
   users.users.msmtp = {
     group = "msmtp";
     isNormalUser = true;
@@ -30,4 +30,31 @@
 
     home.stateVersion = "24.05";
   };
+
+  systemd.services."notify-failure@" =
+    let
+      notifyScript = pkgs.writeScript "notify" ''
+        #!${pkgs.bash}/bin/bash
+        set -eu
+
+        MESSAGE=$(cat <<EOM
+        To: infra@xsc.dev
+        Subject: [systemd] failed: $1
+
+        $(SYSTEMD_COLORS=false systemctl status "$1")
+        EOM
+        )
+
+        echo -n "$MESSAGE" | ${pkgs.msmtp}/bin/msmtp --account smtp2go --read-recipients
+      '';
+    in
+    {
+      enable = true;
+      serviceConfig = {
+        Type = "oneshot";
+        User = "msmtp";
+        Group = "msmtp";
+        ExecStart = "${notifyScript} %i";
+      };
+    };
 }

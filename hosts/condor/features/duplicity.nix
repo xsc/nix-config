@@ -33,6 +33,9 @@
       serviceConfig = {
         Type = "oneshot";
       };
+      unitConfig = {
+        OnFailure="notify-failure@%i.service";
+      };
       startAt = "*-*-* 02/6:00:00";
     };
 }
