@@ -13,6 +13,9 @@
           "md.xsc.dev" = {
             service = "http://localhost:2284";
           };
+          "vaultwarden.xsc.dev" = {
+            service = "http://localhost:2285";
+          };
         };
       };
     };

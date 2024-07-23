@@ -29,4 +29,9 @@
     group = "msmtp";
     mode = "440";
   };
+
+  age.secrets."vaultwarden.env" = {
+    file = "${secrets}/hosts/vaultwarden.env.age";
+    mode = "400";
+  };
 }

@@ -23,8 +23,8 @@
       smtp.port = 2525;
 
       primary = true;
-      address = "noreply@photos.xsc.dev";
-      userName = "photos.xsc.dev";
+      address = "noreply@condor.xsc.dev";
+      userName = "condor.xsc.dev";
       passwordCommand =
         "${pkgs.coreutils}/bin/cat ${config.age.secrets."smtp2go.pwd".path}";
     };
