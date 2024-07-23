@@ -24,7 +24,7 @@
         action = "action-ban-vaultwarden";
         maxretry = 3;
         findtime = 300;
-        bantime = 60;
+        bantime = "24h";
         journalmatch = "_SYSTEMD_UNIT=vaultwarden.service";
       };
     in
