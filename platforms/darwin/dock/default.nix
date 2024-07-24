@@ -1,4 +1,4 @@
-{ config, pkgs, userData, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ./options.nix ];
@@ -11,7 +11,7 @@
     { path = "/Applications/Google Chrome.app/"; }
     { path = "/Applications/Bruno.app/"; }
     {
-      path = "${config.users.users.${userData.user}.home}/Downloads";
+      path = "~/Downloads";
       section = "others";
       options = "--sort dateadded --view fan --display stack";
     }

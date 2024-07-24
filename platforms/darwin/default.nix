@@ -4,7 +4,7 @@
   imports = [
     ../development
     ./packages
-    # ./dock
+    ./dock
     # ./utils/alias-apps
     ./homebrew
     ./launchd.nix
