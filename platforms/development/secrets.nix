@@ -7,12 +7,12 @@ let
     if pkgs.stdenv.isDarwin then {
       owner = "${user}";
       group = "staff";
-    } else { };
+    } else {
+      owner = "${user}";
+    };
 
 in
 {
-  age.identityPaths = [ "${home}/.ssh/keys/id_ed25519_agenix" ];
-
   age.secrets."ssh_config" = {
     symlink = true;
     path = "${home}/.ssh/config.d/ssh_config";
@@ -56,3 +56,4 @@ in
   } // owns;
 
 }
+

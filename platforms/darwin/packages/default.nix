@@ -44,8 +44,8 @@ let
       })
   ];
 in
-(
-  packages
-  ++ alfredGalleryWorkflows
-  ++ alfredCustomWorkflows
-)
+{
+  environment.systemPackages = packages
+    ++ alfredGalleryWorkflows
+    ++ alfredCustomWorkflows;
+}

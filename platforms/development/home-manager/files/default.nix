@@ -1,18 +1,17 @@
-{ pkgs, config, lib, theme, ... }@inputs:
+{ lib, ... }@inputs:
 
 let
   path = ./.;
   imports =
-    with builtins;
     map
       (n: import (path + ("/" + n)) inputs)
-      (filter
+      (builtins.filter
         (n:
           n != "default.nix" && (
-            match ".*\\.nix" n != null
-            || pathExists (path + ("/" + n + "/default.nix"))
+            builtins.match ".*\\.nix" n != null
+            || builtins.pathExists (path + ("/" + n + "/default.nix"))
           ))
-        (attrNames (readDir path)));
+        (builtins.attrNames (builtins.readDir path)));
   binImports =
     with builtins;
     map

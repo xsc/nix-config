@@ -1,24 +1,13 @@
-{ config, pkgs, lib, ... }: {
+{ pkgs, ... }: {
   zsh = {
-    enable = true;
-    autocd = false;
-    cdpath = [ "~/.local/share/src" ];
-
     shellAliases = {
       awsume = ". awsume";
-      ll = "ls -l --color=auto";
-      ls = "ls --color=auto";
       iced-repl = "iced repl with-profile +iced";
     };
 
     oh-my-zsh = {
-      enable = true;
       plugins = [
-        "git"
-        "git-prompt"
-        "gpg-agent"
         "history"
-        "z"
       ];
     };
 
@@ -79,23 +68,6 @@
       # FZF
       source "${pkgs.fzf}/share/fzf/completion.zsh"
       source "${pkgs.fzf}/share/fzf/key-bindings.zsh"
-    '';
-
-    initExtraFirst = ''
-      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-      fi
-
-      # Environment
-      export PATH=$PATH:~/.bin:/opt/homebrew/bin:~/.local/bin
-      export LC_ALL=en_US.UTF-8
-      export LANG=en_US.UTF-8
-
-      # Clear
-      zsh_clear() { command clear; zle redisplay; }
-      zle -N zsh_clear
-      bindkey -M viins '^@' zsh_clear
     '';
   };
 }

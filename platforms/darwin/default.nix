@@ -2,15 +2,24 @@
 
 {
   imports = [
-    ../shared
+    ../development
+    ./packages
     ./dock
     ./utils/alias-apps
     ./homebrew
-    ./home-manager
     ./launchd.nix
     agenix.darwinModules.default
     alfred.darwinModules.activateWorkflows
   ];
+
+  platform = {
+    users = [ "${userData.user}" ];
+    extraOpts = {
+      home.stateVersion = "21.11";
+      manual.manpages.enable = true;
+      launchd.enable = true;
+    };
+  };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -30,21 +39,12 @@
       };
       options = "--delete-older-than 30d";
     };
-
-    # Turn this on to make command line easier
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
   };
+
+  nixpkgs.overlays = [alfred.overlays.default];
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
-
-  # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs;
-    [ agenix.packages."${pkgs.system}".default ]
-    ++ (import ../shared/packages { inherit pkgs; })
-    ++ (import ./packages { inherit pkgs; });
 
   # Enable fonts dir
   fonts.packages = with pkgs; [ fira-code fira-code-nerdfont monaspace ];
