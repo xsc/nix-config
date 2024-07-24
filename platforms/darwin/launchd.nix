@@ -1,4 +1,4 @@
-{ config, pkgs, userData, ... }:
+{ config, pkgs, ... }:
 
 let
   logs = "/var/log/nixos-launchd";

@@ -39,7 +39,6 @@
     };
 
     # overlays
-    alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
     alfred.url = "github:xsc/alfred-workflows-nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
@@ -56,7 +55,6 @@
     , agenix
     , flake-utils
     , secrets
-    , alacritty-theme
     , alfred
     , nix-vscode-extensions
     }@inputs:
@@ -71,13 +69,11 @@
       mkDarwinSystem = system: host:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          userData = import ./user.nix { inherit pkgs; };
-          theme = import ./theme.nix { };
         in
         darwin.lib.darwinSystem {
           inherit system;
 
-          specialArgs = inputs // { inherit userData theme; };
+          specialArgs = inputs;
           modules = [
             nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
@@ -85,7 +81,7 @@
               nix-homebrew =
                 {
                   enable = true;
-                  user = "${userData.user}";
+                  user = "yannick.scherer";
                   taps = {
                     "homebrew/homebrew-core" = homebrew-core;
                     "homebrew/homebrew-cask" = homebrew-cask;
@@ -109,36 +105,6 @@
         }
       );
 
-      # Linux Systems
-      linuxSystems = with flake-utils.lib.system; [
-        x86_64-linux
-        aarch64-linux
-      ];
-      linuxHosts = [ "llama" ];
-      mkLinuxSystem = system: host:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          userData = import ./user.nix { inherit pkgs; };
-          theme = import ./theme.nix { };
-        in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          extraSpecialArgs = inputs // { inherit userData theme; };
-          modules = [
-            ./hosts/${host}
-          ];
-        };
-      linuxConfigurations = flake-utils.lib.eachSystem linuxSystems (system:
-        let lib = nixpkgs.legacyPackages.${system}.lib;
-        in
-        {
-          packages = {
-            homeConfigurations = lib.genAttrs linuxHosts (host: mkLinuxSystem system host);
-          };
-        }
-      );
-
       # NixOS Systems
       nixosSystems = with flake-utils.lib.system; [
         x86_64-linux
@@ -148,12 +114,10 @@
       mkNixosSystem = system: host:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          userData = import ./user.nix { inherit pkgs; };
-          theme = import ./theme.nix { };
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = inputs // { inherit userData theme; };
+          specialArgs = inputs;
           modules = [
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
@@ -194,6 +158,6 @@
         (system: { devShells = mkDevShells system; });
     in
     devShells // {
-      packages = darwinConfigurations.packages // linuxConfigurations.packages // nixosConfigurations.packages;
+      packages = darwinConfigurations.packages // nixosConfigurations.packages;
     };
 }

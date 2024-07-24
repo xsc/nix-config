@@ -1,4 +1,4 @@
-{ userData, ... }:
+{ ... }:
 
 let logs = "/var/log/nixos-launchd"; in
 {

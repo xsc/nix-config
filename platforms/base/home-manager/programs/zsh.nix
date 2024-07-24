@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
-  zsh = {
+  programs.zsh = {
     enable = true;
     autocd = false;
     cdpath = [ "~/.local/share/src" ];
@@ -20,7 +20,7 @@
       ];
     };
 
-    initExtra = lib.mkDefault ''
+    initExtra = ''
       # VI Mode
       ZVM_INIT_MODE=sourcing
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
@@ -57,7 +57,7 @@
       source "${pkgs.fzf}/share/fzf/key-bindings.zsh"
     '';
 
-    initExtraFirst = lib.mkDefault ''
+    initExtraFirst = ''
       if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh

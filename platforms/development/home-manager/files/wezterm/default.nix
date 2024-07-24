@@ -1,16 +1,11 @@
-{ theme, pkgs, ... }:
+{ theme, ... }:
 
 let
   T = theme.wezterm;
-  fontSize =
-    if pkgs.stdenv.isDarwin
-    then
-      T.font.fontSize
-    else
-      T.font.fontSize - 1;
+  fontSize = T.font.fontSize;
 in
 {
-  ".config/wezterm/wezterm.lua" = {
+  home.file.".config/wezterm/wezterm.lua" = {
     text = ''
       local wezterm = require 'wezterm'
       local mux = wezterm.mux
@@ -43,7 +38,7 @@ in
     '';
   };
 
-  ".config/wezterm/colors/everforest-dark.toml" = {
+  home.file.".config/wezterm/colors/everforest-dark.toml" = {
     source = ./everforest-dark.toml;
   };
 }

@@ -1,8 +1,8 @@
-{ config, pkgs, lib, theme, ... }:
+{ pkgs, theme, ... }:
 
 let T = theme.vscode;
 in {
-  vscode = {
+  programs.vscode = {
     enable = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;

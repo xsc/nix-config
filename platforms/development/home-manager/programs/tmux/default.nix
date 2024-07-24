@@ -1,8 +1,8 @@
-{ config, pkgs, lib, theme, ... }:
+{ pkgs, lib, theme, ... }:
 
 let T = theme.tmux;
 in {
-  tmux = {
+  programs.tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [ sensible yank ];
     clock24 = true;

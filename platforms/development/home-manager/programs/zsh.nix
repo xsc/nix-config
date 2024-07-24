@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  zsh = {
+{ pkgs, lib, ... }: {
+  programs.zsh = {
     shellAliases = {
       awsume = ". awsume";
       iced-repl = "iced repl with-profile +iced";
@@ -11,7 +11,7 @@
       ];
     };
 
-    initExtra = ''
+    initExtra = lib.mkForce ''
       # VI Mode
       ZVM_INIT_MODE=sourcing
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh

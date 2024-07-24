@@ -23,28 +23,32 @@ let
     };
   };
 in
-(final: prev: {
-  # Vim Plugins
-  vimPlugins = prev.vimPlugins.extend (final': prev': {
-    inherit vim-iced everforest-nvim;
-  });
+{
+  nixpkgs.overlays = [
+    (final: prev: {
+      # Vim Plugins
+      vimPlugins = prev.vimPlugins.extend (final': prev': {
+        inherit vim-iced everforest-nvim;
+      });
 
-  # iced-repl: REPL binary only
-  iced-repl = pkgs.stdenv.mkDerivation {
-    name = "iced-repl";
-    version = vim-iced.version;
-    src = vim-iced-pkg;
+      # iced-repl: REPL binary only
+      iced-repl = pkgs.stdenv.mkDerivation {
+        name = "iced-repl";
+        version = vim-iced.version;
+        src = vim-iced-pkg;
 
-    # Patch the version directly into the script
-    postBuild = ''
-      sed -E -i "s/^VERSION=.+\$/VERSION=${vim-iced.version}/" bin/iced
-    '';
+        # Patch the version directly into the script
+        postBuild = ''
+          sed -E -i "s/^VERSION=.+\$/VERSION=${vim-iced.version}/" bin/iced
+        '';
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/bin
-      install -Dm755 bin/iced $out/bin/iced
-      runHook postInstall
-    '';
-  };
-})
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/bin
+          install -Dm755 bin/iced $out/bin/iced
+          runHook postInstall
+        '';
+      };
+    })
+  ];
+}

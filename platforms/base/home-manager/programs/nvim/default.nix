@@ -5,7 +5,7 @@ let
   cocConfig = import ./coc.nix { inherit pkgs; };
 in
 {
-  neovim = {
+  programs.neovim = {
     enable = true;
     withPython3 = true;
     vimAlias = true;

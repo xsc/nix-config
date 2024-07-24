@@ -1,23 +1,30 @@
-{ config, pkgs, lib, userData, theme, ... }:
+{ pkgs, ... }:
 
-let importPkg = f: import f { inherit config pkgs lib userData theme; };
-in
 {
   imports = [
     ../../platforms/darwin
   ];
 
-  # User Info
-  users.users."${userData.user}" = {
-    name = userData.user;
-    home = userData.home;
+  users.users."yannick.scherer" = {
+    name = "yannick.scherer";
+    home = "/Users/yannick.scherer";
     isHidden = false;
     shell = pkgs.zsh;
   };
 
-  home-manager.users.${userData.user} = { ... }: {
+  home-manager.users."yannick.scherer" = {
     imports = [
       ./remap-keyboard.nix
     ];
+
+    programs.git = {
+      userName = "Yannick Scherer";
+      userEmail = "yannick@xsc.dev";
+      signing = { key = "FCC8CDA4"; };
+    };
   };
+
+  age.identityPaths = [
+    "/Users/yannick.scherer/.ssh/keys/id_ed25519_agenix"
+  ];
 }

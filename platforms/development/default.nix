@@ -1,17 +1,17 @@
-{ pkgs, ... }@inputs:
+{ config, ... }:
 
-let
-  programs = pkgs.callPackage ./home-manager/programs inputs;
-  files = pkgs.callPackage ./home-manager/files inputs;
-in
 {
   imports = [
+    ../base
     ./overlays
     ./packages.nix
     ./secrets.nix
-    ../base
   ];
 
-  platform.programs = programs;
-  platform.files = files;
+  home-manager.sharedModules = [
+    ./home-manager/programs
+    ./home-manager/files
+  ];
+
+  home-manager.extraSpecialArgs.ageSecrets =  config.age.secrets;
 }

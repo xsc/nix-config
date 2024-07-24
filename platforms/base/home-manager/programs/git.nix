@@ -1,7 +1,7 @@
-{ config, pkgs, lib, userData, ... }:
+{ ... }:
 
 {
-  git = {
+  programs.git = {
     enable = true;
     ignores = [
       "*.swp"
@@ -20,8 +20,6 @@
       "/project/build.properties"
       "/tags.*"
     ];
-    userName = userData.name;
-    userEmail = userData.email;
 
     diff-so-fancy = { enable = true; };
 
@@ -114,7 +112,7 @@
           local value="$1";
           local email="";
           if [ -z "$value" ]; then
-            email="${userData.email}";
+            email="yannick@xsc.dev";
           elif [[ "$value" == *@* ]]; then
             email="$value";
           elif [[ ! "$value" == *.* ]]; then
@@ -128,8 +126,6 @@
     };
 
     lfs = { enable = true; };
-
-    signing = { key = userData.signingKey; };
 
     extraConfig = {
       init.defaultBranch = "main";

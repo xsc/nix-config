@@ -1,25 +1,24 @@
-{ agenix, alfred, userData, pkgs, ... }:
+{ agenix, alfred, pkgs, ... }:
 
 {
   imports = [
     ../development
     ./packages
-    ./dock
-    ./utils/alias-apps
+    # ./dock
+    # ./utils/alias-apps
     ./homebrew
     ./launchd.nix
     agenix.darwinModules.default
     alfred.darwinModules.activateWorkflows
   ];
 
-  platform = {
-    users = [ "${userData.user}" ];
-    extraOpts = {
+  home-manager.sharedModules = [
+    {
       home.stateVersion = "21.11";
       manual.manpages.enable = true;
       launchd.enable = true;
-    };
-  };
+    }
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -27,7 +26,7 @@
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixVersions.latest;
-    settings.trusted-users = [ "@admin" "${userData.user}" ];
+    settings.trusted-users = [ "@admin" "yannick.scherer" ];
 
     gc = {
       user = "root";
@@ -41,7 +40,7 @@
     };
   };
 
-  nixpkgs.overlays = [alfred.overlays.default];
+  nixpkgs.overlays = [ alfred.overlays.default ];
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
