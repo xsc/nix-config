@@ -25,6 +25,7 @@
       primary = true;
       address = "noreply@condor.xsc.dev";
       userName = "condor.xsc.dev";
+      realName = "condor.xsc.dev";
       passwordCommand =
         "${pkgs.coreutils}/bin/cat ${config.age.secrets."smtp2go.pwd".path}";
     };

@@ -47,19 +47,20 @@
     ];
   };
 
-  # Base Setup
-  platform = {
-    users = [ "root" ];
-    programs = {
-      gpg = {
-        enable = true;
-        publicKeys = [
-          {
-            source = config.age.secrets."duplicity.gpg".path;
-            trust = 4;
-          }
-        ];
-      };
+  home-manager.users.root = {
+    programs.git = {
+      userName = "Yannick Scherer";
+      userEmail = "yannick@xsc.dev";
+    };
+
+    programs.gpg = {
+      enable = true;
+      publicKeys = [
+        {
+          source = config.age.secrets."duplicity.gpg".path;
+          trust = 4;
+        }
+      ];
     };
   };
 }
