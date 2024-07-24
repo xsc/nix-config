@@ -1,18 +1,19 @@
 { pkgs, ... }:
 
+let user = "yannick.scherer"; in
 {
   imports = [
     ../../platforms/darwin
   ];
 
-  users.users."yannick.scherer" = {
-    name = "yannick.scherer";
-    home = "/Users/yannick.scherer";
+  users.users."${user}" = {
+    name = "${user}";
+    home = "/Users/${user}";
     isHidden = false;
     shell = pkgs.zsh;
   };
 
-  home-manager.users."yannick.scherer" = {
+  home-manager.users."${user}" = {
     imports = [
       ./remap-keyboard.nix
     ];
@@ -25,6 +26,8 @@
   };
 
   age.identityPaths = [
-    "/Users/yannick.scherer/.ssh/keys/id_ed25519_agenix"
+    "/Users/${user}/.ssh/keys/id_ed25519_agenix"
   ];
+
+  nix.settings.trusted-users = [ "@admin" "${user}" ];
 }

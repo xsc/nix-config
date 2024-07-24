@@ -26,7 +26,6 @@
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixVersions.latest;
-    settings.trusted-users = [ "@admin" "yannick.scherer" ];
 
     gc = {
       user = "root";
