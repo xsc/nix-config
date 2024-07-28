@@ -31,6 +31,9 @@
       tree
       unzip
 
+      # Python
+      python311
+
       # Nix
       nixd
       nixpkgs-fmt
