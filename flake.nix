@@ -34,7 +34,8 @@
 
     # secrets
     secrets = {
-      url = "git+ssh://git@github.com/xsc/nix-secrets.git";
+      url = "git+file:///home/yannick/nix-secrets/";
+      # url = "git+ssh://git@github.com/xsc/nix-secrets.git";
       flake = false;
     };
 
@@ -110,20 +111,16 @@
         x86_64-linux
         aarch64-linux
       ];
-      nixosHosts = [ "condor" ];
-      mkNixosSystem = system: host:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = inputs;
-          modules = [
-            agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            ./hosts/${host}
-          ];
-        };
+      nixosHosts = [ "condor" "llama" ];
+      mkNixosSystem = system: host: nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = inputs;
+        modules = [
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          ./hosts/${host}
+        ];
+      };
       nixosConfigurations = flake-utils.lib.eachSystem nixosSystems (system:
         let lib = nixpkgs.legacyPackages.${system}.lib;
         in
@@ -146,7 +143,7 @@
               age
               age-plugin-yubikey
             ];
-            shellHook = with pkgs; ''
+            shellHook = ''
               export EDITOR=vim
             '';
           };

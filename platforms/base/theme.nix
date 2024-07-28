@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.theme = {
@@ -80,5 +80,12 @@
         };
       };
     };
+
+    fonts.fontDir.enable = true;
+    fonts.packages = with pkgs; [
+      fira-code-nerdfont
+      fira-code
+      monaspace
+    ];
   };
 }

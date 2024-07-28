@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../base
     ./overlays
     ./packages.nix
     ./secrets.nix
@@ -13,5 +12,5 @@
     ./home-manager/files
   ];
 
-  home-manager.extraSpecialArgs.ageSecrets =  config.age.secrets;
+  home-manager.extraSpecialArgs.ageSecrets = config.age.secrets;
 }

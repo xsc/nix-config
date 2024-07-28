@@ -520,11 +520,11 @@
         "rev": "2174472a79dbb2c98c14c92c5d8deebff1bd1ec6",
         "revCount": 21,
         "type": "git",
-        "url": "ssh://git@github.com/xsc/nix-secrets.git"
+        "url": "file:///home/yannick/nix-secrets/"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/xsc/nix-secrets.git"
+        "url": "file:///home/yannick/nix-secrets/"
       }
     },
     "systems": {
