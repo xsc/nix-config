@@ -45,6 +45,7 @@
     openssh.authorizedKeys.keys = [
       ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPiDYplrT5/5GsOtGJKW7/bYbSNt7pqNwutGwY0Y1fFv yannick@pop-os''
     ];
+    shell = pkgs.zsh;
   };
 
   home-manager.users.root = {
