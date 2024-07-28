@@ -5,6 +5,6 @@
     ./kanata.nix
   ];
 
-  services.xserver.xkb.layout = "eu";
+  services.xserver.xkb.layout = "eu,de";
   console.keyMap = "us";
 }
