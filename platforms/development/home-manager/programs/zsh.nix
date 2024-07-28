@@ -36,7 +36,7 @@
             host -t txt istheinternetonfire.com | cut -f 2 -d '"' | cowsay -f moose
         fi
 
-        PROMPT='yannick:%{$fg[yellow]%}$(collapse_pwd)%{$reset_color%}$(git_super_status) $(prompt_char) '
+        PROMPT='%n:%{$fg[yellow]%}$(collapse_pwd)%{$reset_color%}$(git_super_status) $(prompt_char) '
         RPROMPT=""
         ZSH_THEME_GIT_PROMPT_PREFIX=" on "
         ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
