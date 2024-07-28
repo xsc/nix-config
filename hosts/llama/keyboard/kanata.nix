@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
@@ -108,16 +108,4 @@ in
   };
 
   hardware.uinput.enable = true;
-
-  services.kanata.enable = false;
-  services.kanata.keyboards.builtin = {
-    devices = [ device ];
-    inherit config;
-  };
 }
-
-
-
-
-
-
