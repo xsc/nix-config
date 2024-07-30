@@ -56,7 +56,7 @@ in
 
     serviceConfig = {
       ProgramArguments = waitAndRun [
-        "${pkgs.kanata-custom}/bin/kanata"
+        "${pkgs.kanata}/bin/kanata"
         "-c"
         "${./home-manager/files/kanata/colemak-dh.kbd}"
       ];

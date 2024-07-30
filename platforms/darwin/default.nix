@@ -4,6 +4,7 @@
   imports = [
     ../base
     ../development
+    ./overlays
     ./packages
     ./dock
     # ./utils/alias-apps
@@ -44,9 +45,6 @@
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
-
-  # Enable fonts dir
-  fonts.packages = with pkgs; [ fira-code fira-code-nerdfont monaspace ];
 
   system = {
     stateVersion = 4;

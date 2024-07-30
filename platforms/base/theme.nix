@@ -81,7 +81,6 @@
       };
     };
 
-    fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
       fira-code-nerdfont
       fira-code

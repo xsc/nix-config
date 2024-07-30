@@ -39,6 +39,7 @@
 
   # Theme
   theme.fontSize = 10;
+  fonts.fontDir.enable = true;
 
   # Users
   users.users.yannick = {
