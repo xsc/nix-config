@@ -1,23 +1,17 @@
+# Auto-generated using compose2nix v0.2.2-pre.
 { config, pkgs, lib, ... }:
 
-let
-  version = "v1.110.0";
-  dataDir = "/var/immich";
-  environment = {
-    DB_DATABASE_NAME = "immich";
-    DB_USERNAME = "postgres";
-    IMMICH_VERSION = "${version}";
-    TZ = "Etc/UTC";
-  };
-  environmentFiles = [
-    config.age.secrets."immich.env".path
-  ];
-in
 {
+
   # Containers
   virtualisation.oci-containers.containers."immich_machine_learning" = {
-    inherit environment environmentFiles;
-    image = "ghcr.io/immich-app/immich-machine-learning:${version}";
+    image = "ghcr.io/immich-app/immich-machine-learning:v1.111.0";
+    environmentFiles = [ config.age.secrets."immich.env".path ];
+    environment = {
+      "DB_DATABASE_NAME" = "immich";
+      "DB_USERNAME" = "postgres";
+      "TZ" = "Etc/UTC";
+    };
     volumes = [
       "immich_model-cache:/cache:rw"
     ];
@@ -52,10 +46,15 @@ in
     ];
   };
   virtualisation.oci-containers.containers."immich_postgres" = {
-    inherit environment environmentFiles;
     image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0";
+    environmentFiles = [ config.age.secrets."immich.env".path ];
+    environment = {
+      "POSTGRES_DB" = "immich";
+      "POSTGRES_INITDB_ARGS" = "--data-checksums";
+      "POSTGRES_USER" = "postgres";
+    };
     volumes = [
-      "${dataDir}/postgres:/var/lib/postgresql/data:rw"
+      "/var/immich/postgres:/var/lib/postgresql/data:rw"
     ];
     cmd = [ "postgres" "-c" "shared_preload_libraries=vectors.so" "-c" "search_path=\"$user\", public, vectors" "-c" "logging_collector=on" "-c" "max_wal_size=2GB" "-c" "shared_buffers=512MB" "-c" "wal_compression=on" ];
     log-driver = "journald";
@@ -90,7 +89,7 @@ in
     ];
   };
   virtualisation.oci-containers.containers."immich_redis" = {
-    image = "docker.io/redis:6.2-alpine@sha256:328fe6a5822256d065debb36617a8169dbfbd77b797c525288e465f56c1d392b";
+    image = "docker.io/redis:6.2-alpine@sha256:e3b17ba9479deec4b7d1eeec1548a253acc5374d68d3b27937fcfe4df8d18c7e";
     log-driver = "journald";
     extraOptions = [
       "--health-cmd=redis-cli ping || exit 1"
@@ -121,10 +120,15 @@ in
     ];
   };
   virtualisation.oci-containers.containers."immich_server" = {
-    inherit environment environmentFiles;
-    image = "ghcr.io/immich-app/immich-server:${version}";
+    image = "ghcr.io/immich-app/immich-server:v1.111.0";
+    environmentFiles = [ config.age.secrets."immich.env".path ];
+    environment = {
+      "DB_DATABASE_NAME" = "immich";
+      "DB_USERNAME" = "postgres";
+      "TZ" = "Etc/UTC";
+    };
     volumes = [
-      "${dataDir}/library:/usr/src/app/upload:rw"
+      "/var/immich/library:/usr/src/app/upload:rw"
     ];
     ports = [
       "127.0.0.1:2283:3001/tcp"
@@ -166,6 +170,8 @@ in
   systemd.services."docker-network-immich_default" = {
     path = [ pkgs.docker ];
     serviceConfig = {
+      User = "immich";
+      Group = "immich";
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStop = "docker network rm -f immich_default";
@@ -181,6 +187,8 @@ in
   systemd.services."docker-volume-immich_model-cache" = {
     path = [ pkgs.docker ];
     serviceConfig = {
+      User = "immich";
+      Group = "immich";
       Type = "oneshot";
       RemainAfterExit = true;
     };
