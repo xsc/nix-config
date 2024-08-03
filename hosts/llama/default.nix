@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./packages.nix
       ../../platforms/base
       ../../platforms/development
       ./desktop.nix
