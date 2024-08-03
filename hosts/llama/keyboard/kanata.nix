@@ -84,9 +84,9 @@ in
 
         (defalias
           ext (tap-hold 200 200 esc (layer-toggle extend))
-          cmd (tap-hold 200 200 lmet (layer-toggle command))
-          cpy   C-S-c
-          pst   C-S-v
+          cmd (layer-toggle command)
+          cpy C-S-c
+          pst C-S-v
         )
 
         (deflayer colemak-dhk
@@ -113,7 +113,7 @@ in
           A-tab    C-q  C-w  C-f  _    _    _    _    _    _    _    _    _
           _        C-a  C-r  _    C-t  _    _    _    _    _    _    _    _    _
           _        _    C-x  @cpy _    @pst _  _    _    _    _    _    _
-          _        _    _              _              _    _
+          _        _    _              lmet           _    _
         )
       '';
     };
@@ -132,6 +132,7 @@ in
         (defsrc
           lmet
           lalt
+          spc
           bspc
           tab   q    w    r    t
                 a    f
@@ -144,7 +145,7 @@ in
           (ralt right) (lctl right))
 
         (defalias
-          cmd (tap-hold 200 200 lmet (layer-toggle command))
+          cmd   (layer-toggle command)
           cpy   C-S-c
           pst   C-S-v
         )
@@ -152,6 +153,7 @@ in
         (deflayer with-command
           @cmd
           ralt
+          _
           _
           _     _    _    _    _
                 _    _
@@ -161,6 +163,7 @@ in
         (deflayer command
           _
           _
+          lmet
           C-S-bspc
           A-tab C-q  C-w  C-r  C-t
                 C-a  C-f
