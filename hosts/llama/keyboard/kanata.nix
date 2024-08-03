@@ -85,6 +85,7 @@ in
         (defalias
           ext (tap-hold 200 200 esc (layer-toggle extend))
           cmd (layer-toggle command)
+          csft (multi lctl lsft)
           cpy C-S-c
           pst C-S-v
         )
@@ -112,7 +113,7 @@ in
           _        _    _    _    _    _    _    _    _    _    _    _    _    _
           A-tab    C-q  C-w  C-f  _    _    _    _    _    _    _    _    _
           _        C-a  C-r  _    C-t  _    _    _    _    _    _    _    _    _
-          _        _    C-x  @cpy _    @pst _  _    _    _    _    _    _
+          @csft    _    C-x  @cpy _    @pst _  _    _    _    _    _    _
           _        _    _              lmet           _    _
         )
       '';
@@ -134,6 +135,7 @@ in
           lalt
           spc
           bspc
+          lsft
           tab   q    w    r    t
                 a    f
                 z    x    c    v)
@@ -146,6 +148,7 @@ in
 
         (defalias
           cmd   (layer-toggle command)
+          csft  (multi lctl lsft)
           cpy   C-S-c
           pst   C-S-v
         )
@@ -153,6 +156,7 @@ in
         (deflayer with-command
           @cmd
           ralt
+          _
           _
           _
           _     _    _    _    _
@@ -165,6 +169,7 @@ in
           _
           lmet
           C-S-bspc
+          @csft
           A-tab C-q  C-w  C-r  C-t
                 C-a  C-f
                 C-z  C-x  @cpy @pst
