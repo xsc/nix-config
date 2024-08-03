@@ -29,6 +29,16 @@
     pulse.enable = true;
   };
 
+  # Nix
+  nix = {
+    package = pkgs.nixVersions.latest;
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+  };
+
   # Key to decode secrets
   age.identityPaths = [ "/home/yannick/.ssh/keys/id_ed25519_agenix" ];
   services.pcscd.enable = true;
