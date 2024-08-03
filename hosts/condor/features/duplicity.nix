@@ -74,7 +74,7 @@ in
   systemd.services."duplicity-immich-backup-verify" =
     mkVerifyService {
       target = "immich";
-      startAt = "* *-*-01 02:00:00";
+      startAt = "*-*-01 02:00:00";
     };
 
   # Vaultwarden
