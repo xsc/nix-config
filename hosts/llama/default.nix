@@ -7,7 +7,7 @@
       ./packages.nix
       ../../platforms/base
       ../../platforms/development
-      ./desktop.nix
+      ./desktop
       ./keyboard
       ./nextdns.nix
     ];

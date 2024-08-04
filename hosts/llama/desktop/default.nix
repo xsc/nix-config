@@ -1,6 +1,11 @@
 { ... }:
 
 {
+  imports = [
+    ./redshift.nix
+    ./ulauncher.nix
+  ];
+
   # Locale/TImezone
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -41,20 +46,4 @@
     enable = true;
     touchpad.naturalScrolling = true;
   };
-
-  # Redshift
-  services.redshift = {
-    enable = true;
-    brightness = {
-      day = "1";
-      night = "1";
-    };
-    temperature = {
-      day = 5500;
-      night = 3700;
-    };
-  };
 }
-
-
-
