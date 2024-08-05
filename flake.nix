@@ -34,8 +34,7 @@
 
     # secrets
     secrets = {
-      url = "git+file:///home/yannick/nix-secrets/";
-      # url = "git+ssh://git@github.com/xsc/nix-secrets.git";
+      url = "git+ssh://git@github.com/xsc/nix-secrets.git";
       flake = false;
     };
 
