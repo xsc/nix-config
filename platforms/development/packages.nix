@@ -27,6 +27,9 @@
       awsume
       azure-cli
 
+      # --- Multimedia
+      ffmpeg
+
       # --- Language-specific Packages
 
       # Clojure/Java
