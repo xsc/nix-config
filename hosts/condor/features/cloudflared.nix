@@ -7,11 +7,14 @@
         credentialsFile = "${config.age.secrets."cloudflared.json".path}";
         default = "http_status:404";
         ingress = {
+          "md.xsc.dev" = {
+            service = "http://localhost:2284";
+          };
           "photos.xsc.dev" = {
             service = "http://localhost:2283";
           };
-          "md.xsc.dev" = {
-            service = "http://localhost:2284";
+          "social.xsc.dev" = {
+            service = "http://localhost:2286";
           };
           "vaultwarden.xsc.dev" = {
             service = "http://localhost:2285";
