@@ -84,5 +84,19 @@ in
       target = "vaultwarden";
       startAt = "*-*-* 03:00:00";
     };
+
+  # Gotosocial
+  systemd.services."duplicity-gotosocial-backup" =
+    mkBackupService {
+      source = "/var/lib/gotosocial";
+      target = "gotosocial";
+      startAt = "*-*-* 23:00:00";
+    };
+
+  systemd.services."duplicity-gotosocial-backup-verify" =
+    mkVerifyService {
+      target = "gotosocial";
+      startAt = "*-*-01 01:00:00";
+    };
 }
 
