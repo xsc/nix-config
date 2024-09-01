@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   mkConfigFile =
-    { source
+    { source ? "<nothing>"
     , target
     , maxAge ? "3M"
     , maxFullBackupAge ? "1M"
@@ -21,17 +21,20 @@ let
       MAX_AGE=${maxAge}
       MAX_FULLBKP_AGE=${maxFullBackupAge}
       DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
+
+      # Others
+      VERBOSITY=5
     '';
   excludeFile = pkgs.writeText "exclude" "";
   path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils pkgs.bash ];
 
-  mkDuplyScript = opts: do:
+  mkDuplyScript = { target, ... }@opts: do:
     let
       configFile = mkConfigFile opts;
     in
     ''
       set -eu
-      dir=$(mktemp -d)
+      dir="$(mktemp -d)/${target}"
       mkdir -p $dir
       cp -f ${configFile} $dir/conf
       cp -f ${excludeFile} $dir/exclude
@@ -39,7 +42,7 @@ let
       rm -rf $dir
     '';
 
-  mkBackupService = { source, target, startAt }@opts: {
+  mkBackupService = { startAt, ... }@opts: {
     inherit path startAt;
     script = mkDuplyScript opts ''
       duply $dir backup
@@ -53,9 +56,9 @@ let
     };
   };
 
-  mkVerifyService = { target, startAt }: {
+  mkVerifyService = { startAt, ... }@opts: {
     inherit path startAt;
-    script = mkDuplyScript "<nothing>" target ''
+    script = mkDuplyScript opts ''
       duply $dir verify
     '';
     serviceConfig = {
@@ -80,7 +83,7 @@ in
   systemd.services."duplicity-immich-backup-verify" =
     mkVerifyService {
       target = "immich";
-      startAt = "*-*-01 02:00:00";
+      startAt = "*-*-01 22:00:00";
     };
 
   # Vaultwarden
@@ -88,7 +91,12 @@ in
     mkBackupService {
       source = "/var/lib/bitwarden_rs";
       target = "vaultwarden";
-      startAt = "*-*-* 03:00:00";
+      startAt = "*-*-* 00:00:00";
+    };
+  systemd.services."duplicity-vaultwarden-backup-verify" =
+    mkVerifyService {
+      target = "vaultwarden";
+      startAt = "*-*-01 01:00:00";
     };
 
   # Gotosocial
@@ -96,7 +104,7 @@ in
     mkBackupService {
       source = "/var/lib/gotosocial";
       target = "gotosocial";
-      startAt = "Sun *-*-* 23:00:00";
+      startAt = "Sun *-*-* 00:00:00";
     };
 
   systemd.services."duplicity-gotosocial-backup-verify" =
