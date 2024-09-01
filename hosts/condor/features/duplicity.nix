@@ -1,31 +1,37 @@
 { config, pkgs, ... }:
 let
-  mkConfigFile = source: target: pkgs.writeText "conf" ''
-    source '${config.age.secrets."duplicity.env".path}'
+  mkConfigFile =
+    { source
+    , target
+    , maxAge ? "3M"
+    , maxFullBackupAge ? "1M"
+    , ...
+    }: pkgs.writeText "conf" ''
+      source '${config.age.secrets."duplicity.env".path}'
 
-    # GPG Options
-    GPG_PW=""
-    GPG_OPTS='--trust-model always --no-tty'
+      # GPG Options
+      GPG_PW=""
+      GPG_OPTS='--trust-model always --no-tty'
 
-    # Source -> Target
-    TARGET="b2://''${B2_KEY_ID}:''${B2_APPLICATION_KEY}@''${B2_BUCKET_NAME}/condor/${target}"
-    SOURCE='${source}'
+      # Source -> Target
+      TARGET="b2://''${B2_KEY_ID}:''${B2_APPLICATION_KEY}@''${B2_BUCKET_NAME}/condor/${target}"
+      SOURCE='${source}'
 
-    # Backup Options
-    MAX_AGE=3M
-    MAX_FULLBKP_AGE=1M
-    DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
-  '';
+      # Backup Options
+      MAX_AGE=${maxAge}
+      MAX_FULLBKP_AGE=${maxFullBackupAge}
+      DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
+    '';
   excludeFile = pkgs.writeText "exclude" "";
   path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils pkgs.bash ];
 
-  mkDuplyScript = source: target: do:
+  mkDuplyScript = opts: do:
     let
-      configFile = mkConfigFile source target;
+      configFile = mkConfigFile opts;
     in
     ''
       set -eu
-      dir="/tmp/duply/${target}"
+      dir=$(mktemp -d)
       mkdir -p $dir
       cp -f ${configFile} $dir/conf
       cp -f ${excludeFile} $dir/exclude
@@ -33,9 +39,9 @@ let
       rm -rf $dir
     '';
 
-  mkBackupService = { source, target, startAt }: {
+  mkBackupService = { source, target, startAt }@opts: {
     inherit path startAt;
-    script = mkDuplyScript source target ''
+    script = mkDuplyScript opts ''
       duply $dir backup
       duply $dir purge --force
     '';
@@ -90,7 +96,7 @@ in
     mkBackupService {
       source = "/var/lib/gotosocial";
       target = "gotosocial";
-      startAt = "*-*-* 23:00:00";
+      startAt = "Sun *-*-* 23:00:00";
     };
 
   systemd.services."duplicity-gotosocial-backup-verify" =
