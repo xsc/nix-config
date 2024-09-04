@@ -5,7 +5,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."immich_machine_learning" = {
-    image = "ghcr.io/immich-app/immich-machine-learning:v1.113.0";
+    image = "ghcr.io/immich-app/immich-machine-learning:v1.113.1";
     environmentFiles = [ config.age.secrets."immich.env".path ];
     environment = {
       "DB_DATABASE_NAME" = "immich";
@@ -120,7 +120,7 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_server" = {
-    image = "ghcr.io/immich-app/immich-server:v1.113.0";
+    image = "ghcr.io/immich-app/immich-server:v1.113.1";
     environmentFiles = [ config.age.secrets."immich.env".path ];
     environment = {
       "DB_DATABASE_NAME" = "immich";
