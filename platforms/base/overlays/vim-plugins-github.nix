@@ -4,8 +4,8 @@ let
   vim-iced-pkg = pkgs.fetchFromGitHub {
     owner = "liquidz";
     repo = "vim-iced";
-    rev = "3.14.3255";
-    sha256 = "sha256-1uxpWzDzHWSXoDbD1l/A0BPX31LpSNV/S8+beO9Y/6A=";
+    rev = "4.0.3295";
+    sha256 = "sha256-fACwxxyzF6n94iGphlf3HbOjE+x8R+UyxE+8XArcSyY=";
   };
   vim-iced = pkgs.vimUtils.buildVimPlugin {
     name = "vim-iced";
