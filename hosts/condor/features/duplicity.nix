@@ -21,20 +21,17 @@ let
       MAX_AGE=${maxAge}
       MAX_FULLBKP_AGE=${maxFullBackupAge}
       DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
-
-      # Others
-      VERBOSITY=5
     '';
   excludeFile = pkgs.writeText "exclude" "";
   path = [ pkgs.duply pkgs.duplicity pkgs.gnupg pkgs.coreutils pkgs.bash ];
 
-  mkDuplyScript = { target, ... }@opts: do:
+  mkDuplyScript = { target, directoryName ? target, ... }@opts: do:
     let
       configFile = mkConfigFile opts;
     in
     ''
       set -eu
-      dir="$(mktemp -d)/${target}"
+      dir="$(mktemp -d)/${directoryName}"
       mkdir -p $dir
       cp -f ${configFile} $dir/conf
       cp -f ${excludeFile} $dir/exclude
@@ -78,12 +75,14 @@ in
       source = "/var/immich";
       target = "immich";
       startAt = "*-*-* 02/6:00:00";
+      maxAge = "65D";
     };
 
   systemd.services."duplicity-immich-backup-verify" =
     mkVerifyService {
+      directoryName = "immich-verify";
       target = "immich";
-      startAt = "*-*-01 22:00:00";
+      startAt = "*-*-01 00:00:00";
     };
 
   # Vaultwarden
