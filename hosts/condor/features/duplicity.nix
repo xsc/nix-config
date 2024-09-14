@@ -19,6 +19,7 @@ let
 
       # Backup Options
       MAX_AGE=${maxAge}
+      MAX_FULL_BACKUPS=2
       MAX_FULLBKP_AGE=${maxFullBackupAge}
       DUPL_PARAMS="--full-if-older-than ''${MAX_FULLBKP_AGE} --allow-source-mismatch"
     '';
@@ -43,7 +44,7 @@ let
     inherit path startAt;
     script = mkDuplyScript opts ''
       duply $dir backup
-      duply $dir purge --force
+      duply $dir purgeAuto --force
     '';
     serviceConfig = {
       Type = "oneshot";
