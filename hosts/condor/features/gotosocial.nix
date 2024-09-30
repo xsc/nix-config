@@ -1,8 +1,39 @@
-{ ... }:
+{ pkgs, ... }:
 
+let
+  owner = "superseriousbusiness";
+  repo = "gotosocial";
+  version = "0.17.0-rc1";
+  web-assets = pkgs.fetchurl {
+    url = "https://github.com/${owner}/${repo}/releases/download/v${version}/${repo}_${version}_web-assets.tar.gz";
+    hash = "sha256-f4PXaRDXbFpZh2Lws6bLw0WqjyGW5A0ZLHbEcXhoKyk=";
+  };
+  rcPackage = pkgs.gotosocial.overrideAttrs (old: {
+    inherit version;
+
+    src = pkgs.fetchFromGitHub {
+      inherit owner repo;
+      rev = "refs/tags/v${version}";
+      hash = "sha256-crxXGYXBb35g/VAbzeI1Hj8N2TL1pKG76XOD54S7Y88=";
+    };
+
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.Version=${version}"
+    ];
+
+    postInstall = ''
+      tar xf ${web-assets}
+      mkdir -p $out/share/gotosocial
+      mv web $out/share/gotosocial/
+    '';
+  });
+in
 {
   services.gotosocial = {
     enable = true;
+    package = rcPackage;
     settings = {
       # Base Settings
       application-name = "social.xsc.dev";
