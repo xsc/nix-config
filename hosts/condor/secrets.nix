@@ -18,6 +18,12 @@
     mode = "440";
   };
 
+  age.secrets."acme.env" = {
+    file = "${secrets}/hosts/acme.condor.env.age";
+    group = "nginx";
+    mode = "440";
+  };
+
   age.secrets."cloudflared.json" = {
     file = "${secrets}/hosts/cloudflared.condor.age";
     group = "cloudflared";
@@ -33,5 +39,10 @@
   age.secrets."vaultwarden.env" = {
     file = "${secrets}/hosts/vaultwarden.env.age";
     mode = "400";
+  };
+
+  age.secrets."wireguard.key" = {
+    file = "${secrets}/hosts/wireguard.condor.key.age";
+    mode = "440";
   };
 }
