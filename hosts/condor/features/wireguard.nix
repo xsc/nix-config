@@ -29,4 +29,6 @@
       address = [ "/xsc.dev/10.100.0.1" ];
     };
   };
+
+  services.fail2ban.ignoreIP = [ "10.100.0.0/24" ];
 }
