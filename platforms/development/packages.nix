@@ -13,6 +13,7 @@
       libfido2
       nextdns
       yubikey-manager
+      wireguard-tools
 
       # Development Tools
       k6
