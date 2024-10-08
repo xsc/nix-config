@@ -23,34 +23,33 @@ let
     [ "/bin/sh" "-c" script ];
 in
 {
-  # nextdns
-  # -> NOTE: Could not use 'services.nextdns' because arguments were escaped
-  #          incorrectly. :(
-  launchd.daemons.nextdns = {
-    # Do not set `path` here, otherwise we're at risk of `nextdns` not finding
-    # `networksetup` (which resides at `/usr/sbin`).
-    path = [ ];
-
-    serviceConfig = {
-      EnvironmentVariables = {
-        SERVICE_RUN_MODE = "1";
-      };
-
-      ProgramArguments = waitAndRun [
-        "${pkgs.nextdns}/bin/nextdns"
-        "run"
-        "-config-file"
-        "${config.age.secrets."nextdns.conf".path}"
+  # Local DNS pointing at NextDNS
+  launchd.daemons."dnsmasq-local" = {
+    serviceConfig.ProgramArguments = [
+        "${pkgs.dnsmasq}/bin/dnsmasq"
+        "--listen-address=127.0.0.1"
+        "--port=53"
+        "--conf-file=${config.age.secrets."dnsmasq-nextdns.conf".path}"
+        "--keep-in-foreground"
       ];
-
-      RunAtLoad = true;
-      StandardOutPath = "${logs}/nextdns-stdout.log";
-      StandardErrorPath = "${logs}/nextdns-stderr.log";
-      KeepAlive = true;
-      Disabled = false;
-    };
+      serviceConfig.KeepAlive = true;
+      serviceConfig.RunAtLoad = true;
   };
 
+  # On-demand DNS when the Wireguard tunnel starts up
+  launchd.daemons."dnsmasq-wireguard" = {
+    serviceConfig.ProgramArguments = [
+        "${pkgs.dnsmasq}/bin/dnsmasq"
+        "--listen-address=10.100.0.103"
+        "--port=53"
+        "--server=/xsc.dev/10.100.0.1"
+        "--server=127.0.0.1"
+        "--keep-in-foreground"
+      ];
+      serviceConfig.OnDemand = true;
+  };
+
+  # Keyboard Remapping
   launchd.daemons.kanata = {
     path = [ ];
 

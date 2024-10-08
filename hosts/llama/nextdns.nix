@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  systemd.services.nextdns = {
+  systemd.services."dnsmasq-local" = {
     script = ''
-      ${pkgs.nextdns}/bin/nextdns run -config-file ${config.age.secrets."nextdns.conf".path}
+        ${pkgs.dnsmasq}/bin/dnsmasq --listen-address=127.0.0.1 --port=53 --conf-file=${config.age.secrets."dnsmasq-nextdns.conf".path} --keep-in-foreground
     '';
     wantedBy = [ "multi-user.target" ];
   };

@@ -22,7 +22,6 @@ in
     executable = true;
   };
 
-  home.file.".config/nextdns/nextdns.conf" = secretFile "nextdns.conf";
   home.file.".ssh/config.d/ssh_config" = secretFile "ssh_config";
   home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
   home.file.".ssh/keys/id_ed25519_contabo" = secretFile "id_ed25519_contabo";

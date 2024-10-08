@@ -23,8 +23,8 @@ in
     file = "${secrets}/credentials.clj.gpg.age";
   } // owns;
 
-  age.secrets."nextdns.conf" = {
-    file = "${secrets}/nextdns.conf.age";
+  age.secrets."dnsmasq-nextdns.conf" = {
+    file = "${secrets}/dnsmasq-nextdns.conf.age";
   } // owns;
 
   users.groups."${owns.group}" = {};

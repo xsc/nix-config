@@ -11,7 +11,6 @@
       # Encryption and security tools
       age-plugin-yubikey
       libfido2
-      nextdns
       yubikey-manager
       wireguard-tools
 
