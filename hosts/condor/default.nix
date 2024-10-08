@@ -43,7 +43,8 @@
   # Root User
   users.users.root = {
     openssh.authorizedKeys.keys = [
-      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPiDYplrT5/5GsOtGJKW7/bYbSNt7pqNwutGwY0Y1fFv yannick@pop-os''
+      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPiDYplrT5/5GsOtGJKW7/bYbSNt7pqNwutGwY0Y1fFv yannick@moomin''
+      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMfGfD5K7AWAdq2d0mRJeZXOtxnzvLVOfXyHtlpCo1zw yannick@llama''
     ];
     shell = pkgs.zsh;
   };
