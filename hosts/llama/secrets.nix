@@ -17,7 +17,9 @@ in
 
   age.secrets."stubby.nextdns.yml" = {
     file = "${secrets}/llama/stubby.nextdns.yml.age";
-  } // owns;
+    group = "stubby";
+    mode = "440";
+  };
 
   age.secrets."wireguard.condor.conf" = {
     name = "wireguard/condor.conf";

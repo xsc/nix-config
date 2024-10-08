@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
 
 {
+
+  users.groups.stubby = {};
   users.users.stubby = {
     isSystemUser = true;
+    group = "stubby";
   };
 
   systemd.services.stubby = {
