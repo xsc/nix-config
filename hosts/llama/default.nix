@@ -11,7 +11,7 @@ let user = "yannick"; in
       ../../platforms/development
       ./desktop
       ./keyboard
-      ./nextdns.nix
+      ./dnsmasq.nix
     ];
 
   # Basics
