@@ -1,10 +1,50 @@
 { config, pkgs, ... }:
 
 {
-  systemd.services."dnsmasq-local" = {
+  users.users.stubby = {
+    isSystemUser = true;
+  };
+
+  systemd.services.stubby = {
     script = ''
-        ${pkgs.dnsmasq}/bin/dnsmasq --listen-address=127.0.0.1 --port=53 --conf-file=${config.age.secrets."dnsmasq-nextdns.conf".path} --keep-in-foreground
+      ${pkgs.stubby}/bin/stubby -C "${config.age.secrets."stubby.nextdns.yml".path}"
     '';
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "1";
+      User = "stubby";
+      DynamicUser = "yes";
+      CacheDirectory = "stubby";
+      WorkingDirectory = "/var/cache/stubby";
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
+      LockPersonality = "true";
+      MemoryDenyWriteExecute = "true";
+      NoNewPrivileges = "true";
+      PrivateDevices = "true";
+      PrivateTmp = "true";
+      PrivateUsers = "false";
+      ProtectClock = "true";
+      ProtectControlGroups = "true";
+      ProtectHome = "true";
+      ProtectHostname = "true";
+      ProtectKernelLogs = "true";
+      ProtectKernelModules = "true";
+      ProtectKernelTunables = "true";
+      ProtectProc = "invisible";
+      ProtectSystem = "strict";
+      RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK AF_UNIX";
+      RestrictNamespaces = "true";
+      RestrictRealtime = "true";
+      RestrictSUIDSGID = "true";
+      SystemCallArchitectures = "native";
+      SystemCallFilter = "@system-service";
+      SystemCallErrorNumber = "EPERM";
+    };
+    unitConfig = {
+      Wants = [ "network-online.target" ];
+      After = [ "network-online.target" ];
+    };
     wantedBy = [ "multi-user.target" ];
   };
 

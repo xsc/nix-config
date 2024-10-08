@@ -24,16 +24,14 @@ let
 in
 {
   # Local DNS pointing at NextDNS
-  launchd.daemons."dnsmasq-local" = {
+  launchd.daemons."dns-local" = {
     serviceConfig.ProgramArguments = [
-        "${pkgs.dnsmasq}/bin/dnsmasq"
-        "--listen-address=127.0.0.1"
-        "--port=53"
-        "--conf-file=${config.age.secrets."dnsmasq-nextdns.conf".path}"
-        "--keep-in-foreground"
-      ];
-      serviceConfig.KeepAlive = true;
-      serviceConfig.RunAtLoad = true;
+      "/opt/homebrew/bin/stubby"
+      "-C"
+      "${config.age.secrets."stubby.nextdns.yml".path}"
+    ];
+    serviceConfig.KeepAlive = true;
+    serviceConfig.RunAtLoad = true;
   };
 
   # On-demand DNS when the Wireguard tunnel starts up
@@ -46,7 +44,7 @@ in
         "--server=127.0.0.1"
         "--keep-in-foreground"
       ];
-      serviceConfig.OnDemand = true;
+    serviceConfig.OnDemand = true;
   };
 
   # Keyboard Remapping
@@ -64,7 +62,7 @@ in
       StandardOutPath = "${logs}/kanata-stdout.log";
       StandardErrorPath = "${logs}/kanata-stderr.log";
       KeepAlive = true;
-      Disabled = false;
+      Disabled = true;
     };
   };
 }

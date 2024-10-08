@@ -19,6 +19,10 @@ in
     file = "${secrets}/moomin/id_rsa_moomin.age";
   } // owns;
 
+  age.secrets."stubby.nextdns.yml" = {
+    file = "${secrets}/moomin/stubby.nextdns.yml.age";
+  } // owns;
+
   age.secrets."wireguard.condor.conf" = {
     name = "wireguard/condor.conf";
     file = "${secrets}/moomin/wireguard.condor.conf.age";

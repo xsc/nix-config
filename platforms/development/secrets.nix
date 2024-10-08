@@ -11,10 +11,6 @@ in
     file = "${secrets}/users/credentials.clj.gpg.age";
   } // owns;
 
-  age.secrets."dnsmasq-nextdns.conf" = {
-    file = "${secrets}/users/dnsmasq-nextdns.conf.age";
-  } // owns;
-
   users.groups."${owns.group}" = {};
 }
 

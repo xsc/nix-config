@@ -15,6 +15,10 @@ in
     file = "${secrets}/llama/id_ed25519_condor.age";
   } // owns;
 
+  age.secrets."stubby.nextdns.yml" = {
+    file = "${secrets}/llama/stubby.nextdns.yml.age";
+  } // owns;
+
   age.secrets."wireguard.condor.conf" = {
     name = "wireguard/condor.conf";
     file = "${secrets}/llama/wireguard.condor.conf.age";

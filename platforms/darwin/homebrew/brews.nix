@@ -6,4 +6,7 @@
 
   # Security
   "pam_yubico"
+
+  # DNS
+  "stubby"
 ]
