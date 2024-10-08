@@ -3,10 +3,10 @@
 let
   owner = "superseriousbusiness";
   repo = "gotosocial";
-  version = "0.17.0-rc1";
+  version = "0.17.0-rc2";
   web-assets = pkgs.fetchurl {
     url = "https://github.com/${owner}/${repo}/releases/download/v${version}/${repo}_${version}_web-assets.tar.gz";
-    hash = "sha256-f4PXaRDXbFpZh2Lws6bLw0WqjyGW5A0ZLHbEcXhoKyk=";
+    hash = "sha256-j8BwgbEVe9Jno5QdDXMWb215OYJsf44+KF/h7pYWWAE=";
   };
   rcPackage = pkgs.gotosocial.overrideAttrs (old: {
     inherit version;
@@ -14,7 +14,7 @@ let
     src = pkgs.fetchFromGitHub {
       inherit owner repo;
       rev = "refs/tags/v${version}";
-      hash = "sha256-crxXGYXBb35g/VAbzeI1Hj8N2TL1pKG76XOD54S7Y88=";
+      hash = "sha256-tI5q29VWgjR5iySbf3Z8e3IgzruhBL4s5NaXwm5zwvA=";
     };
 
     ldflags = [
