@@ -41,7 +41,7 @@
   };
 
   # Key to decode secrets
-  age.identityPaths = [ "/home/yannick/.ssh/keys/id_ed25519_agenix" ];
+  age.identityPaths = [ "/home/yannick/.ssh/id_ed25519" ];
   services.pcscd.enable = true;
 
   # Programs
