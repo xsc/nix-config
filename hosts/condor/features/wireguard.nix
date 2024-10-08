@@ -14,13 +14,19 @@
       privateKeyFile = config.age.secrets."wireguard.key".path;
       peers = [
         {
-          # devices
+          # graphene
           publicKey = "feBfsj/ejXqqVm7RAxUdmZ3s7gnzKvGY5BSWhSCDFwA=";
-          allowedIPs = [
-            "10.100.0.101/32"
-            "10.100.0.102/32"
-            "10.100.0.103/32"
-          ];
+          allowedIPs = [ "10.100.0.101/32" ];
+        }
+        {
+          # llama
+          publicKey = "pnI8p6PxQiqcDMeLf7zzB1/Ar7jey7DDpquOevYHqT0=";
+          allowedIPs = [ "10.100.0.102/32" ];
+        }
+        {
+          # moomin
+          publicKey = "L2MeI0lb85qZyO9Js5Gp2EvZkMb46rQVhsDwBQeYwgc=";
+          allowedIPs = [ "10.100.0.103/32" ];
         }
       ];
     };
