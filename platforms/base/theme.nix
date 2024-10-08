@@ -34,22 +34,6 @@
       };
     };
 
-    vscode = lib.mkOption {
-      default = {
-        colorscheme = {
-          name = "Everforest Dark";
-          publisher = "sainnhe";
-          plugin = "everforest";
-
-          settings = {
-            "everforest.highContrast" = true;
-            "everforest.darkContrast" = "soft";
-            "everforest.darkWorkbench" = "high-contrast";
-          };
-        };
-      };
-    };
-
     wezterm = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = {
@@ -64,13 +48,6 @@
     home-manager.extraSpecialArgs = {
       theme = {
         inherit (cfg) tmux vim;
-        vscode = {
-          font = {
-            fontFamily = cfg.fontFamily;
-            fontSize = cfg.fontSize - 0.3;
-          };
-          inherit (cfg.vscode) colorscheme;
-        };
         wezterm = {
           font = {
             fontFamily = cfg.fontFamily;

@@ -18,7 +18,6 @@
       # Development Tools
       k6
       scrcpy
-      vscode
 
       # Cloud-related tools and SDKs
       docker
