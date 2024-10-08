@@ -16,7 +16,11 @@
         {
           # devices
           publicKey = "feBfsj/ejXqqVm7RAxUdmZ3s7gnzKvGY5BSWhSCDFwA=";
-          allowedIPs = [ "10.100.0.101/32" "10.100.0.102/32" ];
+          allowedIPs = [
+            "10.100.0.101/32"
+            "10.100.0.102/32"
+            "10.100.0.103/32"
+          ];
         }
       ];
     };
