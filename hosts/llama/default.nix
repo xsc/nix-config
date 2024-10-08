@@ -1,10 +1,12 @@
 { pkgs, ... }:
 
+let user = "yannick"; in
 {
   imports =
     [
       ./hardware-configuration.nix
       ./packages.nix
+      ./secrets.nix
       ../../platforms/base
       ../../platforms/development
       ./desktop
@@ -60,11 +62,31 @@
     shell = pkgs.zsh;
   };
 
-  home-manager.users.yannick = {
-    programs.git.userName = "Yannick Scherer";
-    programs.git.userEmail = "yannick@xsc.dev";
-    home.stateVersion = "24.05";
-  };
+  home-manager.users."${user}" = { ageSecrets, config, ...}:
+    let secretFile = n: {
+      source = config.lib.file.mkOutOfStoreSymlink
+        ageSecrets."${n}".path;
+    };
+    in
+    {
+      programs.git = {
+        userName = "Yannick Scherer";
+        userEmail = "yannick@xsc.dev";
+        signing = { key = "FCC8CDA4"; };
+      };
+
+      programs.zsh.shellAliases = {
+        wgu = "sudo wg-quick up ${ageSecrets."wireguard.condor.conf".path}";
+        wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
+      };
+
+      home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
+      home.file.".ssh/config.d/llama.ssh_config" = secretFile "llama.ssh_config";
+      home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
+      home.file.".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
+
+      home.stateVersion = "24.05";
+    };
 
   # Do not edit
   system.stateVersion = "24.05";

@@ -18,4 +18,9 @@ in
   age.secrets."id_rsa_moomin" = {
     file = "${secrets}/moomin/id_rsa_moomin.age";
   } // owns;
+
+  age.secrets."wireguard.condor.conf" = {
+    name = "wireguard/condor.conf";
+    file = "${secrets}/moomin/wireguard.condor.conf.age";
+  } // owns;
 }
