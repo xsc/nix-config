@@ -12,6 +12,7 @@ in
       local config = {}
 
       config.term = "wezterm"
+      config.front_end = "WebGpu"
 
       -- Maximize on Startup
       wezterm.on("gui-startup", function()
