@@ -32,13 +32,5 @@
     };
   };
 
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      interface = "wg0";
-      address = [ "/xsc.dev/10.100.0.1" ];
-    };
-  };
-
   services.fail2ban.ignoreIP = [ "10.100.0.0/24" ];
 }

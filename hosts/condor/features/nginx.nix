@@ -1,4 +1,12 @@
-{ config, ... }:
+{ config, lib, ... }:
+
+let services = [
+      { name = "md"; port = 2284; }
+      { name = "photos"; port = 2283; }
+      { name = "social"; port = 2286; }
+      { name = "vaultwarden"; port = 2285; }
+    ];
+in
 {
   # We're running an nginx server on localhost, as well as on the Wireguard
   # interface. This will allow us to both point a cloudflare tunnel at it,
@@ -37,12 +45,11 @@
         };
       };
     in
-    {
-      "md.xsc.dev" = proxy 2284;
-      "photos.xsc.dev" = proxy 2283;
-      "social.xsc.dev" = proxy 2286;
-      "vaultwarden.xsc.dev" = proxy 2285;
-    };
+    builtins.listToAttrs (
+      builtins.map
+        (data: (lib.nameValuePair "${data.name}.xsc.dev" (proxy data.port)))
+        services
+    );
 
   security.acme = {
     acceptTerms = true;
@@ -53,6 +60,16 @@
       dnsProvider = "cloudflare";
       credentialsFile = config.age.secrets."acme.env".path;
       group = config.services.nginx.group;
+    };
+  };
+
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      interface = "wg0";
+      host-record = builtins.map
+        (data: "${data.name}.xsc.dev,10.100.0.1")
+        services;
     };
   };
 }
