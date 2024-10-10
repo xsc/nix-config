@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   ".gnupg/gpg-agent.conf" = {
     text = ''
       pinentry-program ${pkgs.pinentry_mac}/${pkgs.pinentry_mac.binaryPath}

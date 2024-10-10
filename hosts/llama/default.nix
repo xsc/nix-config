@@ -1,18 +1,16 @@
-{ pkgs, ... }:
-
-let user = "yannick"; in
-{
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./packages.nix
-      ./secrets.nix
-      ../../platforms/base
-      ../../platforms/development
-      ./desktop
-      ./keyboard
-      ./dns.nix
-    ];
+{pkgs, ...}: let
+  user = "yannick";
+in {
+  imports = [
+    ./hardware-configuration.nix
+    ./packages.nix
+    ./secrets.nix
+    ../../platforms/base
+    ../../platforms/development
+    ./desktop
+    ./keyboard
+    ./dns.nix
+  ];
 
   # Basics
   boot.loader.systemd-boot.enable = true;
@@ -43,7 +41,7 @@ let user = "yannick"; in
   };
 
   # Key to decode secrets
-  age.identityPaths = [ "/home/yannick/.ssh/id_ed25519" ];
+  age.identityPaths = ["/home/yannick/.ssh/id_ed25519"];
   services.pcscd.enable = true;
 
   # Programs
@@ -58,35 +56,39 @@ let user = "yannick"; in
   users.users.yannick = {
     isNormalUser = true;
     description = "Yannick";
-    extraGroups = [ "networkmanager" "wheel" "agenix" "uinput" "input" ];
+    extraGroups = ["networkmanager" "wheel" "agenix" "uinput" "input"];
     shell = pkgs.zsh;
   };
 
-  home-manager.users."${user}" = { ageSecrets, config, ...}:
-    let secretFile = n: {
-      source = config.lib.file.mkOutOfStoreSymlink
+  home-manager.users."${user}" = {
+    ageSecrets,
+    config,
+    ...
+  }: let
+    secretFile = n: {
+      source =
+        config.lib.file.mkOutOfStoreSymlink
         ageSecrets."${n}".path;
     };
-    in
-    {
-      programs.git = {
-        userName = "Yannick Scherer";
-        userEmail = "yannick@xsc.dev";
-        signing = { key = "FCC8CDA4"; };
-      };
-
-      programs.zsh.shellAliases = {
-        wgu = "sudo wg-quick up ${ageSecrets."wireguard.condor.conf".path}";
-        wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
-      };
-
-      home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
-      home.file.".ssh/config.d/llama.ssh_config" = secretFile "llama.ssh_config";
-      home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
-      home.file.".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
-
-      home.stateVersion = "24.05";
+  in {
+    programs.git = {
+      userName = "Yannick Scherer";
+      userEmail = "yannick@xsc.dev";
+      signing = {key = "FCC8CDA4";};
     };
+
+    programs.zsh.shellAliases = {
+      wgu = "sudo wg-quick up ${ageSecrets."wireguard.condor.conf".path}";
+      wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
+    };
+
+    home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
+    home.file.".ssh/config.d/llama.ssh_config" = secretFile "llama.ssh_config";
+    home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
+    home.file.".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
+
+    home.stateVersion = "24.05";
+  };
 
   # Do not edit
   system.stateVersion = "24.05";

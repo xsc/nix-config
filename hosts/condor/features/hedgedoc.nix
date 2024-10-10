@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   services.hedgedoc = {
     enable = true;
     settings = {
@@ -14,6 +13,3 @@
     };
   };
 }
-
-
-

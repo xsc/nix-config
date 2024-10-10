@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   vim-iced-pkg = pkgs.fetchFromGitHub {
     owner = "liquidz";
     repo = "vim-iced";
@@ -22,8 +20,7 @@ let
       sha256 = "sha256-/k6VBzXuap8FTqMij7EQCh32TWaDPR9vAvEHw20fMCo=";
     };
   };
-in
-{
+in {
   nixpkgs.overlays = [
     (final: prev: {
       # Vim Plugins

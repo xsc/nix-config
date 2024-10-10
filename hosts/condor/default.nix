@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../platforms/base
     ./hardware-configuration.nix
@@ -17,9 +20,9 @@
     domain = "xsc.dev";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
     };
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = ["1.1.1.1" "8.8.8.8"];
   };
 
   # Features
@@ -66,4 +69,3 @@
     };
   };
 }
-

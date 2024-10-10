@@ -1,10 +1,7 @@
-{ theme, ... }:
-
-let
+{theme, ...}: let
   T = theme.wezterm;
   fontSize = T.font.fontSize;
-in
-{
+in {
   home.file.".config/wezterm/wezterm.lua" = {
     text = ''
       local wezterm = require 'wezterm'

@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   imports = [
     ./redshift.nix
     ./ulauncher.nix
@@ -39,7 +37,6 @@
     desktopManager = {
       cinnamon.enable = true;
     };
-
   };
 
   services.libinput = {

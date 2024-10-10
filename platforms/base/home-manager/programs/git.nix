@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.git = {
     enable = true;
     ignores = [
@@ -21,7 +19,7 @@
       "/tags.*"
     ];
 
-    diff-so-fancy = { enable = true; };
+    diff-so-fancy = {enable = true;};
 
     aliases = {
       # commit
@@ -59,8 +57,7 @@
       puf = "push -uf";
 
       # cleanup
-      cleanup =
-        "!git branch --merged | grep -v '^  master$' | grep -v '^  main$' | grep -v '^  develop$' | grep -v '^\\*' | xargs git branch -d";
+      cleanup = "!git branch --merged | grep -v '^  master$' | grep -v '^  main$' | grep -v '^  develop$' | grep -v '^\\*' | xargs git branch -d";
       cleanup-remote = ''
         !f() {
                   local remote="$1";
@@ -94,8 +91,7 @@
                 }; f'';
 
       # logging
-      lg1 =
-        "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(yellow)%h%C(reset) - %C(blue)(%ar)%C(reset) %s - %C(cyan)%an%C(reset)%C(red)%d%C(reset)' --all";
+      lg1 = "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(yellow)%h%C(reset) - %C(blue)(%ar)%C(reset) %s - %C(cyan)%an%C(reset)%C(red)%d%C(reset)' --all";
       lg = "!git lg1";
       sh = "show --format=fuller";
 
@@ -125,7 +121,7 @@
         }; f'';
     };
 
-    lfs = { enable = true; };
+    lfs = {enable = true;};
 
     extraConfig = {
       init.defaultBranch = "main";

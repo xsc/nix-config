@@ -13,5 +13,4 @@
     source = ./bin/clojars-release;
     executable = true;
   };
-
 }

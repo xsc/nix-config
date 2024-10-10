@@ -1,67 +1,67 @@
-{ pkgs, ... }:
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    # Text and terminal utilities
+    tmux
+    wezterm
 
-{
-  environment.systemPackages =
-    with pkgs; [
+    # Encryption and security tools
+    age-plugin-yubikey
+    libfido2
+    yubikey-manager
+    wireguard-tools
 
-      # Text and terminal utilities
-      tmux
-      wezterm
+    # Development Tools
+    k6
+    scrcpy
 
-      # Encryption and security tools
-      age-plugin-yubikey
-      libfido2
-      yubikey-manager
-      wireguard-tools
+    # Cloud-related tools and SDKs
+    docker
+    docker-compose
+    awscli2
+    aws-sam-cli
+    awsume
+    azure-cli
 
-      # Development Tools
-      k6
-      scrcpy
+    # --- Multimedia
+    ffmpeg
 
-      # Cloud-related tools and SDKs
-      docker
-      docker-compose
-      awscli2
-      aws-sam-cli
-      awsume
-      azure-cli
+    # --- Language-specific Packages
 
-      # --- Multimedia
-      ffmpeg
+    # Clojure/Java
+    openjdk17
+    leiningen
+    clj-kondo
+    iced-repl # via vim-plugins-github overlay
 
-      # --- Language-specific Packages
+    # JS/TS
+    eslint_d
+    nodejs_18
+    nodePackages.eslint
+    nodePackages.prettier
+    nodePackages.typescript-language-server
+    prettierd
+    yarn
 
-      # Clojure/Java
-      openjdk17
-      leiningen
-      clj-kondo
-      iced-repl # via vim-plugins-github overlay
+    # Kotlin
+    kotlin-language-server
+    ktlint
 
-      # JS/TS
-      nodejs_18
-      nodePackages.prettier
-      yarn
+    # Markdown
+    markdownlint-cli2
+    nodePackages.alex
 
-      # Kotlin
-      kotlin-language-server
-      ktlint
+    # PHP
+    php
 
-      # Markdown
-      markdownlint-cli2
-      nodePackages.markdown-link-check
-
-      # PHP
-      php
-
-      # Python
-      python311
-      python311Packages.black
-      python311Packages.flake8
-      python311Packages.pip
-      python311Packages.pylint
-      python311Packages.watchdog
-      python311Packages.virtualenv
-      pipenv
-      pipx
-    ];
+    # Python
+    python311
+    python311Packages.black
+    python311Packages.flake8
+    python311Packages.pip
+    python311Packages.pylint
+    python311Packages.watchdog
+    python311Packages.virtualenv
+    pipenv
+    pipx
+  ];
 }

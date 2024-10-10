@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.local.dock;
   inherit (pkgs) stdenv dockutil;
-in
-{
+in {
   options = {
     local.dock.enable = mkOption {
       description = "Enable dock";
@@ -17,7 +20,7 @@ in
       type = with types;
         listOf (submodule {
           options = {
-            path = lib.mkOption { type = str; };
+            path = lib.mkOption {type = str;};
             section = lib.mkOption {
               type = str;
               default = "apps";
@@ -34,34 +37,38 @@ in
 
   config = mkIf cfg.enable (
     let
-      normalize = path: if hasSuffix ".app" path then path + "/" else path;
+      normalize = path:
+        if hasSuffix ".app" path
+        then path + "/"
+        else path;
       entryURI = path:
         "file://"
-        + (builtins.replaceStrings [ " " "!" ''"'' "#" "$" "%" "&" "'" "(" ")" ] [
-          "%20"
-          "%21"
-          "%22"
-          "%23"
-          "%24"
-          "%25"
-          "%26"
-          "%27"
-          "%28"
-          "%29"
-        ]
+        + (builtins.replaceStrings [" " "!" ''"'' "#" "$" "%" "&" "'" "(" ")"] [
+            "%20"
+            "%21"
+            "%22"
+            "%23"
+            "%24"
+            "%25"
+            "%26"
+            "%27"
+            "%28"
+            "%29"
+          ]
           (normalize path));
-      wantURIs = concatMapStrings
+      wantURIs =
+        concatMapStrings
         (entry: ''
           ${entryURI entry.path}
         '')
         cfg.entries;
-      createEntries = concatMapStrings
+      createEntries =
+        concatMapStrings
         (entry: ''
           ${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}
         '')
         cfg.entries;
-    in
-    {
+    in {
       system.activationScripts.postUserActivation.text = ''
         echo >&2 "Setting up the Dock..."
         haveURIs="$(${dockutil}/bin/dockutil --list | ${pkgs.coreutils}/bin/cut -f2)"

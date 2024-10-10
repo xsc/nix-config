@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   owner = "superseriousbusiness";
   repo = "gotosocial";
   version = "0.17.0-rc2";
@@ -29,8 +27,7 @@ let
       mv web $out/share/gotosocial/
     '';
   });
-in
-{
+in {
   services.gotosocial = {
     enable = true;
     package = rcPackage;
@@ -43,7 +40,7 @@ in
       port = 2286;
 
       # Instance
-      instance-languages = [ "en" "de" ];
+      instance-languages = ["en" "de"];
     };
   };
 
@@ -71,4 +68,3 @@ in
     '';
   };
 }
-

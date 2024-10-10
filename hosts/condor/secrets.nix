@@ -1,6 +1,5 @@
-{ secrets, ... }:
-{
-  age.identityPaths = [ "/root/.ssh/keys/id_ed25519_condor" ];
+{secrets, ...}: {
+  age.identityPaths = ["/root/.ssh/keys/id_ed25519_condor"];
 
   age.secrets."duplicity.gpg" = {
     file = "${secrets}/shared/duplicity.gpg.age";

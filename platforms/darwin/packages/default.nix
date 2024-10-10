@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   packages = with pkgs; [
     dockutil
     pinentry_mac
@@ -43,9 +41,9 @@ let
         };
       })
   ];
-in
-{
-  environment.systemPackages = packages
+in {
+  environment.systemPackages =
+    packages
     ++ alfredGalleryWorkflows
     ++ alfredCustomWorkflows;
 }

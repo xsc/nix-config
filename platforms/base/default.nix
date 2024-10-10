@@ -1,6 +1,10 @@
-{ agenix, config, lib, pkgs, ... }@inputs:
-
 {
+  agenix,
+  config,
+  lib,
+  pkgs,
+  ...
+} @ inputs: {
   imports = [
     ./utils/cachix
     ./overlays
@@ -9,7 +13,7 @@
   ];
 
   # Base Packages
-  environment.systemPackages = [ agenix.packages."${pkgs.system}".default ];
+  environment.systemPackages = [agenix.packages."${pkgs.system}".default];
 
   # Home Manager
   home-manager.useGlobalPkgs = true;
@@ -27,7 +31,7 @@
 
   # Nix Settings
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = ["nix-command" "flakes"];
   };
 
   nixpkgs = {

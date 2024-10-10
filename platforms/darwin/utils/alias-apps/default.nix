@@ -1,6 +1,10 @@
-{ config, lib, pkgs, userData, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  userData,
+  ...
+}: let
   user = userData.user;
   home = userData.home;
   mkalias = pkgs.writeScriptBin "mkalias" ''
@@ -29,9 +33,7 @@ let
 
   sourcePath = "${config.system.build.applications}/Applications";
   targetPath = "${home}/Applications/Nix";
-
-in
-{
+in {
   config = {
     system.activationScripts.postActivation.text = ''
       mkdir -p "${targetPath}"
@@ -48,13 +50,3 @@ in
     '';
   };
 }
-
-
-
-
-
-
-
-
-
-

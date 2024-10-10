@@ -1,6 +1,9 @@
-{ agenix, alfred, pkgs, ... }:
-
 {
+  agenix,
+  alfred,
+  pkgs,
+  ...
+}: {
   imports = [
     ../base
     ../development
@@ -41,7 +44,7 @@
     };
   };
 
-  nixpkgs.overlays = [ alfred.overlays.default ];
+  nixpkgs.overlays = [alfred.overlays.default];
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
@@ -50,7 +53,7 @@
     stateVersion = 4;
 
     defaults = {
-      LaunchServices = { LSQuarantine = false; };
+      LaunchServices = {LSQuarantine = false;};
 
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
@@ -75,7 +78,7 @@
         tilesize = 48;
       };
 
-      finder = { _FXShowPosixPathInTitle = false; };
+      finder = {_FXShowPosixPathInTitle = false;};
 
       menuExtraClock = {
         Show24Hour = true;

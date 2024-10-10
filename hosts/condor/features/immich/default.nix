@@ -1,21 +1,19 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   imports = [
     ./docker-compose.nix
   ];
 
   # Users/Groups
-  users.groups.immich = { };
+  users.groups.immich = {};
   users.users.immich = {
     isNormalUser = true;
     group = "immich";
     shell = pkgs.zsh;
-    extraGroups = [ "docker" ];
+    extraGroups = ["docker"];
   };
 
   # User Environment
-  home-manager.users.immich = { pkgs, ... }: {
+  home-manager.users.immich = {pkgs, ...}: {
     programs = {
       zsh = {
         enable = true;

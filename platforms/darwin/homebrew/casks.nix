@@ -1,6 +1,4 @@
-{ ... }:
-
-[
+{...}: [
   # Productivity Tools
   "alfred"
   "bettertouchtool"

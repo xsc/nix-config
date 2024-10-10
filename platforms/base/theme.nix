@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   options.theme = {
     fontFamily = lib.mkOption {
       type = lib.types.str;
@@ -44,7 +47,9 @@
     };
   };
 
-  config = let cfg = config.theme; in {
+  config = let
+    cfg = config.theme;
+  in {
     home-manager.extraSpecialArgs = {
       theme = {
         inherit (cfg) tmux vim;

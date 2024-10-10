@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.vaultwarden = {
     enable = true;
     config = {
@@ -14,24 +13,22 @@
     environmentFile = config.age.secrets."vaultwarden.env".path;
   };
 
-  services.fail2ban.jails =
-    let
-      mkSettings = filter: {
-        inherit filter;
+  services.fail2ban.jails = let
+    mkSettings = filter: {
+      inherit filter;
 
-        enabled = true;
-        backend = "systemd";
-        action = "action-ban-vaultwarden";
-        maxretry = 3;
-        findtime = 300;
-        bantime = "24h";
-        journalmatch = "_SYSTEMD_UNIT=vaultwarden.service";
-      };
-    in
-    {
-      "vaultwarden".settings = mkSettings "vaultwarden";
-      "vaultwarden-admin".settings = mkSettings "vaultwarden-admin";
+      enabled = true;
+      backend = "systemd";
+      action = "action-ban-vaultwarden";
+      maxretry = 3;
+      findtime = 300;
+      bantime = "24h";
+      journalmatch = "_SYSTEMD_UNIT=vaultwarden.service";
     };
+  in {
+    "vaultwarden".settings = mkSettings "vaultwarden";
+    "vaultwarden-admin".settings = mkSettings "vaultwarden-admin";
+  };
 
   environment.etc = {
     "fail2ban/filter.d/vaultwarden.conf".text = ''
@@ -52,5 +49,4 @@
       actionunban = iptables -D INPUT -p tcp --dport 2285 -m string --algo bm --string 'X-Forwarded-For: <ip>' -j DROP
     '';
   };
-
 }

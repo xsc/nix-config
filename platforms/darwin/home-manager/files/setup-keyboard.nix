@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   plusminus = "30064771172";
   tilde = "30064771125";
   userKeyMapping = ''
@@ -10,8 +9,7 @@ let
       ]
     }
   '';
-in
-{
+in {
   ".bin/setup-keyboard" = {
     text = ''
       #!/bin/sh

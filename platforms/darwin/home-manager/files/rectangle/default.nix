@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   "Library/Application Support/Rectangle/RectangleConfig.json" = {
     # Note that Rectangle renames the file on startup (to avoid double loading).
     # We will be adding the file again on rebuild, so with time the folder will

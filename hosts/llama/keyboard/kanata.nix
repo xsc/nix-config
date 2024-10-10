@@ -1,62 +1,61 @@
-{ pkgs, ... }:
+{pkgs, ...}: let
+  mkService = {
+    name,
+    defcfg,
+    config,
+  }: let
+    configFile = pkgs.writeText "kanata-${name}.conf" ''
+      (defcfg ${defcfg})
 
-let
-  mkService = { name, defcfg, config }:
-    let
-      configFile = pkgs.writeText "kanata-${name}.conf" ''
-        (defcfg ${defcfg})
-
-        ${config}
-      '';
-    in
-    {
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-
-      Service = {
-        Type = "notify";
-        ExecStart = ''
-          ${pkgs.kanata}/bin/kanata \
-            --cfg ${configFile} \
-            --symlink-path /tmp/kanata-${name}
-        '';
-        RuntimeDirectory = "kanata-${name}";
-
-        # hardening
-        DeviceAllow = [
-          "/dev/uinput rw"
-          "char-input r"
-        ];
-        CapabilityBoundingSet = [ "" ];
-        DevicePolicy = "closed";
-        IPAddressDeny = [ "any" ];
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        PrivateNetwork = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        SystemCallArchitectures = [ "native" ];
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
-        UMask = "0077";
-      };
+      ${config}
+    '';
+  in {
+    Install = {
+      WantedBy = ["default.target"];
     };
-in
-{
+
+    Service = {
+      Type = "notify";
+      ExecStart = ''
+        ${pkgs.kanata}/bin/kanata \
+          --cfg ${configFile} \
+          --symlink-path /tmp/kanata-${name}
+      '';
+      RuntimeDirectory = "kanata-${name}";
+
+      # hardening
+      DeviceAllow = [
+        "/dev/uinput rw"
+        "char-input r"
+      ];
+      CapabilityBoundingSet = [""];
+      DevicePolicy = "closed";
+      IPAddressDeny = ["any"];
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      PrivateNetwork = true;
+      PrivateUsers = true;
+      ProcSubset = "pid";
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      RestrictAddressFamilies = ["AF_UNIX"];
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      SystemCallArchitectures = ["native"];
+      SystemCallFilter = [
+        "@system-service"
+        "~@privileged"
+        "~@resources"
+      ];
+      UMask = "0077";
+    };
+  };
+in {
   hardware.uinput.enable = true;
 
   home-manager.users.yannick = {
@@ -178,7 +177,5 @@ in
         )
       '';
     };
-
   };
-
 }

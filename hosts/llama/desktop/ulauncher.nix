@@ -1,11 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home-manager.sharedModules = [
     {
       systemd.user.services.ulauncher = {
         Unit = {
           Description = "Linux Application Launcher";
-          Documentation = [ "https://ulauncher.io/" ];
+          Documentation = ["https://ulauncher.io/"];
         };
 
         Service = {
@@ -20,7 +19,7 @@
         };
 
         Install = {
-          WantedBy = [ "graphical-session.target" ];
+          WantedBy = ["graphical-session.target"];
         };
       };
     }

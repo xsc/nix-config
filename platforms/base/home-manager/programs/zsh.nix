@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
     autocd = false;
-    cdpath = [ "~/.local/share/src" ];
+    cdpath = ["~/.local/share/src"];
 
     shellAliases = {
       ll = "ls -l --color=auto";
@@ -73,6 +72,5 @@
       zle -N zsh_clear
       bindkey -M viins '^@' zsh_clear
     '';
-
   };
 }

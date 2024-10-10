@@ -1,5 +1,4 @@
-{ ... }:
-
+{...}:
 # These app IDs are from using the mas CLI app
 # mas = mac app store
 # https://github.com/mas-cli/mas

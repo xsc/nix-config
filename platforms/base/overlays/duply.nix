@@ -1,12 +1,9 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   major = "2";
   minor = "5";
   patch = "3";
   version = "${major}.${minor}.${patch}";
-in
-{
+in {
   nixpkgs.overlays = [
     (final: prev: {
       duply = prev.duply.overrideAttrs (att: {
