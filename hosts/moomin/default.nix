@@ -46,6 +46,8 @@ in {
     programs.zsh.shellAliases = {
       wgu = "sudo wg-quick up ${ageSecrets."wireguard.condor.conf".path}";
       wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
+      dns = "sudo networksetup -setdnsservers Wi-Fi";
+      dns-reset = "sudo networksetup -setdnsservers Wi-Fi 127.0.0.1";
     };
 
     home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
