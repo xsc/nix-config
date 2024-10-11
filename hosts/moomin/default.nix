@@ -50,10 +50,12 @@ in {
       dns-reset = "sudo networksetup -setdnsservers Wi-Fi 127.0.0.1";
     };
 
-    home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
-    home.file.".ssh/config.d/moomin.ssh_config" = secretFile "moomin.ssh_config";
-    home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
-    home.file.".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
-    home.file.".ssh/keys/id_rsa_moomin" = secretFile "id_rsa_moomin";
+    home.file = {
+      ".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
+      ".ssh/config.d/moomin.ssh_config" = secretFile "moomin.ssh_config";
+      ".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
+      ".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
+      ".ssh/keys/id_rsa_moomin" = secretFile "id_rsa_moomin";
+    };
   };
 }
