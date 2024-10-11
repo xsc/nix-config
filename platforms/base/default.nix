@@ -4,7 +4,7 @@
   lib,
   pkgs,
   ...
-} @ inputs: {
+}: {
   imports = [
     ./utils/cachix
     ./overlays
@@ -16,17 +16,21 @@
   environment.systemPackages = [agenix.packages."${pkgs.system}".default];
 
   # Home Manager
-  home-manager.useGlobalPkgs = true;
-  home-manager.sharedModules = [
-    {
-      home.enableNixpkgsReleaseCheck = false;
-      home.packages = config.environment.systemPackages;
-      home.stateVersion = lib.mkDefault "24.05";
-    }
-    ./home-manager/programs
-  ];
-  home-manager.extraSpecialArgs = {
-    userHome = config.userHome;
+  home-manager = {
+    useGlobalPkgs = true;
+    sharedModules = [
+      {
+        home = {
+          enableNixpkgsReleaseCheck = false;
+          packages = config.environment.systemPackages;
+          stateVersion = lib.mkDefault "24.05";
+        };
+      }
+      ./home-manager/programs
+    ];
+    extraSpecialArgs = {
+      inherit (config) userHome;
+    };
   };
 
   # Nix Settings

@@ -36,40 +36,40 @@ in {
     sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 
     clientMaxBodySize = "4g";
-  };
 
-  services.nginx.virtualHosts = let
-    proxy = port: {
-      listen = [
-        {
-          addr = "127.0.0.1";
-          port = 2280;
-          ssl = false;
-        }
-        {
-          addr = "10.100.0.1";
-          port = 443;
-          ssl = true;
-        }
-      ];
+    virtualHosts = let
+      proxy = port: {
+        listen = [
+          {
+            addr = "127.0.0.1";
+            port = 2280;
+            ssl = false;
+          }
+          {
+            addr = "10.100.0.1";
+            port = 443;
+            ssl = true;
+          }
+        ];
 
-      addSSL = true;
-      useACMEHost = "xsc.dev";
+        addSSL = true;
+        useACMEHost = "xsc.dev";
 
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString port}/";
-        proxyWebsockets = true;
-        extraConfig =
-          "proxy_ssl_server_name on;"
-          + "proxy_pass_header Authorization;";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString port}/";
+          proxyWebsockets = true;
+          extraConfig =
+            "proxy_ssl_server_name on;"
+            + "proxy_pass_header Authorization;";
+        };
       };
-    };
-  in
-    builtins.listToAttrs (
-      builtins.map
-      (data: (lib.nameValuePair "${data.name}.xsc.dev" (proxy data.port)))
-      services
-    );
+    in
+      builtins.listToAttrs (
+        builtins.map
+        (data: (lib.nameValuePair "${data.name}.xsc.dev" (proxy data.port)))
+        services
+      );
+  };
 
   security.acme = {
     acceptTerms = true;
@@ -79,7 +79,7 @@ in {
       domain = "*.xsc.dev";
       dnsProvider = "cloudflare";
       credentialsFile = config.age.secrets."acme.env".path;
-      group = config.services.nginx.group;
+      inherit (config.services.nginx) group;
     };
   };
 

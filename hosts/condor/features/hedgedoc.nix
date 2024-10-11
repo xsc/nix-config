@@ -1,4 +1,4 @@
-{...}: {
+_: {
   services.hedgedoc = {
     enable = true;
     settings = {

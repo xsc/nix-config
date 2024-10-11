@@ -27,9 +27,11 @@
 
   # Features
   programs.zsh.enable = true;
-  virtualisation.containers.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.oci-containers.backend = "docker";
+  virtualisation = {
+    containers.enable = true;
+    docker.enable = true;
+    oci-containers.backend = "docker";
+  };
 
   # Packages
   environment.systemPackages = with pkgs; [

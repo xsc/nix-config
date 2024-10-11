@@ -74,39 +74,42 @@
   };
 in {
   # Immich
-  systemd.services."duplicity-immich-backup" = mkBackupService {
-    source = "/var/immich";
-    target = "immich";
-    startAt = "*-*-* 02/6:00:00";
-    maxAge = "65D";
-  };
+  systemd.services = {
+    "duplicity-immich-backup" = mkBackupService {
+      source = "/var/immich";
+      target = "immich";
+      startAt = "*-*-* 02/6:00:00";
+      maxAge = "65D";
+    };
 
-  systemd.services."duplicity-immich-backup-verify" = mkVerifyService {
-    directoryName = "immich-verify";
-    target = "immich";
-    startAt = "*-*-01 00:00:00";
-  };
+    "duplicity-immich-backup-verify" = mkVerifyService {
+      directoryName = "immich-verify";
+      target = "immich";
+      startAt = "*-*-01 00:00:00";
+    };
 
-  # Vaultwarden
-  systemd.services."duplicity-vaultwarden-backup" = mkBackupService {
-    source = "/var/lib/bitwarden_rs";
-    target = "vaultwarden";
-    startAt = "*-*-* 00:00:00";
-  };
-  systemd.services."duplicity-vaultwarden-backup-verify" = mkVerifyService {
-    target = "vaultwarden";
-    startAt = "*-*-01 01:00:00";
-  };
+    # Vaultwarden
+    "duplicity-vaultwarden-backup" = mkBackupService {
+      source = "/var/lib/bitwarden_rs";
+      target = "vaultwarden";
+      startAt = "*-*-* 00:00:00";
+    };
 
-  # Gotosocial
-  systemd.services."duplicity-gotosocial-backup" = mkBackupService {
-    source = "/var/lib/gotosocial";
-    target = "gotosocial";
-    startAt = "Sun *-*-* 00:00:00";
-  };
+    "duplicity-vaultwarden-backup-verify" = mkVerifyService {
+      target = "vaultwarden";
+      startAt = "*-*-01 01:00:00";
+    };
 
-  systemd.services."duplicity-gotosocial-backup-verify" = mkVerifyService {
-    target = "gotosocial";
-    startAt = "*-*-01 01:00:00";
+    # Gotosocial
+    "duplicity-gotosocial-backup" = mkBackupService {
+      source = "/var/lib/gotosocial";
+      target = "gotosocial";
+      startAt = "Sun *-*-* 00:00:00";
+    };
+
+    "duplicity-gotosocial-backup-verify" = mkVerifyService {
+      target = "gotosocial";
+      startAt = "*-*-01 01:00:00";
+    };
   };
 }

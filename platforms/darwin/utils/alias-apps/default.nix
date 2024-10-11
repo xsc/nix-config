@@ -5,8 +5,8 @@
   userData,
   ...
 }: let
-  user = userData.user;
-  home = userData.home;
+  inherit (userData) user;
+  inherit (userData) home;
   mkalias = pkgs.writeScriptBin "mkalias" ''
     #!/usr/bin/env swift
 

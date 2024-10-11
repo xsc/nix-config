@@ -37,17 +37,19 @@ in {
       ./remap-keyboard.nix
     ];
 
-    programs.git = {
-      userName = "Yannick Scherer";
-      userEmail = "yannick@xsc.dev";
-      signing = {key = "FCC8CDA4";};
-    };
+    programs = {
+      git = {
+        userName = "Yannick Scherer";
+        userEmail = "yannick@xsc.dev";
+        signing = {key = "FCC8CDA4";};
+      };
 
-    programs.zsh.shellAliases = {
-      wgu = "sudo wg-quick up ${ageSecrets."wireguard.condor.conf".path}";
-      wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
-      dns = "sudo networksetup -setdnsservers Wi-Fi";
-      dns-reset = "sudo networksetup -setdnsservers Wi-Fi 127.0.0.1";
+      zsh.shellAliases = {
+        wgu = "sudo wg-quick up ${ageSecrets."wireguard/condor.conf".path}";
+        wgd = "sudo wg-quick down ${ageSecrets."wireguard/condor.conf".path}";
+        dns = "sudo networksetup -setdnsservers Wi-Fi";
+        dns-reset = "sudo networksetup -setdnsservers Wi-Fi 127.0.0.1";
+      };
     };
 
     home.file = {

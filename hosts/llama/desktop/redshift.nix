@@ -1,4 +1,4 @@
-{...}: {
+_: {
   services.redshift = {
     enable = true;
     brightness = {

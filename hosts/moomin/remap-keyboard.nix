@@ -1,4 +1,4 @@
-{...}: let
+_: let
   logs = "/var/log/nixos-launchd";
 in {
   # remap tilde and plusminus on the internal keyboard

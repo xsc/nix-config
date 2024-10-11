@@ -55,7 +55,7 @@
         inherit (cfg) tmux vim;
         wezterm = {
           font = {
-            fontFamily = cfg.fontFamily;
+            inherit (cfg) fontFamily;
             fontSize = cfg.fontSize - 0.3;
           };
           inherit (cfg.wezterm) colorscheme;

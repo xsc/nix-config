@@ -1,10 +1,12 @@
 {config, ...}: {
-  networking.firewall.interfaces.wg0 = {
-    allowedTCPPorts = [443];
-    allowedUDPPorts = [53];
-  };
+  networking.firewall.interfaces = {
+    wg0 = {
+      allowedTCPPorts = [443];
+      allowedUDPPorts = [53];
+    };
 
-  networking.firewall.interfaces.ens18.allowedUDPPorts = [5553];
+    ens18.allowedUDPPorts = [5553];
+  };
 
   networking.wireguard.interfaces = {
     wg0 = {

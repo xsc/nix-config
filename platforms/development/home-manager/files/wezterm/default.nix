@@ -1,6 +1,6 @@
 {theme, ...}: let
   T = theme.wezterm;
-  fontSize = T.font.fontSize;
+  inherit (T.font) fontSize;
 in {
   home.file.".config/wezterm/wezterm.lua" = {
     text = ''

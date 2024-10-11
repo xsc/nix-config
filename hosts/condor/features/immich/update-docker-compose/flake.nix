@@ -86,7 +86,7 @@
       in
         pkgs.symlinkJoin
         {
-          name = name;
+          inherit name;
           paths = [script];
           buildInputs = [];
         };

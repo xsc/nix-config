@@ -1,4 +1,4 @@
-{...}: let
+_: let
   path = ./.;
   imports =
     builtins.map

@@ -10,7 +10,7 @@
     extraGroups = ["systemd-journal"];
   };
 
-  home-manager.users.msmtp = {...}: {
+  home-manager.users.msmtp = _: {
     programs = {
       msmtp = {
         enable = true;
@@ -20,10 +20,14 @@
     accounts.email.accounts.smtp2go = {
       msmtp.enable = true;
 
-      smtp.tls.enable = true;
-      smtp.tls.useStartTls = true;
-      smtp.host = "mail.smtp2go.com";
-      smtp.port = 2525;
+      smtp = {
+        tls = {
+          enable = true;
+          useStartTls = true;
+        };
+        host = "mail.smtp2go.com";
+        port = 2525;
+      };
 
       primary = true;
       address = "noreply@condor.xsc.dev";

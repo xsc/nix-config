@@ -94,7 +94,7 @@
       };
     darwinConfigurations = flake-utils.lib.eachSystem darwinSystems (
       system: let
-        lib = nixpkgs.legacyPackages.${system}.lib;
+        inherit (nixpkgs.legacyPackages.${system}) lib;
       in {
         packages = {
           darwinConfigurations = lib.genAttrs darwinHosts (host: mkDarwinSystem system host);
@@ -120,7 +120,7 @@
       };
     nixosConfigurations = flake-utils.lib.eachSystem nixosSystems (
       system: let
-        lib = nixpkgs.legacyPackages.${system}.lib;
+        inherit (nixpkgs.legacyPackages.${system}) lib;
       in {
         packages = {
           nixosConfigurations = lib.genAttrs nixosHosts (host: mkNixosSystem system host);

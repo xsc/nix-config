@@ -17,17 +17,26 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "llama";
   networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.hardware.bolt.enable = true;
-  services.printing.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+    pulseaudio.enable = false;
+  };
+
+  services = {
+    hardware.bolt.enable = true;
+    printing.enable = true;
+    rtkit.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+    pcscd.enable = true;
   };
 
   # Nix
@@ -42,7 +51,6 @@ in {
 
   # Key to decode secrets
   age.identityPaths = ["/home/yannick/.ssh/id_ed25519"];
-  services.pcscd.enable = true;
 
   # Programs
   programs.firefox.enable = true;
@@ -82,10 +90,12 @@ in {
       wgd = "sudo wg-quick down ${ageSecrets."wireguard.condor.conf".path}";
     };
 
-    home.file.".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
-    home.file.".ssh/config.d/llama.ssh_config" = secretFile "llama.ssh_config";
-    home.file.".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
-    home.file.".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
+    home.file = {
+      ".ssh/config.d/shared.ssh_config" = secretFile "shared.ssh_config";
+      ".ssh/config.d/llama.ssh_config" = secretFile "llama.ssh_config";
+      ".ssh/keys/id_ed25519_github" = secretFile "id_ed25519_github";
+      ".ssh/keys/id_ed25519_condor" = secretFile "id_ed25519_condor";
+    };
 
     home.stateVersion = "24.05";
   };

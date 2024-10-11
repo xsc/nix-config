@@ -31,7 +31,7 @@ in {
       # iced-repl: REPL binary only
       iced-repl = pkgs.stdenv.mkDerivation {
         name = "iced-repl";
-        version = vim-iced.version;
+        inherit (vim-iced) version;
         src = vim-iced-pkg;
 
         # Patch the version directly into the script
