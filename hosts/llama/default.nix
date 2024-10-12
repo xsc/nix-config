@@ -17,6 +17,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "llama";
   networking.networkmanager.enable = true;
+  security.rtkit.enable = true;
 
   hardware = {
     bluetooth = {
@@ -29,7 +30,6 @@ in {
   services = {
     hardware.bolt.enable = true;
     printing.enable = true;
-    rtkit.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
