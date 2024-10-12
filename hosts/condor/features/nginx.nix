@@ -53,7 +53,7 @@ in {
         ];
 
         addSSL = true;
-        useACMEHost = "xsc.dev";
+        useACMEHost = "condor.xsc.dev";
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString port}/";
@@ -75,8 +75,9 @@ in {
     acceptTerms = true;
     defaults.email = "infra@xsc.dev";
 
-    certs."xsc.dev" = {
-      domain = "*.xsc.dev";
+    certs."condor.xsc.dev" = {
+      domain = "condor.xsc.dev";
+      extraDomainNames = builtins.map (data: "${data.name}.xsc.dev") services;
       dnsProvider = "cloudflare";
       credentialsFile = config.age.secrets."acme.env".path;
       inherit (config.services.nginx) group;
