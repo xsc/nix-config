@@ -25,16 +25,24 @@
   in ["/bin/sh" "-c" script];
 in {
   launchd.daemons = {
-    # Local DNS pointing at NextDNS
-    "dns-local" = {
+    "nextdns" = {
+      path = [];
       serviceConfig = {
+        EnvironmentVariables = {
+          SERVICE_RUN_MODE = "1";
+        };
+
         ProgramArguments = waitAndRun [
-          "/opt/homebrew/bin/stubby"
-          "-C"
-          "${config.age.secrets."stubby.nextdns.yml".path}"
+          "${pkgs.nextdns}/bin/nextdns"
+          "run"
+          "-config-file"
+          "${config.age.secrets."nextdns.conf".path}"
         ];
+
         KeepAlive = true;
         RunAtLoad = true;
+        StandardOutPath = "${logs}/nextdns-stdout.log";
+        StandardErrorPath = "${logs}/nextdns-stderr.log";
       };
     };
 
