@@ -1,7 +1,9 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local fzf = require("fzf-lua")
+local lspconfig = require("lspconfig")
 
 -- Language Servers
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
   capabilities = capabilities,
 
   on_init = function(client)
@@ -29,11 +31,11 @@ require("lspconfig").lua_ls.setup({
   },
 })
 
-require("lspconfig").nixd.setup({
+lspconfig.nixd.setup({
   capabilities = capabilities,
 })
 
-require("lspconfig").ts_ls.setup({
+lspconfig.ts_ls.setup({
   capabilities = capabilities,
 })
 
@@ -72,6 +74,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client.supports_method("textDocument/codeAction") then
       vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { buffer = bufnr })
+      vim.keymap.set("n", "<leader>qf", fzf.lsp_code_actions, { buffer = bufnr })
     end
 
     if client.supports_method("textDocument/definition") then
@@ -80,14 +83,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     if client.supports_method("textDocument/references") then
       vim.keymap.set("n", "grr", vim.lsp.buf.references, { buffer = bufnr })
+      vim.keymap.set("n", "<leader>gr", fzf.lsp_references, { buffer = bufnr })
+    end
+
+    if client.supports_method("textDocument/implementation") then
+      vim.keymap.set("n", "<leader>gi", fzf.lsp_implementations, { buffer = bufnr })
     end
 
     if client.supports_method("textDocument/rename") then
       if client.supports_method("textDocument/documentHighlight") then
         local renamer = require("renamer")
-        vim.keymap.set("n", "grn", renamer.rename, { buffer = bufnr, noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>rn", renamer.rename, { buffer = bufnr, noremap = true, silent = true })
       else
-        vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = bufnr })
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
       end
     end
   end,
