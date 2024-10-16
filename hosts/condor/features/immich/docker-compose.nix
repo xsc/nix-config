@@ -7,7 +7,7 @@
 }: {
   # Containers
   virtualisation.oci-containers.containers."immich_machine_learning" = {
-    image = "ghcr.io/immich-app/immich-machine-learning:v1.117.0";
+    image = "ghcr.io/immich-app/immich-machine-learning:v1.118.1";
     environmentFiles = [config.age.secrets."immich.env".path];
     environment = {
       "DB_DATABASE_NAME" = "immich";
@@ -91,7 +91,7 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_redis" = {
-    image = "docker.io/redis:6.2-alpine@sha256:2d1463258f2764328496376f5d965f20c6a67f66ea2b06dc42af351f75248792";
+    image = "docker.io/redis:6.2-alpine@sha256:2ba50e1ac3a0ea17b736ce9db2b0a9f6f8b85d4c27d5f5accc6a416d8f42c6d5";
     log-driver = "journald";
     extraOptions = [
       "--health-cmd=redis-cli ping || exit 1"
@@ -122,7 +122,7 @@
     ];
   };
   virtualisation.oci-containers.containers."immich_server" = {
-    image = "ghcr.io/immich-app/immich-server:v1.117.0";
+    image = "ghcr.io/immich-app/immich-server:v1.118.1";
     environmentFiles = [config.age.secrets."immich.env".path];
     environment = {
       "DB_DATABASE_NAME" = "immich";
@@ -133,7 +133,7 @@
       "/var/immich/library:/usr/src/app/upload:rw"
     ];
     ports = [
-      "127.0.0.1:2283:3001/tcp"
+      "127.0.0.1:2283:2283/tcp"
     ];
     dependsOn = [
       "immich_postgres"
