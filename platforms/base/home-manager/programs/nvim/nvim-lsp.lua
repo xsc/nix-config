@@ -50,6 +50,24 @@ local function formatSync()
   })
 end
 
+local function codeActions()
+  fzf.lsp_code_actions({
+    winopts = {
+      height = 0.3,
+      width = 0.4,
+      preview = {
+        hidden = "hidden",
+      },
+    },
+  })
+end
+
+local function quickFix()
+  vim.lsp.buf.code_action({
+    apply = true,
+  })
+end
+
 -- Create mappings
 local auFormatOnSave = vim.api.nvim_create_augroup("LspFormatOnSave", {})
 
@@ -73,8 +91,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     if client.supports_method("textDocument/codeAction") then
-      vim.keymap.set("n", "gra", vim.lsp.buf.code_action, { buffer = bufnr })
-      vim.keymap.set("n", "<leader>qf", fzf.lsp_code_actions, { buffer = bufnr })
+      vim.keymap.set("n", "gra", codeActions, { buffer = bufnr })
+      vim.keymap.set("v", "gra", codeActions, { buffer = bufnr })
+      vim.keymap.set("n", "grf", quickFix, { buffer = bufnr })
     end
 
     if client.supports_method("textDocument/definition") then
@@ -82,20 +101,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     if client.supports_method("textDocument/references") then
-      vim.keymap.set("n", "grr", vim.lsp.buf.references, { buffer = bufnr })
-      vim.keymap.set("n", "<leader>gr", fzf.lsp_references, { buffer = bufnr })
+      vim.keymap.set("n", "grr", fzf.lsp_references, { buffer = bufnr })
     end
 
     if client.supports_method("textDocument/implementation") then
-      vim.keymap.set("n", "<leader>gi", fzf.lsp_implementations, { buffer = bufnr })
+      vim.keymap.set("n", "gri", fzf.lsp_implementations, { buffer = bufnr })
     end
 
     if client.supports_method("textDocument/rename") then
       if client.supports_method("textDocument/documentHighlight") then
         local renamer = require("renamer")
-        vim.keymap.set("n", "<leader>rn", renamer.rename, { buffer = bufnr, noremap = true, silent = true })
+        vim.keymap.set("n", "grn", renamer.rename, { buffer = bufnr, noremap = true, silent = true })
       else
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
+        vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = bufnr })
       end
     end
   end,
