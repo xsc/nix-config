@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+WORKDIR=$(dirname "$0")
+VERSION="$1"
+
+FLAKE="$WORKDIR/../hosts/condor/features/immich/update-docker-compose#update-docker-compose"
+OUTFILE="$WORKDIR/../hosts/condor/features/immich/docker-compose.nix"
+
+nix run "$FLAKE" "$VERSION" "$OUTFILE"

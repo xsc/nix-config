@@ -40,7 +40,7 @@
           ${pkgs.gnused}/bin/sed -i '/DB_PASSWORD/d' "$INFILE"
 
           # We want to listen on localhost
-          ${pkgs.gnused}/bin/sed -i "s/2283:3001/127.0.0.1:2283:3001/" "$INFILE"
+          ${pkgs.gnused}/bin/sed -i "s/2283:2283/127.0.0.1:2283:2283/" "$INFILE"
 
           # We don't need localtime because we set the TZ directly
           ${pkgs.gnused}/bin/sed -i '/localtime:ro/d' "$INFILE"
@@ -79,6 +79,9 @@
                 User = "immich";\
                 Group = "immich";' \
             "$OUTFILE"
+
+          # Format
+          ${pkgs.alejandra}/bin/alejandra "$OUTFILE"
 
           # Move
           mv "$OUTFILE" "$TARGET"
