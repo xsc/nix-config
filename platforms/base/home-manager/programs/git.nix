@@ -23,13 +23,15 @@ _: {
 
     aliases = {
       # commit
-      amend = "commit --amend";
-      amend-date = "-c core.editor=true commit --amend --date=now";
-      cam = "commit -a -m";
-      cf = "commit --fixup";
-      cm = "commit -m";
+      commit-no-verify = "commit --no-verify --verbose";
+      amend = "commit-no-verify --amend --no-edit";
+      amend-date = "commit-no-verify --no-edit --amend --date=now";
+      cam = "commit-no-verify --edit -a -m";
+      cf = "commit-no-verify --fixup";
+      cm = "commit-no-verify --edit -m";
       cp = "cherry-pick";
       cl = "clone";
+      edit = "commit-no-verify --amend --only";
       lgtm = "-c core.editor=true merge -S --no-ff";
       st = "status -sb";
       addrx = ''
@@ -40,13 +42,14 @@ _: {
         !f() { git rev-list -1 --format=%p "$1" | grep -v commit | xargs -I {} sh -c 'git rev-list -1 --format="%ci" {}' | grep -v commit; }; f'';
       merged-when-relative = ''
         !f() { git rev-list -1 --format=%p "$1" | grep -v commit | xargs -I {} sh -c 'git rev-list -1 --format="%cr" {}' | grep -v commit; }; f'';
-      ours = "!f() { git co --ours $@ && git add $@; }; f";
-      theirs = "!f() { git co --theirs $@ && git add $@; }; f";
+      ours = "!f() { git checkout --ours $@ && git add $@; }; f";
+      theirs = "!f() { git checkout --theirs $@ && git add $@; }; f";
 
       # pull/rebase
-      autosquash = "-c core.editor=true rebase -i --autosquash";
-      rbm = "!git rebase -i --autosquash origin/$(git main-branch)";
-      sqm = "!git autosquash origin/$(git main-branch)";
+      rb = "!git rebase -i --autosquash";
+      rbm = "!git rb origin/$(git main-branch)";
+      sq = "git rb -c core.editor=true";
+      sqm = "!git sq origin/$(git main-branch)";
       ffs = "!git upr && git push";
       rebase-date = "rebase --ignore-date";
       up = "pull --ff-only --all -p";
