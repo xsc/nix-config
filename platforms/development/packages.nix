@@ -21,6 +21,7 @@
     aws-sam-cli
     awsume
     azure-cli
+    python312Packages.cfn-lint
 
     # --- Multimedia
     ffmpeg
