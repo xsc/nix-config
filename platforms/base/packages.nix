@@ -34,7 +34,7 @@
     stylua
 
     # Python
-    python311
+    python312
 
     # Nix
     alejandra
