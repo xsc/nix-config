@@ -9,6 +9,9 @@ local sources = {
   -- Clojure
   diagnostics.clj_kondo,
 
+  -- CloudFormation
+  diagnostics.cfn_lint,
+
   -- Kotlin
   diagnostics.ktlint,
   formatting.ktlint,
