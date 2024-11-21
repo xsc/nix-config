@@ -23,6 +23,9 @@ local sources = {
   diagnostics.alex,
   diagnostics.markdownlint_cli2,
 
+  -- Python
+  formatting.black,
+
   -- Nix
   formatting.alejandra,
   code_actions.statix,

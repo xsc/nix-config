@@ -3,6 +3,10 @@ local fzf = require("fzf-lua")
 local lspconfig = require("lspconfig")
 
 -- Language Servers
+lspconfig.basedpyright.setup({
+  capabilities = capabilities,
+})
+
 lspconfig.lua_ls.setup({
   capabilities = capabilities,
 
