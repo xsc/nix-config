@@ -131,7 +131,6 @@ in {
         config = "let g:extra_whitespace_ignored_filetypes = ['unite', 'mkd', 'grep', 'search']";
       }
       targets-vim
-      vim-sleuth
       {
         plugin = vim-tmux-navigator;
         config = ''
@@ -159,6 +158,7 @@ in {
       {
         plugin = vim-fugitive;
         config = ''
+          au FileType gitcommit let b:editorconfig = v:false
           nnoremap <leader>gb :Git blame<CR>
           nnoremap <leader>gc :Git commit<CR>
           nnoremap <leader>gd :Gvdiffsplit<CR>
@@ -196,7 +196,6 @@ in {
       vim-repeat
       vim-eunuch
       vim-surround
-      editorconfig-vim
       nvim-web-devicons
       {
         plugin = vim-projectionist;
