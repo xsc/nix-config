@@ -59,6 +59,9 @@ _: {
       pu = "push -u";
       puf = "push -uf";
 
+      # branches
+      brm = "for-each-ref --color=always --sort=-committerdate refs/remotes/ --format='%(HEAD) %(align:100)%(color:red)%(refname:short)%(color:reset) (%(color:blue)%(committerdate:relative)%(color:reset))%(end) %(color:yellow)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:green)%(authorname)%(color:reset)'";
+
       # cleanup
       cleanup = "!git branch --merged | grep -v '^  master$' | grep -v '^  main$' | grep -v '^  develop$' | grep -v '^\\*' | xargs git branch -d";
       cleanup-remote = ''
