@@ -20,6 +20,9 @@
       name = "vaultwarden";
       port = 2285;
     }
+    {
+      name = "feeds";
+    }
   ];
 in {
   # We're running an nginx server on localhost, as well as on the Wireguard
@@ -38,35 +41,44 @@ in {
     clientMaxBodySize = "4g";
 
     virtualHosts = let
-      proxy = port: {
-        listen = [
-          {
-            addr = "127.0.0.1";
-            port = 2280;
-            ssl = false;
-          }
-          {
-            addr = "10.100.0.1";
-            port = 443;
-            ssl = true;
-          }
-        ];
+      proxy = {
+        name,
+        port ? null,
+      }:
+        {
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 2280;
+              ssl = false;
+            }
+            {
+              addr = "10.100.0.1";
+              port = 443;
+              ssl = true;
+            }
+          ];
 
-        addSSL = true;
-        useACMEHost = "condor.xsc.dev";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString port}/";
-          proxyWebsockets = true;
-          extraConfig =
-            "proxy_ssl_server_name on;"
-            + "proxy_pass_header Authorization;";
-        };
-      };
+          addSSL = true;
+          useACMEHost = "${name}.xsc.dev";
+        }
+        // (
+          if (port != null)
+          then {
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString port}/";
+              proxyWebsockets = true;
+              extraConfig =
+                "proxy_ssl_server_name on;"
+                + "proxy_pass_header Authorization;";
+            };
+          }
+          else {}
+        );
     in
       builtins.listToAttrs (
         builtins.map
-        (data: (lib.nameValuePair "${data.name}.xsc.dev" (proxy data.port)))
+        (data: (lib.nameValuePair "${data.name}.xsc.dev" (proxy data)))
         services
       );
   };
@@ -75,13 +87,17 @@ in {
     acceptTerms = true;
     defaults.email = "infra@xsc.dev";
 
-    certs."condor.xsc.dev" = {
-      domain = "condor.xsc.dev";
-      extraDomainNames = builtins.map (data: "${data.name}.xsc.dev") services;
-      dnsProvider = "cloudflare";
-      credentialsFile = config.age.secrets."acme.env".path;
-      inherit (config.services.nginx) group;
-    };
+    certs = builtins.listToAttrs (
+      builtins.map
+      (data: (lib.nameValuePair "${data.name}.xsc.dev"
+        {
+          domain = "${data.name}.xsc.dev";
+          dnsProvider = "cloudflare";
+          credentialsFile = config.age.secrets."acme.env".path;
+          inherit (config.services.nginx) group;
+        }))
+      services
+    );
   };
 
   services.dnsmasq = {

@@ -25,6 +25,12 @@
         mode = "440";
       };
 
+      "freshrss.pwd" = {
+        file = "${secrets}/condor/freshrss.pwd.age";
+        group = "freshrss";
+        mode = "440";
+      };
+
       "cloudflared.json" = {
         file = "${secrets}/condor/cloudflared.json.age";
         group = "cloudflared";
