@@ -65,6 +65,7 @@ in {
       createEntries =
         concatMapStrings
         (entry: ''
+          # shellcheck disable=SC2088
           ${dockutil}/bin/dockutil --no-restart --add '${entry.path}' --section ${entry.section} ${entry.options}
         '')
         cfg.entries;

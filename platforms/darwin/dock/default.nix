@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [./options.nix];
 
   # Fully declarative dock using the latest from Nix Store
