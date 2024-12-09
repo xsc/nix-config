@@ -5,6 +5,12 @@
 }: {
   programs.zsh = {
     shellAliases = {
+      aws-populate = "${pkgs.writeShellScript "aws-populate" ''
+        # 'awsume' needs full paths to the credential process, which we can achieve by setting
+        # this environment variable
+        export AWS_SSO_CREDENTIAL_PROCESS_NAME="$(which aws-sso-util) credential-process"
+        aws-sso-util configure populate "$@"
+      ''}";
       awsume = ". awsume";
       iced-repl = "iced repl with-profile +iced";
     };
