@@ -23,6 +23,7 @@
       manual.manpages.enable = true;
       launchd.enable = true;
     }
+    ./home-manager
   ];
 
   # Auto upgrade nix package and the daemon service.
