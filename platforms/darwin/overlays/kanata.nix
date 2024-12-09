@@ -1,12 +1,12 @@
 {pkgs, ...}: let
-  version = "1.6.1";
+  version = "1.7.0";
   kanata-pkg =
     if pkgs.stdenv.isDarwin
     then
       pkgs.fetchurl
       {
         url = "https://github.com/jtroo/kanata/releases/download/v${version}/kanata_macos_arm64";
-        sha256 = "sha256-6gYIItqnDAKjTCsuqF81qmvaYpYLJ5ipetKo7lXvR/Y=";
+        sha256 = "sha256-g62A+6+Mew7A4XBSoCygswV8u+r4oCOmFUHxUUqTa0M=";
       }
     else
       pkgs.fetchurl {
