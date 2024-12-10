@@ -2,8 +2,8 @@
   environment.systemPackages = with pkgs; [
     # General packages for development and system management
     coreutils
-    duply
-    duplicity
+    # duply
+    # duplicity
     gnused
     killall
     openssh
